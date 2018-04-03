@@ -4,8 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.cmp.models.ActionListener;
 import phdev.com.br.ritmando.cmp.models.Button;
 import phdev.com.br.ritmando.cmp.models.Component;
+import phdev.com.br.ritmando.cmp.models.Event;
 import phdev.com.br.ritmando.cmp.models.Listener;
 import phdev.com.br.ritmando.cmp.models.Screen;
 import phdev.com.br.ritmando.cmp.models.Text;
@@ -28,9 +30,9 @@ public class GameScreen extends Screen {
         //this.myText.setStroke(Color.BLUE, 2);
 
         cmp = new Button(0,0,700,250);
-        cmp.addListener(new Listener() {
+        cmp.addActionListener(new ActionListener() {
             @Override
-            public void execute() {
+            public void actionPerformed(Event evt) {
                 cmp2 = new Button(0, 300, 700, 550);
             }
         });

@@ -13,6 +13,8 @@ public abstract class Entity implements Component {
 
     protected Rect area;
     protected Paint defaultPaint;
+    protected boolean active;
+    protected boolean visible;
 
     protected Entity(int x, int y, int width, int height) {
         this.area = new Rect(x, y, x + width, y + height);
