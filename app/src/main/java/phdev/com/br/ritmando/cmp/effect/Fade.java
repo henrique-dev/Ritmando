@@ -9,7 +9,6 @@ import phdev.com.br.ritmando.cmp.models.Listener;
 
 public class Fade implements Effect {
 
-    public static final int BLINKING = 0;
     public static final int FADEIN = 1;
     public static final int FADEOUT = 2;
 
@@ -23,25 +22,38 @@ public class Fade implements Effect {
     private int alpha;
 
     public Fade(Entity entity, int fadeType) {
+        this.entity = entity;
+        this.alpha = entity.getDefaultPaint().getAlpha();
+        if (fadeType == FADEIN)
+            fadein = true;
+        else if (fadeType == FADEOUT)
+            fadeout = true;
+    }
 
+    public void addListener(Listener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void update() {
-        if (fadein) {
-            alpha += 5;
-            if (alpha > 255) {
-                if (!blinking)
-                    listener.execute();
-                fadein = false;
+        if (this.fadein) {
+            this.alpha += 10;
+            this.entity.getDefaultPaint().setAlpha(alpha);
+            if (this.alpha > 255) {
+                this.alpha = 255;
+                this.entity.getDefaultPaint().setAlpha(alpha);
+                this.listener.execute();
+                this.fadein = false;
             }
         }
-        if (fadeout) {
-            alpha -= 5;
-            if (alpha < 0) {
-                if (!blinking)
-                    listener.execute();
-                fadeout = false;
+        if (this.fadeout) {
+            this.alpha -= 10;
+            this.entity.getDefaultPaint().setAlpha(alpha);
+            if (this.alpha < 0) {
+                this.alpha = 0;
+                this.entity.getDefaultPaint().setAlpha(alpha);
+                this.listener.execute();
+                this.fadeout = false;
             }
         }
     }

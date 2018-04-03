@@ -8,7 +8,9 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.Effect;
+import phdev.com.br.ritmando.cmp.effect.Fade;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.
@@ -19,9 +21,12 @@ public class Button extends Entity {
     private ArrayList<Effect> effects;
     private Listener listener;
     private Text buttonText;
+    private boolean active;
 
     public Button(int x, int y, int width, int height) {
         super(x, y, width, height);
+        this.active = true;
+        effects = new ArrayList<>();
     }
 
     public Button(Rect area) {
@@ -36,6 +41,10 @@ public class Button extends Entity {
     public Button(Rect area, Text buttonText) {
         super(area);
         this.buttonText = buttonText;
+    }
+
+    public void addListener(Listener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -63,12 +72,24 @@ public class Button extends Entity {
         float x = motionEvent.getX();
         float y = motionEvent.getY();
 
-        if (haveCollision(x, y, super.area)) {
-            Random rand = new Random();
+        if (haveCollision(x, y, super.area) && active) {
+            //Random rand = new Random();
+            GameLog.debug(this, "EXECUTOU");
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    //this.buttonText.setColor(Color.rgb(rand.nextInt(254), rand.nextInt(254), rand.nextInt(254)));
-                    super.defaultPaint.setColor(Color.rgb(rand.nextInt(254), rand.nextInt(254), rand.nextInt(254)));
+                    //super.defaultPaint.setColor(Color.rgb(rand.nextInt(254), rand.nextInt(254), rand.nextInt(254)));
+                    active = false;
+                    Fade fade = new Fade(this, Fade.FADEOUT);
+                    fade.addListener(new Listener() {
+                        @Override
+                        public void execute() {
+                            if (listener != null)
+                                listener.execute();
+                            //active = true;
+                        }
+                    });
+                    effects.add(fade);
+
                     break;
             }
         }
