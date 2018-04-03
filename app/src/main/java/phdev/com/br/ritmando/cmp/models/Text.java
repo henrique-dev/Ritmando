@@ -49,7 +49,7 @@ public class Text extends Entity {
     }
 
     public Text(Rect area, String text) {
-        super(area.left, area.top, area.right, area.bottom);
+        super(area);
         this.originalArea = super.area;
         this.colorText = Color.RED;
         super.defaultPaint.setColor(colorText);
@@ -64,7 +64,7 @@ public class Text extends Entity {
 
     public void setTextSize(float textSize) {
         if (textSize <= 0)
-            throw new Error("Deve se fornecer o tamanho da fonte como superior a 0.");
+            throw new Error("Tamanho da fonte inferior ou igual a 0.");
         this.textSize = textSize;
         this.prepareTextToDraw();
     }
@@ -199,9 +199,6 @@ public class Text extends Entity {
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
         for (int i=0; i<textToDraw.length; i++) {
-            Paint p = new Paint();
-            p.setColor(Color.GRAY);
-            canvas.drawRect(super.area, p);
             canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), super.defaultPaint);
             if (strokeOn) {
                 canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), this.strokePaint);

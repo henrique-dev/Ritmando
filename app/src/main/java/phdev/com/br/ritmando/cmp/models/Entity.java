@@ -19,4 +19,29 @@ public abstract class Entity implements Component {
         this.defaultPaint = new Paint();
     }
 
+    protected Entity(Rect area) {
+        this.area = new Rect(area);
+        this.defaultPaint = new Paint();
+    }
+
+    protected static boolean haveCollision(float x, float y, Rect area) {
+        return (x > area.left && x < area.right && y > area.top && y < area.bottom);
+    }
+
+    public Rect getArea() {
+        return this.area;
+    }
+
+    public void setArea(Rect area) {
+        this.area = area;
+    }
+
+    public Paint getDefaultPaint() {
+        return this.defaultPaint;
+    }
+
+    public void setDefaultPaint(Paint defaultPaint) {
+        this.defaultPaint = defaultPaint;
+    }
+
 }
