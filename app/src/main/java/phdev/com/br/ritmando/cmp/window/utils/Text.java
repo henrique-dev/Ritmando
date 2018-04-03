@@ -1,4 +1,4 @@
-package phdev.com.br.ritmando.cmp.utils;
+package phdev.com.br.ritmando.cmp.window.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -37,7 +37,7 @@ public class Text extends Entity {
     private boolean strokeOn;
 
     public Text(int x, int y, int width, int height, String text) {
-        super(x, y, width, height);
+        super(new Rect(x, y, x + width, y + height));
         this.originalArea = super.area;
         this.colorText = Color.RED;
         super.defaultPaint.setColor(colorText);

@@ -13,7 +13,7 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 public class Label extends WindowEntity {
 
     public Label(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(new Rect(x, y, x + width, y + height));
     }
 
     public Label(Rect area) {

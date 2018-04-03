@@ -1,5 +1,7 @@
 package phdev.com.br.ritmando.cmp.environment;
 
+import android.graphics.Rect;
+
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
@@ -10,6 +12,6 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 public abstract class Scene extends Entity implements Component {
 
     protected Scene(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(new Rect(x, y, x + width, y + height));
     }
 }

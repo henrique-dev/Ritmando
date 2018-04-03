@@ -1,5 +1,7 @@
 package phdev.com.br.ritmando.cmp.environment;
 
+import android.graphics.Rect;
+
 import java.util.ArrayList;
 
 import phdev.com.br.ritmando.cmp.models.Component;
@@ -14,7 +16,7 @@ public abstract class Screen extends Entity implements Component {
     private ArrayList<Scene> scenes;
 
     protected Screen(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(new Rect(x, y, x + width, y + height));
         this.scenes = new ArrayList<>();
     }
 

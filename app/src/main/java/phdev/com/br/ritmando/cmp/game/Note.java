@@ -1,6 +1,7 @@
 package phdev.com.br.ritmando.cmp.game;
 
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import phdev.com.br.ritmando.cmp.models.Component;
@@ -13,7 +14,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 public class Note extends Entity implements Component {
 
     private Note(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        super(new Rect(x, y, x + width, y + height));
     }
 
     @Override

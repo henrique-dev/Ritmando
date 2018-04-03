@@ -9,6 +9,9 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 
 public abstract class ClickEffect implements Effect {
 
+    public static final int FADE_IN_OUT = 0;
+    public static final int FLASHING = 1;
+
     protected ActionListener actionListener;
     protected Entity entity;
     protected boolean running;

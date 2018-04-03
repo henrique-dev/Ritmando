@@ -14,13 +14,12 @@ public class Fade extends ClickEffect {
 
     private boolean fadein;
     private boolean fadeout;
-    private boolean blinking;
 
-    private int alpha;
+    private int alphaDiv;
 
     public Fade(Entity entity, int fadeType, ActionListener actionListener) {
         super(entity, actionListener);
-        this.alpha = entity.getDefaultPaint().getAlpha();
+        this.alphaDiv = 20;
         if (fadeType == FADEIN)
             fadein = true;
         else if (fadeType == FADEOUT)
@@ -35,24 +34,25 @@ public class Fade extends ClickEffect {
     public void update() {
         if (super.running) {
             if (this.fadein) {
-                this.alpha += 10;
-                super.entity.getDefaultPaint().setAlpha(alpha);
-                if (this.alpha > 255) {
-                    this.alpha = 255;
+                int alpha = super.entity.getDefaultPaint().getAlpha();
+                alpha += this.alphaDiv;
+                if (alpha > 255) {
+                    alpha = 255;
                     super.entity.getDefaultPaint().setAlpha(alpha);
                     super.actionListener.actionPerformed(null);
                     this.fadein = false;
-                }
-            }
-            if (this.fadeout) {
-                this.alpha -= 10;
-                super.entity.getDefaultPaint().setAlpha(alpha);
-                if (this.alpha < 0) {
-                    this.alpha = 0;
+                } else
+                    super.entity.getDefaultPaint().setAlpha(alpha);
+            } else if (this.fadeout) {
+                int alpha = super.entity.getDefaultPaint().getAlpha();
+                alpha -= this.alphaDiv;
+                if (alpha < 0) {
+                    alpha = 0;
                     super.entity.getDefaultPaint().setAlpha(alpha);
                     super.actionListener.actionPerformed(null);
                     this.fadeout = false;
-                }
+                } else
+                    super.entity.getDefaultPaint().setAlpha(alpha);
             }
         }
     }

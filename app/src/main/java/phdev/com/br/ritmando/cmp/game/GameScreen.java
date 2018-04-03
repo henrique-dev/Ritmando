@@ -4,11 +4,14 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.window.Button;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
 import phdev.com.br.ritmando.cmp.environment.Screen;
-import phdev.com.br.ritmando.cmp.utils.Text;
+import phdev.com.br.ritmando.cmp.window.Window;
+import phdev.com.br.ritmando.cmp.window.utils.ListLayout;
+import phdev.com.br.ritmando.cmp.window.utils.Text;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.
@@ -18,6 +21,7 @@ public class GameScreen extends Screen {
 
     private Text myText;
     Button cmp, cmp2;
+    Window window;
 
     public GameScreen(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -31,9 +35,13 @@ public class GameScreen extends Screen {
         cmp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(Event evt) {
-                cmp2 = new Button(0, 300, 700, 550);
+                //cmp2 = new Button(0, 300, 700, 550);
+                window.getLayout().format();
             }
         });
+
+        window = new Window(0,0,0,0);
+        window.setLayout(new ListLayout());
 
 
     }
@@ -41,6 +49,7 @@ public class GameScreen extends Screen {
     @Override
     public void update() {
         cmp.update();
+        window.update();
     }
 
     @Override
@@ -52,6 +61,8 @@ public class GameScreen extends Screen {
         cmp.draw(canvas);
         if (cmp2 != null)
             cmp2.draw(canvas);
+
+        window.draw(canvas);
 
         canvas.restoreToCount(savedState);
     }
