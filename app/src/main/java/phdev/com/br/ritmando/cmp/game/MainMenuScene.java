@@ -3,7 +3,7 @@ package phdev.com.br.ritmando.cmp.game;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
-import phdev.com.br.ritmando.cmp.models.Scene;
+import phdev.com.br.ritmando.cmp.environment.Scene;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.

@@ -1,10 +1,12 @@
-package phdev.com.br.ritmando.cmp.models;
+package phdev.com.br.ritmando.cmp.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+
+import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.

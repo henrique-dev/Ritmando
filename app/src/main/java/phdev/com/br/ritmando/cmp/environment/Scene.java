@@ -1,4 +1,4 @@
-package phdev.com.br.ritmando.cmp.models;
+package phdev.com.br.ritmando.cmp.environment;
 
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;

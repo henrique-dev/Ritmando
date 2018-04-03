@@ -1,8 +1,10 @@
-package phdev.com.br.ritmando.cmp.models;
+package phdev.com.br.ritmando.cmp.window;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 03/04/2018.

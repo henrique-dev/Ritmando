@@ -4,13 +4,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
-import phdev.com.br.ritmando.cmp.models.ActionListener;
-import phdev.com.br.ritmando.cmp.models.Button;
-import phdev.com.br.ritmando.cmp.models.Component;
-import phdev.com.br.ritmando.cmp.models.Event;
-import phdev.com.br.ritmando.cmp.models.Listener;
-import phdev.com.br.ritmando.cmp.models.Screen;
-import phdev.com.br.ritmando.cmp.models.Text;
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.window.Button;
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.environment.Screen;
+import phdev.com.br.ritmando.cmp.utils.Text;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.

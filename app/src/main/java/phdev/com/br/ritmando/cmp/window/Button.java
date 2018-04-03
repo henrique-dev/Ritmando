@@ -1,4 +1,4 @@
-package phdev.com.br.ritmando.cmp.models;
+package phdev.com.br.ritmando.cmp.window;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -7,6 +7,11 @@ import android.view.MotionEvent;
 import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.Fade;
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.listeners.ClickListener;
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.utils.Text;
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 01/04/2018.
@@ -33,16 +38,15 @@ public class Button extends WindowEntity {
     }
 
     private void fire() {
-        final Fade fade = new Fade(this, Fade.FADEOUT);
-        fade.addListener(new ActionListener() {
+        final Fade fade = new Fade(this, Fade.FADEOUT, null);
+        fade.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(Event evt) {
                 ((ActionListener)listener).actionPerformed(evt);
                 effects.remove(fade);
             }
         });
-        fade.start();
-        super.effects.add(fade);
+        super.effects.add(fade.start());
     }
 
     public void addActionListener(ActionListener listener) {
@@ -57,7 +61,6 @@ public class Button extends WindowEntity {
     public void update() {
         for (Effect eff : super.effects)
             eff.update();
-        GameLog.debug(this, super.effects.size() + "");
     }
 
     @Override
@@ -84,7 +87,7 @@ public class Button extends WindowEntity {
         if (haveCollision(x, y, super.area)) {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    fire();
+                    this.fire();
                     break;
             }
         }

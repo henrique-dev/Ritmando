@@ -1,10 +1,9 @@
-package phdev.com.br.ritmando.cmp.models;
+package phdev.com.br.ritmando.cmp.environment;
 
 import java.util.ArrayList;
 
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
-import phdev.com.br.ritmando.cmp.models.Scene;
 
 /**
  * Created by ks_le on 01/04/2018.

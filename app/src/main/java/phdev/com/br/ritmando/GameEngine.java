@@ -9,8 +9,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import phdev.com.br.ritmando.cmp.game.GameScreen;
-import phdev.com.br.ritmando.cmp.game.MainMenuScene;
-import phdev.com.br.ritmando.cmp.models.Screen;
+import phdev.com.br.ritmando.cmp.environment.Screen;
 
 /**
  * Created by ks_le on 01/04/2018.
