@@ -1,4 +1,4 @@
-package phdev.com.br.ritmando.cmp.window.utils;
+package phdev.com.br.ritmando.cmp.utils;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -36,16 +37,19 @@ public class Text extends Entity {
     private Paint strokePaint;
     private boolean strokeOn;
 
+    private int spaceW = 10;
+
     public Text(int x, int y, int width, int height, String text) {
         super(new Rect(x, y, x + width, y + height));
         this.originalArea = super.area;
-        this.colorText = Color.RED;
+        this.colorText = Color.BLACK;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
-        this.textSize = 100;
         this.text = text;
         this.verticalAllignment = CENTER;
         this.horizontalAllignment = CENTER;
+        //this.textSize = 100;
+        this.textSize = getAutomaticTextSize();
         this.checkAndFormatText();
         this.prepareTextToDraw();
     }
@@ -53,13 +57,14 @@ public class Text extends Entity {
     public Text(Rect area, String text) {
         super(area);
         this.originalArea = super.area;
-        this.colorText = Color.RED;
+        this.colorText = Color.BLACK;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
-        this.textSize = 100;
         this.text = text;
         this.verticalAllignment = CENTER;
         this.horizontalAllignment = CENTER;
+        this.textSize = 100;
+        //this.textSize = getAutomaticTextSize();
         this.checkAndFormatText();
         this.prepareTextToDraw();
     }
@@ -68,6 +73,15 @@ public class Text extends Entity {
         if (textSize <= 0)
             throw new Error("Tamanho da fonte inferior ou igual a 0.");
         this.textSize = textSize;
+        this.prepareTextToDraw();
+    }
+
+    @Override
+    public void setArea(Rect area) {
+        super.setArea(area);
+        this.originalArea = super.area;
+        this.textSize = getAutomaticTextSize();
+        this.checkAndFormatText();
         this.prepareTextToDraw();
     }
 
@@ -155,9 +169,25 @@ public class Text extends Entity {
         return counter;
     }
 
+    private float getAutomaticTextSize() {
+        Paint tmpPaint = new Paint(super.defaultPaint);
+        float textSize = 1;
+        tmpPaint.setTextSize(textSize);
+        while (true) {
+            Rect rectTextBounds = new Rect();
+            tmpPaint.getTextBounds(this.text, 0, this.text.length(), rectTextBounds);
+            if (super.area.width() > rectTextBounds.width() + spaceW * 2)
+                textSize += 1;
+            else
+                break;
+            tmpPaint.setTextSize(textSize);
+        }
+        return textSize;
+    }
+
     public void setVerticalAllignment(int allignment) {
         Rect rectTextBounds = new Rect();
-        super.defaultPaint.getTextBounds(text, 0, text.length(), rectTextBounds);
+        super.defaultPaint.getTextBounds(this.text, 0, this.text.length(), rectTextBounds);
 
         switch (allignment) {
             case TOP:

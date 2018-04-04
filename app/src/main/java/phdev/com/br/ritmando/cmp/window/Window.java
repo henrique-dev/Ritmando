@@ -6,10 +6,8 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.WindowEntity;
-import phdev.com.br.ritmando.cmp.window.utils.Layout;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 03/04/2018.
@@ -34,7 +32,7 @@ public class Window extends WindowEntity {
 
     public void setLayout(Layout layout) {
         this.layout = layout;
-        this.layout.set(components);
+        this.layout.set(this);
     }
 
     public Layout getLayout() {
@@ -43,6 +41,7 @@ public class Window extends WindowEntity {
 
     public void addComponent(Component component) {
         this.components.add(component);
+        this.layout.format();
     }
 
     public void removeComponent(Component component) {
@@ -53,6 +52,10 @@ public class Window extends WindowEntity {
         return components.get(index);
     }
 
+    public ArrayList<Component> getComponents() {
+        return this.components;
+    }
+
     @Override
     public void update() {
         for (Component cmp : components)
@@ -61,8 +64,14 @@ public class Window extends WindowEntity {
 
     @Override
     public void draw(Canvas canvas) {
+        int savedState = canvas.save();
+
+        canvas.drawRect(super.area, super.defaultPaint);
+
         for (Component cmp : components)
             cmp.draw(canvas);
+
+        canvas.restoreToCount(savedState);
     }
 
     @Override

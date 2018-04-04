@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.listeners.Listener;
-import phdev.com.br.ritmando.cmp.window.utils.Text;
+import phdev.com.br.ritmando.cmp.utils.Text;
 
 /**
  * Created by Paulo Henrique Gonçalves Bacelar on 03/04/2018.

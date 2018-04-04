@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.Fade;
@@ -14,7 +13,7 @@ import phdev.com.br.ritmando.cmp.effect.Flash;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.listeners.ClickListener;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
-import phdev.com.br.ritmando.cmp.window.utils.Text;
+import phdev.com.br.ritmando.cmp.utils.Text;
 import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
@@ -48,6 +47,26 @@ public class Button extends WindowEntity {
         super(area);
         super.entityText = buttonText;
 
+    }
+
+    public Button(String textButton) {
+        super(new Rect());
+        super.entityText = new Text(new Rect(), textButton);
+    }
+
+    @Override
+    public void setArea(Rect area) {
+        super.setArea(area);
+        if (super.entityText != null)
+            super.entityText.setArea(new Rect(area));
+    }
+
+    public void setColor(int color) {
+        super.defaultPaint.setColor(color);
+    }
+
+    public int getColor() {
+        return super.defaultPaint.getColor();
     }
 
     private void changeActionEffect(int typeEffect) {
