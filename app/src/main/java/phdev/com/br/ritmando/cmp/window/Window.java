@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import java.util.ArrayList;
 
 import phdev.com.br.ritmando.cmp.models.Component;
+import phdev.com.br.ritmando.cmp.models.Entity;
 import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
@@ -15,7 +16,7 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 public class Window extends WindowEntity {
 
-    private ArrayList<Component> components = new ArrayList<>();
+    private ArrayList<Entity> entities = new ArrayList<>();
     private Button closeButton;
 
     private Layout layout;
@@ -44,42 +45,45 @@ public class Window extends WindowEntity {
         return this.layout;
     }
 
-    public void addComponent(Component component) {
-        this.components.add(component);
+    public void add(Entity entity) {
+        this.entities.add(entity);
         this.layout.format();
     }
 
-    public void removeComponent(Component component) {
-        this.components.remove(component);
+    public void remove(Entity entity) {
+        this.entities.remove(entity);
     }
 
-    public Component getComponent(int index) {
-        return components.get(index);
+    public Entity get(int index) {
+        return entities.get(index);
     }
 
-    public ArrayList<Component> getComponents() {
-        return this.components;
+    public ArrayList<Entity> get() {
+        return this.entities;
     }
 
     @Override
     public void update() {
-        for (Component cmp : components)
-            cmp.update();
+        for (Entity ent : entities)
+            if (ent.isActive())
+                ent.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
         canvas.drawRect(super.area, super.defaultPaint);
-        for (Component cmp : components)
-            cmp.draw(canvas);
+        for (Entity ent : entities)
+            if (ent.isVisible())
+                ent.draw(canvas);
         canvas.restoreToCount(savedState);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        for (Component cmp : components) {
-            cmp.onTouchEvent(motionEvent);
+        for (Entity ent : entities) {
+            if (ent.isActive())
+                ent.onTouchEvent(motionEvent);
         }
         return false;
     }

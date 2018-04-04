@@ -14,6 +14,11 @@ public class Click extends ClickEffect {
     }
 
     @Override
+    protected void reset() {
+        
+    }
+
+    @Override
     public void update() {
 
     }

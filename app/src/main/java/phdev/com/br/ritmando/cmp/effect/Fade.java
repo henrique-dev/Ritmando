@@ -17,8 +17,11 @@ public class Fade extends ClickEffect {
 
     private int alphaDiv;
 
+    private int originalAlpha;
+
     public Fade(Entity entity, int fadeType, ActionListener actionListener) {
         super(entity, actionListener);
+        this.originalAlpha = entity.getDefaultPaint().getAlpha();
         this.alphaDiv = 20;
         if (fadeType == FADEIN)
             fadein = true;
@@ -55,6 +58,11 @@ public class Fade extends ClickEffect {
                     super.entity.getDefaultPaint().setAlpha(alpha);
             }
         }
+    }
+
+    @Override
+    public void reset() {
+
     }
 
 }

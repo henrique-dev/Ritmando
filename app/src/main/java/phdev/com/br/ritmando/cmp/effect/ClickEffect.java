@@ -1,5 +1,6 @@
 package phdev.com.br.ritmando.cmp.effect;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
@@ -30,5 +31,7 @@ public abstract class ClickEffect implements Effect {
         this.running = false;
         return this;
     }
+
+    protected abstract void reset();
 
 }

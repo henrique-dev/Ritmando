@@ -49,17 +49,17 @@ public class ListLayout implements Layout{
 
     @Override
     public void format() {
-        ArrayList<Component> tmpComponent = ((Window)this.entity).getComponents();
-        if (!(tmpComponent.size() > 0))
+        ArrayList<Entity> tmpEntity = ((Window)this.entity).get();
+        if (!(tmpEntity.size() > 0))
             return;
 
         int x = this.entity.getArea().left;
         int y = this.entity.getArea().top;
         if (this.alignment == HORIZONTAK_ALINGMENT) {
             int height = this.entity.getArea().height() - this.spaceH * 2;
-            int cmpWidth = (this.entity.getArea().width() - this.spaceW * (tmpComponent.size()+1)) / tmpComponent.size();
-            for (int i=0; i<tmpComponent.size(); i++) {
-                Entity tmpEnt = ((Entity)tmpComponent.get(i));
+            int cmpWidth = (this.entity.getArea().width() - this.spaceW * (tmpEntity.size()+1)) / tmpEntity.size();
+            for (int i=0; i<tmpEntity.size(); i++) {
+                Entity tmpEnt = tmpEntity.get(i);
                 tmpEnt.setArea(new Rect(
                         (this.spaceW + this.spaceW*i) + x + (i * cmpWidth),
                         this.spaceH + y,
@@ -68,9 +68,9 @@ public class ListLayout implements Layout{
             }
         } else if (this.alignment == VERTICAL_ALINGMENT) {
             int width = this.entity.getArea().width() - this.spaceW * 2;
-            int cmpHeight = (this.entity.getArea().height() - this.spaceH * (tmpComponent.size()+1)) / tmpComponent.size();
-            for (int i=0; i<tmpComponent.size(); i++) {
-                Entity tmpEnt = ((Entity)tmpComponent.get(i));
+            int cmpHeight = (this.entity.getArea().height() - this.spaceH * (tmpEntity.size()+1)) / tmpEntity.size();
+            for (int i=0; i<tmpEntity.size(); i++) {
+                Entity tmpEnt = tmpEntity.get(i);
                 tmpEnt.setArea(new Rect(
                         this.spaceW + x,
                         (this.spaceH + this.spaceH*i) + y + (i * cmpHeight),

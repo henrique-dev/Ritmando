@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.Fade;
@@ -23,7 +24,9 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 public class Button extends WindowEntity {
 
     public static final int EFFECT_CLICK = 0;
-    private final int DEFAULT_CLICK_EFFECT = ClickEffect.FLASHING;
+    private int DEFAULT_CLICK_EFFECT = ClickEffect.FLASHING;
+
+    private boolean clicked = false;
 
     public Button(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
@@ -65,6 +68,18 @@ public class Button extends WindowEntity {
             super.entityText.setArea(new Rect(area));
     }
 
+    public void setText(String text) {
+        super.entityText.setText(text);
+    }
+
+    public String getText() {
+        return super.entityText.getText();
+    }
+
+    public void setTextSize(float size) {
+        super.entityText.setTextSize(size);
+    }
+
     public void setColor(int color) {
         super.defaultPaint.setColor(color);
     }
@@ -74,25 +89,29 @@ public class Button extends WindowEntity {
     }
 
     public void changeActionEffect(int typeEffect) {
+        DEFAULT_CLICK_EFFECT = typeEffect;
         if (typeEffect == ClickEffect.FADE_IN_OUT) {
             super.effects.add(EFFECT_CLICK,  new Fade(this, Fade.FADEOUT, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    fire(evt);
+                    //fire(evt);
+                    Button.this.clicked = false;
                 }
             }));
         } else if (typeEffect == ClickEffect.FLASHING) {
             super.effects.add(EFFECT_CLICK,  new Flash(this, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    fire(evt);
+                    //fire(evt);
+                    Button.this.clicked = false;
                 }
             }));
         }
     }
 
     private void fire(Event evt) {
-        ((ActionListener)listener).actionPerformed(evt);
+        if (super.listener != null)
+            ((ActionListener)listener).actionPerformed(evt);
     }
 
     public void addActionListener(ActionListener listener) {
@@ -123,7 +142,7 @@ public class Button extends WindowEntity {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        if (!super.active)
+        if (this.clicked)
             return false;
 
         int action = motionEvent.getActionMasked();
@@ -133,6 +152,7 @@ public class Button extends WindowEntity {
         if (haveCollision(x, y, super.area)) {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
+                    this.clicked = true;
                     ((ClickEffect)super.effects.get(0)).start();
                     break;
             }

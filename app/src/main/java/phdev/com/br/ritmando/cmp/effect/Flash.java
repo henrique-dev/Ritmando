@@ -59,6 +59,7 @@ public class Flash extends ClickEffect {
                         this.flashout = false;
                         this.running = false;
                         super.actionListener.actionPerformed(null);
+                        reset();
                         return;
                     }
 
@@ -79,6 +80,12 @@ public class Flash extends ClickEffect {
                     super.entity.getDefaultPaint().setAlpha(alpha);
             }
         }
+    }
+
+    @Override
+    protected void reset() {
+        this.flashCounter = 0;
+        this.flashout = true;
     }
 
 }

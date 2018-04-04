@@ -37,17 +37,20 @@ public class MainMenuScene extends Scene {
             int divHeight = (GameParameters.getInstance().screenSize.height()/8);
             int spaceW = 20;
             int spaceH = 100;
+            float defaultTextSize = divHeight * 0.9f;
 
             super.getArea().set(divWidth, divHeight, divWidth + divWidth*6, divHeight + divHeight*6);
             super.setLayout(new ListLayout(ListLayout.VERTICAL_ALINGMENT, spaceW, spaceH));
 
             this.startButton = new Button("Iniciar");
             this.startButton.setColor(Color.GRAY);
-            super.addComponent(this.startButton);
+            this.startButton.setTextSize(defaultTextSize);
+            super.add(this.startButton);
 
             this.optionButton = new Button("Opções");
             this.optionButton.setColor(Color.GRAY);
-            super.addComponent(this.optionButton);
+            this.optionButton.setTextSize(defaultTextSize);
+            super.add(this.optionButton);
         }
     }
 

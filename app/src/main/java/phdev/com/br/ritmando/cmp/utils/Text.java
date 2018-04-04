@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -22,16 +23,12 @@ public class Text extends Entity {
 
     private Rect originalArea;
 
-    private boolean autoSize = false;
-    public static boolean fontPers;
-    private int horizontalAllignment;
-    private int verticalAllignment;
+    private int horizontalAllignment = CENTER;
+    private int verticalAllignment = CENTER;
     private String text;
     private String textToDraw[];
-    private Paint textToDrawPaint[];
-    //public static Font fonts[];
     private float textSize;
-    private int colorText;
+    private int colorText = Color.BLACK;
 
     private Paint strokePaint;
     private boolean strokeOn;
@@ -39,16 +36,14 @@ public class Text extends Entity {
     private int spaceW = 10;
     private int spaceH = 50;
 
+    private boolean textSizeAdjusted = false;
+
     public Text(int x, int y, int width, int height, String text) {
         super(new Rect(x, y, x + width, y + height));
         this.originalArea = super.area;
-        this.colorText = Color.BLACK;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
         this.text = text;
-        this.verticalAllignment = CENTER;
-        this.horizontalAllignment = CENTER;
-        //this.textSize = 100;
         this.textSize = getAutomaticTextSize();
         this.checkAndFormatText();
         this.prepareTextToDraw();
@@ -57,14 +52,10 @@ public class Text extends Entity {
     public Text(Rect area, String text) {
         super(area);
         this.originalArea = super.area;
-        this.colorText = Color.BLACK;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
         this.text = text;
-        this.verticalAllignment = CENTER;
-        this.horizontalAllignment = CENTER;
-        this.textSize = 100;
-        //this.textSize = getAutomaticTextSize();
+        this.textSize = getAutomaticTextSize();
         this.checkAndFormatText();
         this.prepareTextToDraw();
     }
@@ -80,7 +71,8 @@ public class Text extends Entity {
     public void setArea(Rect area) {
         super.setArea(area);
         this.originalArea = super.area;
-        this.textSize = getAutomaticTextSize();
+        if (this.textSizeAdjusted)
+            this.textSize = getAutomaticTextSize();
         this.checkAndFormatText();
         this.prepareTextToDraw();
     }
@@ -170,6 +162,9 @@ public class Text extends Entity {
     }
 
     private float getAutomaticTextSize() {
+        if (super.area.width() == 0 && super.area.height() == 0)
+            return 0;
+
         Paint tmpPaint = new Paint(super.defaultPaint);
         float textSize = 1;
         tmpPaint.setTextSize(textSize);
@@ -242,13 +237,6 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-
-        Rect tmp = new Rect();
-        Paint p = new Paint();
-        p.setColor(Color.YELLOW);
-        defaultPaint.getTextBounds(text, 0, text.length(), tmp);
-        tmp.set(0, 0, tmp.width(), tmp.height());
-        canvas.drawRect(tmp, p);
 
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), super.defaultPaint);

@@ -25,7 +25,14 @@ public abstract class WindowEntity extends Entity {
     protected WindowEntity(Rect area) {
         super(area);
         this.effects = new ArrayList<>();
-        super.active = true;
+    }
+
+    public Text getEntityText() {
+        return this.entityText;
+    }
+
+    public void setEntityText(Text text) {
+        this.entityText = entityText;
     }
 
     protected void addListener(Listener listener) {
