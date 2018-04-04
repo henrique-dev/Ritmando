@@ -1,6 +1,8 @@
 package phdev.com.br.ritmando.cmp.environment;
 
+import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,36 @@ public abstract class Screen extends Entity implements Component {
     }
 
     protected Scene getScene(int index) {
-        return scenes.get(index);
+        return this.scenes.get(index);
+    }
+
+    protected ArrayList<Scene> getScenes() {
+        return this.scenes;
+    }
+
+    @Override
+    public void update() {
+        for (Scene sc : this.scenes)
+            if (sc.isActive())
+                sc.update();
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        int savedState = canvas.save();
+        canvas.drawRect(super.area, super.defaultPaint);
+        for (Scene sc : this.scenes) {
+            if (sc.isVisible())
+                sc.draw(canvas);
+        }
+        canvas.restoreToCount(savedState);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        for (Scene sc : this.scenes)
+            if (sc.isActive())
+                sc.onTouchEvent(motionEvent);
+        return false;
     }
 }

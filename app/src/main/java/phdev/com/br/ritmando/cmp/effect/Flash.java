@@ -53,6 +53,15 @@ public class Flash extends ClickEffect {
                 if (alpha > 255) {
                     alpha = 255;
                     super.entity.getDefaultPaint().setAlpha(alpha);
+
+                    if (flashCounter >= maxFlashs) {
+                        this.flashin = false;
+                        this.flashout = false;
+                        this.running = false;
+                        super.actionListener.actionPerformed(null);
+                        return;
+                    }
+
                     this.flashin = false;
                     this.flashout = true;
                 } else
@@ -68,12 +77,6 @@ public class Flash extends ClickEffect {
                     this.flashin = true;
                 } else
                     super.entity.getDefaultPaint().setAlpha(alpha);
-            }
-            if (flashCounter >= maxFlashs) {
-                this.flashin = false;
-                this.flashout = false;
-                this.running = false;
-                super.actionListener.actionPerformed(null);
             }
         }
     }

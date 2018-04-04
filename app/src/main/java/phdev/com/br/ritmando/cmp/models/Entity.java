@@ -13,8 +13,13 @@ public abstract class Entity implements Component {
 
     protected Rect area;
     protected Paint defaultPaint;
-    protected boolean active;
-    protected boolean visible;
+    protected boolean active = true;
+    protected boolean visible = true;
+
+    protected Entity() {
+        this.area = new Rect();
+        this.defaultPaint = new Paint();
+    }
 
     protected Entity(Rect area) {
         this.area = new Rect(area);
@@ -41,4 +46,19 @@ public abstract class Entity implements Component {
         this.defaultPaint = defaultPaint;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

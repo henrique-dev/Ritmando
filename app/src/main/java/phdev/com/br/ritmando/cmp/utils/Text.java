@@ -6,7 +6,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -38,6 +37,7 @@ public class Text extends Entity {
     private boolean strokeOn;
 
     private int spaceW = 10;
+    private int spaceH = 50;
 
     public Text(int x, int y, int width, int height, String text) {
         super(new Rect(x, y, x + width, y + height));
@@ -121,8 +121,8 @@ public class Text extends Entity {
     private void prepareTextToDraw() {
         super.defaultPaint.setTextSize(this.textSize);
 
-        this.setVerticalAllignment(verticalAllignment);
-        this.setHorizontalAllignment(horizontalAllignment);
+        this.setVerticalAlignment(verticalAllignment);
+        this.setHorizontalAlignment(horizontalAllignment);
     }
 
     private void checkAndFormatText() {
@@ -173,23 +173,35 @@ public class Text extends Entity {
         Paint tmpPaint = new Paint(super.defaultPaint);
         float textSize = 1;
         tmpPaint.setTextSize(textSize);
+
         while (true) {
             Rect rectTextBounds = new Rect();
             tmpPaint.getTextBounds(this.text, 0, this.text.length(), rectTextBounds);
-            if (super.area.width() > rectTextBounds.width() + spaceW * 2)
+            if (super.area.height() > rectTextBounds.height() + spaceH * 2)
                 textSize += 1;
             else
                 break;
             tmpPaint.setTextSize(textSize);
         }
+
+        while (true) {
+            Rect rectTextBounds = new Rect();
+            tmpPaint.getTextBounds(this.text, 0, this.text.length(), rectTextBounds);
+            if (super.area.width() < rectTextBounds.width() + spaceW * 2)
+                textSize -= 1;
+            else
+                break;
+            tmpPaint.setTextSize(textSize);
+        }
+
         return textSize;
     }
 
-    public void setVerticalAllignment(int allignment) {
+    public void setVerticalAlignment(int alignment) {
         Rect rectTextBounds = new Rect();
         super.defaultPaint.getTextBounds(this.text, 0, this.text.length(), rectTextBounds);
 
-        switch (allignment) {
+        switch (alignment) {
             case TOP:
                 super.area.top = super.area.top - rectTextBounds.top;
                 break;
@@ -202,8 +214,8 @@ public class Text extends Entity {
         }
     }
 
-    public void setHorizontalAllignment(int allignment) {
-        switch (allignment) {
+    public void setHorizontalAlignment(int alignment) {
+        switch (alignment) {
             case LEFT:
                 super.defaultPaint.setTextAlign(Paint.Align.LEFT);
                 super.area.left = this.originalArea.left;
@@ -230,6 +242,14 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
+
+        Rect tmp = new Rect();
+        Paint p = new Paint();
+        p.setColor(Color.YELLOW);
+        defaultPaint.getTextBounds(text, 0, text.length(), tmp);
+        tmp.set(0, 0, tmp.width(), tmp.height());
+        canvas.drawRect(tmp, p);
+
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), super.defaultPaint);
             if (strokeOn) {

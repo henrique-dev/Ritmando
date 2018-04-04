@@ -23,35 +23,39 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 public class Button extends WindowEntity {
 
     public static final int EFFECT_CLICK = 0;
+    private final int DEFAULT_CLICK_EFFECT = ClickEffect.FLASHING;
 
     public Button(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
         super.effects = new ArrayList<>(2);
-        this.changeActionEffect(ClickEffect.FLASHING);
+        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area) {
         super(area);
         super.effects = new ArrayList<>(2);
-        this.changeActionEffect(ClickEffect.FADE_IN_OUT);
+        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area, String buttonText) {
         super(area);
         super.entityText = new Text(area, buttonText);
         super.effects = new ArrayList<>(2);
-        this.changeActionEffect(ClickEffect.FADE_IN_OUT);
+        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area, Text buttonText) {
         super(area);
         super.entityText = buttonText;
-
+        super.effects = new ArrayList<>(2);
+        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(String textButton) {
         super(new Rect());
         super.entityText = new Text(new Rect(), textButton);
+        super.effects = new ArrayList<>(2);
+        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
     }
 
     @Override
@@ -69,7 +73,7 @@ public class Button extends WindowEntity {
         return super.defaultPaint.getColor();
     }
 
-    private void changeActionEffect(int typeEffect) {
+    public void changeActionEffect(int typeEffect) {
         if (typeEffect == ClickEffect.FADE_IN_OUT) {
             super.effects.add(EFFECT_CLICK,  new Fade(this, Fade.FADEOUT, new ActionListener() {
                 @Override

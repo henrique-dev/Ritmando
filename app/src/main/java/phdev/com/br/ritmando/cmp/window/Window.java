@@ -15,19 +15,24 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 public class Window extends WindowEntity {
 
-    private ArrayList<Component> components;
+    private ArrayList<Component> components = new ArrayList<>();
     private Button closeButton;
 
     private Layout layout;
 
+    public Window() {
+        super();
+        this.layout = new ListLayout(ListLayout.VERTICAL_ALINGMENT);
+    }
+
     public Window(int x, int y, int width, int height) {
         super(new Rect(x, y, x+ width, y + height));
-        this.components = new ArrayList<>();
+        this.layout = new ListLayout(ListLayout.VERTICAL_ALINGMENT);
     }
 
     public Window(Rect area, Layout layout) {
         super(area);
-        this.components = new ArrayList<>();
+        this.layout = layout;
     }
 
     public void setLayout(Layout layout) {
@@ -65,12 +70,9 @@ public class Window extends WindowEntity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-
         canvas.drawRect(super.area, super.defaultPaint);
-
         for (Component cmp : components)
             cmp.draw(canvas);
-
         canvas.restoreToCount(savedState);
     }
 

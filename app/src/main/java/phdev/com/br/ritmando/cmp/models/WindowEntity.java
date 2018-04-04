@@ -18,6 +18,10 @@ public abstract class WindowEntity extends Entity {
     protected Listener listener;
     protected Text entityText;
 
+    protected WindowEntity() {
+        super();
+    }
+
     protected WindowEntity(Rect area) {
         super(area);
         this.effects = new ArrayList<>();
