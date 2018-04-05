@@ -10,8 +10,21 @@ import java.io.InputStream;
 import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.GameParameters;
 
-/**
- * Created by Paulo Henrique Gonçalves Bacelar on 05/04/2018.
+/*
+ * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 public class Texture {
@@ -22,6 +35,14 @@ public class Texture {
 
     public Texture(String path) {
         this.bitmap = openImage(path, -1, -1);
+    }
+
+    public Texture(String path, int reqWidth, int reqHeight) {
+        this.bitmap = openImage(path, reqWidth, reqHeight);
+    }
+
+    public Texture(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public Bitmap getBitmap() {
@@ -56,7 +77,11 @@ public class Texture {
     }
 
     public void scaleMe(int width, int height) {
-        this.bitmap = Bitmap.createScaledBitmap(this.bitmap, width, height, false);
+        try {
+            this.bitmap = Bitmap.createScaledBitmap(this.bitmap, width, height, false);
+        } catch (Exception e) {
+            GameLog.error(this, e.getMessage());
+        }
     }
 
     private static Bitmap byteArrayToBitmap(ByteArrayOutputStream buffer, int reqWidth, int reqHeight) {
