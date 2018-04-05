@@ -139,16 +139,17 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
                     synchronized (this.surfaceHolder) {
                         this.gameEngine.update();
                         this.gameEngine.draw(this.canvas);
-
                     }
                 } catch (Exception e) {
-                    Log.e(this.getClass().getName(), e.getMessage());
+                    //Log.e(this.getClass().getName(), e.getMessage());
+                    GameLog.error(this, e.getMessage());
                 } finally {
                     if (canvas != null) {
                         try {
                             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
                         } catch (Exception e) {
-                            Log.e(this.getClass().getName(), "Unlock-Canvas. " + e.getMessage());
+                            //Log.e(this.getClass().getName(), "Unlock-Canvas. " + e.getMessage());
+                            GameLog.error(this, e.getMessage());
                         }
                     }
                 }
