@@ -13,17 +13,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
 package phdev.com.br.ritmando.cmp.effect;
 
-import phdev.com.br.ritmando.cmp.listeners.ActionListener;
-import phdev.com.br.ritmando.cmp.models.Entity;
-
-/**
- * Classe pai de todas as classes que forneçam efeitos visuais para entidades.
- */
-public abstract class ClickEffect {
-
-
-
+public interface Click {
 }

@@ -23,7 +23,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * Classe para criação de efeitos do tipo fade-in / fade-out.
  * @version 1.0
  */
-public class FadeEffect extends Effect {
+public class FadeEffect extends Effect implements Click {
 
     public static final int FADEIN = 1;
     public static final int FADEOUT = 2;
