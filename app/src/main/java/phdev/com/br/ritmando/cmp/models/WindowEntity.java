@@ -4,6 +4,7 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 
+import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.listeners.Listener;
 import phdev.com.br.ritmando.cmp.utils.Text;

@@ -23,7 +23,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * Classe para criação de efeitos do tipo flash.
  * @version 1.0
  */
-public class FlashEffect extends Effect implements Click {
+public class FlashEffect extends Effect implements ClickEffect {
 
     /**
      * Quantidade atual de flashs executados.
@@ -94,6 +94,11 @@ public class FlashEffect extends Effect implements Click {
         this.originalAlpha = entity.getDefaultPaint().getAlpha();
     }
 
+    /**
+     * Redefine a velocidade do efeito.
+     *
+     * @param speed velocidade do efeito.
+     */
     public void setSpeed(int speed) {
         if (speed <= 0)
             this.speed = 1;
@@ -103,16 +108,16 @@ public class FlashEffect extends Effect implements Click {
             this.speed = speed;
     }
 
+    /**
+     * Redefine a quantidade de flashs necessarias terminar o efeito.
+     *
+     * @param maxFlash quantidade necessaria de flashs para terminar o efeito.
+     */
     public void setMaxFlash(int maxFlash) {
         if (maxFlash <= 0)
             this.maxFlash = 1;
         else
             this.maxFlash = maxFlash;
-
-    }
-
-    public void addActionListener(ActionListener actionListener) {
-        super.actionListener = actionListener;
     }
 
     @Override

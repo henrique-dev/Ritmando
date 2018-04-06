@@ -21,6 +21,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
  * Classe pai de todas as classes que forneçam efeitos visuais para entidades.
+ * @version 1.0
  */
 public abstract class Effect implements Animation {
 
@@ -53,10 +54,20 @@ public abstract class Effect implements Animation {
         this.actionListener = actionListener;
     }
 
+    /**
+     * Redefine a entidade para ser aplicado o efeito.
+     *
+     * @param entity
+     */
     public void setEntity(Entity entity) {
         this.entity = entity;
     }
 
+    /**
+     * Redefine a escuta para o evento a ser executado apos o efeito.
+     *
+     * @param actionListener escuta contendo o evento.
+     */
     public void setActionListener(ActionListener actionListener) {
         this.actionListener = actionListener;
     }
@@ -69,7 +80,7 @@ public abstract class Effect implements Animation {
     }
 
     /**
-     * Encerra o efeito.
+     * Encerra o efeito e reseta seus atributos.
      */
     public abstract void stop();
 

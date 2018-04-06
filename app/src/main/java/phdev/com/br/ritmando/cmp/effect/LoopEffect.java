@@ -16,7 +16,7 @@
  *
  */
 
-package phdev.com.br.ritmando.cmp.effect.animation;
+package phdev.com.br.ritmando.cmp.effect;
 
-public class LoopAnimation {
+public class LoopEffect {
 }

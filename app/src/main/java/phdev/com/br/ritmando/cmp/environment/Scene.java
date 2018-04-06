@@ -1,16 +1,3 @@
-package phdev.com.br.ritmando.cmp.environment;
-
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import java.util.ArrayList;
-
-import phdev.com.br.ritmando.cmp.models.Component;
-import phdev.com.br.ritmando.cmp.models.Entity;
-import phdev.com.br.ritmando.cmp.models.GameEntity;
-import phdev.com.br.ritmando.cmp.models.WindowEntity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -27,10 +14,33 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.environment;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import java.util.ArrayList;
+
+import phdev.com.br.ritmando.cmp.models.Component;
+import phdev.com.br.ritmando.cmp.models.Entity;
+import phdev.com.br.ritmando.cmp.models.GameEntity;
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
+
+/**
+ * Classe para criação de cenas, que faz o intermedio entre a classe @{@link Screen} e as classes @{@link Entity}.
+ * Possui duas listas, uma com objetos da janela e outra com objetos de in-game.
+ */
 public abstract class Scene extends Entity implements Component {
 
+    /**
+     * Lista de objetos out-game.
+     */
     private ArrayList<WindowEntity> windowEntities;
+
+    /**
+     * Lista de objetos in-game.
+     */
     private ArrayList<GameEntity> gameEntities;
 
     protected Scene(int x, int y, int width, int height) {

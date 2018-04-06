@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.FadeEffect;
 import phdev.com.br.ritmando.cmp.effect.FlashEffect;
@@ -94,7 +95,7 @@ public class Button extends WindowEntity {
     public void changeClickEffect(int clickEffect) {
         DEFAULT_CLICK_EFFECT = clickEffect;
         if (clickEffect == Effect.FADE_IN_OUT) {
-            super.clickEffect = new FadeEffect(this, FadeEffect.FADEOUT, new ActionListener() {
+            super.clickEffect = new FadeEffect(this, FadeEffect.FADE_OUT, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
                     Button.this.fire(evt);
@@ -112,9 +113,8 @@ public class Button extends WindowEntity {
         }
     }
 
-    @Override
-    public void setClickEffect(Effect effect) {
-        super.setClickEffect(effect);
+    public void setClickEffect(ClickEffect effect) {
+        super.setClickEffect((Effect) effect);
         super.clickEffect.setEntity(this);
         super.clickEffect.setActionListener(new ActionListener() {
             @Override
