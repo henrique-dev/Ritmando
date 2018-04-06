@@ -1,14 +1,3 @@
-package phdev.com.br.ritmando.cmp.environment;
-
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import java.util.ArrayList;
-
-import phdev.com.br.ritmando.cmp.models.Component;
-import phdev.com.br.ritmando.cmp.models.Entity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -25,28 +14,75 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.environment;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import java.util.ArrayList;
+
+import phdev.com.br.ritmando.cmp.models.Component;
+import phdev.com.br.ritmando.cmp.models.Entity;
+
+/**
+ * Classe para criação de telas, que fazem o intermedio entre a @{@link phdev.com.br.ritmando.GameEngine} e as @{@link Scene}.
+ * Possui uma lista com as cenas disponiveis no objeto de tela do contexto.
+ * @version 1.0
+ */
 public abstract class Screen extends Entity implements Component {
 
+    /**
+     * Lista de cenas.
+     */
     private ArrayList<Scene> scenes;
 
+    /**
+     * Cria uma tela, que ira conter as cenas relativo ao seu contexto.
+     *
+     * @param x posição x da tela.
+     * @param y posição y da tela.
+     * @param width largura da tela.
+     * @param height altura da tela.
+     */
     protected Screen(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
         this.scenes = new ArrayList<>();
     }
 
+    /**
+     * Adiciona uma cena na tela.
+     *
+     * @param scene cena a ser adicionada.
+     */
     protected void addScene(Scene scene) {
         this.scenes.add(scene);
     }
 
+    /**
+     * Remove determinada cena da tela.
+     *
+     * @param scene cena a ser removida.
+     */
     protected void removeScene(Scene scene) {
         this.scenes.remove(scene);
     }
 
+    /**
+     * Pega determinada cena da tela.
+     *
+     * @param index posição da cena na lista.
+     * @return determinada cena da lista.
+     */
     protected Scene getScene(int index) {
         return this.scenes.get(index);
     }
 
+    /**
+     * Pega a lista de cenas.
+     *
+     * @return a lista de cenas da tela.
+     */
     protected ArrayList<Scene> getScenes() {
         return this.scenes;
     }

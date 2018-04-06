@@ -30,6 +30,7 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 /**
  * Classe para criação de cenas, que faz o intermedio entre a classe @{@link Screen} e as classes @{@link Entity}.
  * Possui duas listas, uma com objetos da janela e outra com objetos de in-game.
+ * @version 1.0
  */
 public abstract class Scene extends Entity implements Component {
 
@@ -43,16 +44,34 @@ public abstract class Scene extends Entity implements Component {
      */
     private ArrayList<GameEntity> gameEntities;
 
+    /**
+     * Cria uma cena, que ira conter todos os objetos relativos a determinado contexto.
+     *
+     * @param x posição x da cena.
+     * @param y posição y da cena
+     * @param width largura da cena.
+     * @param height altura da cena.
+     */
     protected Scene(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
         this.windowEntities = new ArrayList<>();
         this.gameEntities = new ArrayList<>();
     }
 
+    /**
+     * Adiciona um objeto na cena.
+     *
+     * @param windowEntity objeto a ser adicionado.
+     */
     public void add(WindowEntity windowEntity) {
         this.windowEntities.add(windowEntity);
     }
 
+    /**
+     * Adiciona um objeto na cena.
+     *
+     * @param gameEntity objeto a ser adicionado.
+     */
     public void add(GameEntity gameEntity) {
         this.gameEntities.add(gameEntity);
     }
