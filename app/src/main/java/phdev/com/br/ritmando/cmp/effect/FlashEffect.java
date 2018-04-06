@@ -23,7 +23,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * Classe para criação de efeitos do tipo flash.
  * @version 1.0
  */
-public class FlashEffect extends ClickEffect {
+public class FlashEffect extends Effect {
 
     /**
      * Quantidade atual de flashs executados.
@@ -45,6 +45,19 @@ public class FlashEffect extends ClickEffect {
      */
     private boolean flashIn, flashOut;
 
+    private int originalAlpha;
+
+    /**
+     * Cria o efeito do tipo flash.
+     */
+    public FlashEffect() {
+        super(null, null);
+        this.flashOut = true;
+        this.maxFlash = 1;
+        this.speed = 63;
+        this.flashCounter = 0;
+    }
+
     /**
      * Cria o efeito do tipo flash.
      *
@@ -53,24 +66,32 @@ public class FlashEffect extends ClickEffect {
      */
     public FlashEffect(Entity entity, ActionListener actionListener) {
         super(entity, actionListener);
+        this.originalAlpha = entity.getDefaultPaint().getAlpha();
         this.flashOut = true;
         this.maxFlash = 1;
         this.speed = 35;
+        this.flashCounter = 0;
     }
 
     /**
      * Cria o efeito do tipo flash.
      *
-     * @param entity
-     * @param actionListener
-     * @param speed
-     * @param maxFlash
+     * @param entity entidade para ser aplicado o efeito.
+     * @param actionListener escuta para o evento para ser executado apos o efeito.
+     * @param speed velocidade do efeito.
+     * @param maxFlash quantidade necessaria de flashs para terminar o efeito.
      */
     public FlashEffect(Entity entity, ActionListener actionListener, int speed, int maxFlash) {
         super(entity, actionListener);
         this.flashOut = true;
         this.maxFlash = maxFlash;
         this.speed = speed;
+    }
+
+    @Override
+    public void setEntity(Entity entity) {
+        super.setEntity(entity);
+        this.originalAlpha = entity.getDefaultPaint().getAlpha();
     }
 
     public void setSpeed(int speed) {
@@ -103,18 +124,13 @@ public class FlashEffect extends ClickEffect {
                 if (alpha > 255) {
                     alpha = 255;
                     super.entity.getDefaultPaint().setAlpha(alpha);
-
                     if (flashCounter >= maxFlash) {
-                        this.flashIn = false;
-                        this.flashOut = false;
-                        this.running = false;
+                        this.stop();
                         super.actionListener.actionPerformed(null);
-                        reset();
-                        return;
+                    } else {
+                        this.flashIn = false;
+                        this.flashOut = true;
                     }
-
-                    this.flashIn = false;
-                    this.flashOut = true;
                 } else
                     super.entity.getDefaultPaint().setAlpha(alpha);
             } else if (this.flashOut) {
@@ -133,9 +149,12 @@ public class FlashEffect extends ClickEffect {
     }
 
     @Override
-    protected void reset() {
-        this.flashCounter = 0;
+    public void stop() {
         this.flashOut = true;
+        this.flashOut = false;
+        super.entity.getDefaultPaint().setAlpha(this.originalAlpha);
+        this.running = false;
+        this.flashCounter = 0;
     }
 
 }

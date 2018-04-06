@@ -23,7 +23,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * Classe para criação de efeitos do tipo fade-in / fade-out.
  * @version 1.0
  */
-public class FadeEffect extends ClickEffect {
+public class FadeEffect extends Effect {
 
     public static final int FADEIN = 1;
     public static final int FADEOUT = 2;
@@ -43,8 +43,15 @@ public class FadeEffect extends ClickEffect {
      */
     private int alphaDiv;
 
-    @Deprecated
     private int originalAlpha;
+    private int originalType;
+
+    public FadeEffect() {
+        super(null, null);
+        this.alphaDiv = 20;
+        this.fadeout = true;
+        this.originalType = FADEOUT;
+    }
 
     /**
      * Cria o efeito do tipo fade, podendo ser de saida ou de entrada.
@@ -57,10 +64,11 @@ public class FadeEffect extends ClickEffect {
         super(entity, actionListener);
         this.originalAlpha = entity.getDefaultPaint().getAlpha();
         this.alphaDiv = 20;
+        this.originalType = fadeType;
         if (fadeType == FADEIN)
-            fadein = true;
+            this.fadein = true;
         else if (fadeType == FADEOUT)
-            fadeout = true;
+            this.fadeout = true;
     }
 
     /**
@@ -68,9 +76,17 @@ public class FadeEffect extends ClickEffect {
      *
      * @param listener escuta contendo o evento.
      */
-    public void addActionListener(ActionListener listener) {
-        super.actionListener = listener;
+    @Override
+    public void setActionListener(ActionListener listener) {
+        super.setActionListener(listener);
     }
+
+    @Override
+    public void setEntity(Entity entity) {
+        super.setEntity(entity);
+        this.originalAlpha = entity.getDefaultPaint().getAlpha();
+    }
+
 
     @Override
     public void update() {
@@ -81,8 +97,8 @@ public class FadeEffect extends ClickEffect {
                 if (alpha > 255) {
                     alpha = 255;
                     super.entity.getDefaultPaint().setAlpha(alpha);
+                    this.stop();
                     super.actionListener.actionPerformed(null);
-                    this.fadein = false;
                 } else
                     super.entity.getDefaultPaint().setAlpha(alpha);
             } else if (this.fadeout) {
@@ -92,7 +108,7 @@ public class FadeEffect extends ClickEffect {
                     alpha = 0;
                     super.entity.getDefaultPaint().setAlpha(alpha);
                     super.actionListener.actionPerformed(null);
-                    this.fadeout = false;
+                    this.stop();
                 } else
                     super.entity.getDefaultPaint().setAlpha(alpha);
             }
@@ -100,8 +116,16 @@ public class FadeEffect extends ClickEffect {
     }
 
     @Override
-    public void reset() {
-
+    public void stop() {
+        this.running = false;
+        super.entity.getDefaultPaint().setAlpha(this.originalAlpha);
+        if (originalType == FADEIN) {
+            this.fadeout = false;
+            this.fadein = true;
+        } else {
+            this.fadein = false;
+            this.fadeout = true;
+        }
     }
 
 }

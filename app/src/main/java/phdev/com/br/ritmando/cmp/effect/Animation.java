@@ -16,7 +16,10 @@
  *
  */
 
-package phdev.com.br.ritmando.cmp.effect.animation;
+package phdev.com.br.ritmando.cmp.effect;
 
-public interface Animation {
+import phdev.com.br.ritmando.cmp.models.Updateable;
+
+interface Animation extends Updateable {
+
 }

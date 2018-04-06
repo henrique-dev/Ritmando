@@ -16,18 +16,61 @@
  */
 package phdev.com.br.ritmando.cmp.effect;
 
-import phdev.com.br.ritmando.cmp.models.Updateable;
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Interface para efeitos.
+ * Classe pai de todas as classes que forneçam efeitos visuais para entidades.
  */
-public interface Effect extends Updateable{
+public abstract class Effect implements Animation {
 
-    interface Animation {
-        
+    public static final int FADE_IN_OUT = 0;
+    public static final int FLASHING = 1;
+
+    /**
+     * Escuta para eventos que ocoreem após o efeito.
+     */
+    protected ActionListener actionListener;
+
+    /**
+     * Entidade que consome o efeito.
+     */
+    protected Entity entity;
+
+    /**
+     * Estado do efeito.
+     */
+    protected boolean running;
+
+    /**
+     * Cria um novo efeito.
+     *
+     * @param entity entidade que ira consumir o efeito.
+     * @param actionListener escuta contendo os eventos que ocorrerão após o efeito.
+     */
+    protected Effect(Entity entity, ActionListener actionListener) {
+        this.entity = entity;
+        this.actionListener = actionListener;
     }
 
-    class Teste {
-
+    public void setEntity(Entity entity) {
+        this.entity = entity;
     }
+
+    public void setActionListener(ActionListener actionListener) {
+        this.actionListener = actionListener;
+    }
+
+    /**
+     * Inicia o efeito.
+     */
+    public void start() {
+        this.running = true;
+    }
+
+    /**
+     * Encerra o efeito.
+     */
+    public abstract void stop();
+
 }

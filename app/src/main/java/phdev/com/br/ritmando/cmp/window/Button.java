@@ -4,8 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-
 import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.FadeEffect;
@@ -35,42 +33,36 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 public class Button extends WindowEntity {
 
-    public static final int EFFECT_CLICK = 0;
-    private int DEFAULT_CLICK_EFFECT = ClickEffect.FLASHING;
+    private int DEFAULT_CLICK_EFFECT = Effect.FLASHING;
 
     private boolean clicked = false;
 
     public Button(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
-        super.effects = new ArrayList<>(2);
-        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
+        this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area) {
         super(area);
-        super.effects = new ArrayList<>(2);
-        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
+        this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area, String buttonText) {
         super(area);
         super.entityText = new Text(area, buttonText);
-        super.effects = new ArrayList<>(2);
-        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
+        this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(Rect area, Text buttonText) {
         super(area);
         super.entityText = buttonText;
-        super.effects = new ArrayList<>(2);
-        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
+        this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
     public Button(String textButton) {
         super(new Rect());
         super.entityText = new Text(new Rect(), textButton);
-        super.effects = new ArrayList<>(2);
-        this.changeActionEffect(DEFAULT_CLICK_EFFECT);
+        this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
     @Override
@@ -100,25 +92,38 @@ public class Button extends WindowEntity {
         return super.defaultPaint.getColor();
     }
 
-    public void changeActionEffect(int typeEffect) {
-        DEFAULT_CLICK_EFFECT = typeEffect;
-        if (typeEffect == ClickEffect.FADE_IN_OUT) {
-            super.effects.add(EFFECT_CLICK,  new FadeEffect(this, FadeEffect.FADEOUT, new ActionListener() {
+    public void changeClickEffect(int clickEffect) {
+        DEFAULT_CLICK_EFFECT = clickEffect;
+        if (clickEffect == Effect.FADE_IN_OUT) {
+            super.clickEffect = new FadeEffect(this, FadeEffect.FADEOUT, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    fire(evt);
+                    Button.this.fire(evt);
                     Button.this.clicked = false;
                 }
-            }));
-        } else if (typeEffect == ClickEffect.FLASHING) {
-            super.effects.add(EFFECT_CLICK,  new FlashEffect(this, new ActionListener() {
+            });
+        } else if (clickEffect == Effect.FLASHING) {
+            super.clickEffect = new FlashEffect(this, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    fire(evt);
                     Button.this.clicked = false;
+                    Button.this.fire(evt);
                 }
-            }));
+            });
         }
+    }
+
+    @Override
+    public void setClickEffect(Effect effect) {
+        super.setClickEffect(effect);
+        super.clickEffect.setEntity(this);
+        super.clickEffect.setActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(Event evt) {
+                Button.this.fire(evt);
+                Button.this.clicked = false;
+            }
+        });
     }
 
     private void fire(Event evt) {
@@ -136,8 +141,7 @@ public class Button extends WindowEntity {
 
     @Override
     public void update() {
-        for (Effect eff : super.effects)
-            eff.update();
+        super.clickEffect.update();
     }
 
     @Override
@@ -165,7 +169,7 @@ public class Button extends WindowEntity {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     this.clicked = true;
-                    ((ClickEffect)super.effects.get(0)).start();
+                    super.clickEffect.start();
                     break;
             }
         }

@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 
 import phdev.com.br.ritmando.GameParameters;
+import phdev.com.br.ritmando.cmp.effect.FadeEffect;
+import phdev.com.br.ritmando.cmp.effect.FlashEffect;
 import phdev.com.br.ritmando.cmp.environment.Scene;
 import phdev.com.br.ritmando.cmp.graphics.Sprite;
 import phdev.com.br.ritmando.cmp.graphics.Texture;
@@ -102,6 +104,7 @@ public class MainMenuScene extends Scene {
             this.exitButton = new Button("R");
             this.exitButton.setColor(Color.GREEN);
             this.exitButton.setTextSize(defaultTextSize);
+            this.exitButton.setClickEffect(new FadeEffect());
             this.exitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {

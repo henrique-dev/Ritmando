@@ -22,62 +22,8 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 /**
  * Classe pai de todas as classes que forneçam efeitos visuais para entidades.
  */
-public abstract class ClickEffect implements Effect {
+public abstract class ClickEffect {
 
-    public static final int FADE_IN_OUT = 0;
-    public static final int FLASHING = 1;
 
-    /**
-     * Escuta para eventos que ocoreem após o efeito.
-     */
-    protected ActionListener actionListener;
-
-    /**
-     * Entidade que consome o efeito.
-     */
-    protected Entity entity;
-
-    /**
-     * Estado do efeito.
-     */
-    protected boolean running;
-
-    /**
-     * Cria um novo efeito.
-     *
-     * @param entity entidade que ira consumir o efeito.
-     * @param actionListener escuta contendo os eventos que ocorrerão após o efeito.
-     */
-    protected ClickEffect(Entity entity, ActionListener actionListener) {
-        this.entity = entity;
-        this.actionListener = actionListener;
-    }
-
-    /**
-     * Inicia o efeito.
-     *
-     * @return o próprio efeito.
-     */
-    public final Effect start() {
-        this.running = true;
-        return this;
-    }
-
-    /**
-     * Encerra o efeito.
-     *
-     * @return o próprio efeito.
-     */
-    public final Effect stop() {
-        this.running = false;
-        return this;
-    }
-
-    /**
-     * Reseta os atributos modificados da entidade para o estado inicial.
-     *
-     */
-    @Deprecated
-    protected abstract void reset();
 
 }
