@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
+import phdev.com.br.ritmando.cmp.models.GameEntity;
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
@@ -28,45 +30,46 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 
 public abstract class Scene extends Entity implements Component {
 
-    private ArrayList<Entity> entities = new ArrayList<>();
+    private ArrayList<WindowEntity> windowEntities;
+    private ArrayList<GameEntity> gameEntities;
 
     protected Scene(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
+        this.windowEntities = new ArrayList<>();
+        this.gameEntities = new ArrayList<>();
     }
 
-    public void addEntity(Entity entity) {
-        this.entities.add(entity);
+    public void add(WindowEntity windowEntity) {
+        this.windowEntities.add(windowEntity);
     }
 
-    public void removeEntity(Entity entity) {
-        this.entities.remove(entity);
-    }
-
-    public Entity getEntity(int index) {
-        return this.entities.get(index);
-    }
-
-    public ArrayList<Entity> getEntities() {
-        return this.entities;
+    public void add(GameEntity gameEntity) {
+        this.gameEntities.add(gameEntity);
     }
 
     @Override
     public void update() {
-        for (Entity ent : this.entities)
+        for (Entity ent : this.gameEntities)
+            if (ent.isActive())
+                ent.update();
+        for (Entity ent : this.windowEntities)
             if (ent.isActive())
                 ent.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
-        for (Entity ent : this.entities)
+        for (Entity ent : this.gameEntities)
+            if (ent.isVisible())
+                ent.draw(canvas);
+        for (Entity ent : this.windowEntities)
             if (ent.isVisible())
                 ent.draw(canvas);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        for (Entity ent : this.entities)
+        for (Entity ent : this.windowEntities)
             if (ent.isActive())
                 ent.onTouchEvent(motionEvent);
         return false;

@@ -13,10 +13,10 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
 package phdev.com.br.ritmando.cmp.models;
 
-public interface Component extends Updateable, Drawable, Controllable{
-
+public abstract class GameEntity extends Entity {
 }

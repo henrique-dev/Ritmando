@@ -27,7 +27,8 @@ import phdev.com.br.ritmando.cmp.utils.Text;
 
 public abstract class WindowEntity extends Entity {
 
-    protected ArrayList<Effect> effects;
+    //protected ArrayList<Effect> effects;
+    protected Effect clickEffect;
     protected Listener listener;
     protected Text entityText;
 
@@ -37,7 +38,7 @@ public abstract class WindowEntity extends Entity {
 
     protected WindowEntity(Rect area) {
         super(area);
-        this.effects = new ArrayList<>();
+        //this.effects = new ArrayList<>();
     }
 
     public Text getEntityText() {

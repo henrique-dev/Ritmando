@@ -1,8 +1,3 @@
-package phdev.com.br.ritmando.cmp.effect;
-
-import phdev.com.br.ritmando.cmp.listeners.ActionListener;
-import phdev.com.br.ritmando.cmp.models.Entity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -19,19 +14,45 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.effect;
 
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.models.Entity;
+
+/**
+ * Classe para criação de efeitos do tipo fade-in / fade-out.
+ * @version 1.0
+ */
 public class FadeEffect extends ClickEffect {
 
     public static final int FADEIN = 1;
     public static final int FADEOUT = 2;
 
+    /**
+     * Estado que define o tipo do efeito.
+     */
     private boolean fadein;
+
+    /**
+     * Estado que define o tipo do efeito.
+     */
     private boolean fadeout;
 
+    /**
+     * Taxa de variação do atributo de transparencia.
+     */
     private int alphaDiv;
 
+    @Deprecated
     private int originalAlpha;
 
+    /**
+     * Cria o efeito do tipo fade, podendo ser de saida ou de entrada.
+     *
+     * @param entity entidade para ser aplicado o efeito.
+     * @param fadeType subtipo de efeito.
+     * @param actionListener escuta para o evento para ser executado apos o efeito.
+     */
     public FadeEffect(Entity entity, int fadeType, ActionListener actionListener) {
         super(entity, actionListener);
         this.originalAlpha = entity.getDefaultPaint().getAlpha();
@@ -42,6 +63,11 @@ public class FadeEffect extends ClickEffect {
             fadeout = true;
     }
 
+    /**
+     * Redefine a escuta para o evento a ser executado apos o efeito.
+     *
+     * @param listener escuta contendo o evento.
+     */
     public void addActionListener(ActionListener listener) {
         super.actionListener = listener;
     }

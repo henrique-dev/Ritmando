@@ -1,5 +1,3 @@
-package phdev.com.br.ritmando.cmp.effect;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -16,7 +14,20 @@ package phdev.com.br.ritmando.cmp.effect;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.effect;
 
-public interface Effect {
-    void update();
+import phdev.com.br.ritmando.cmp.models.Updateable;
+
+/**
+ * Interface para efeitos.
+ */
+public interface Effect extends Updateable{
+
+    interface Animation {
+        
+    }
+
+    class Teste {
+
+    }
 }

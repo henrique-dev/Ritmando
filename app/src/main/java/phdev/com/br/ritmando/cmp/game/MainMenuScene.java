@@ -48,7 +48,7 @@ public class MainMenuScene extends Scene {
     public MainMenuScene(int x, int y, int width, int height) {
         super(x, y, width, height);
         mainWindow = new MainWindow();
-        super.addEntity(mainWindow);
+        super.add(mainWindow);
 
         this.texture = new Texture("sprites01.png");
         //this.texture = new Texture("sprites01.png", 100, 100);
