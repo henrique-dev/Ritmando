@@ -1,10 +1,3 @@
-package phdev.com.br.ritmando.cmp.game;
-
-import android.graphics.Color;
-
-import phdev.com.br.ritmando.GameParameters;
-import phdev.com.br.ritmando.cmp.environment.Screen;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -20,19 +13,15 @@ import phdev.com.br.ritmando.cmp.environment.Screen;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-public class GameScreen extends Screen {
+package phdev.com.br.ritmando.cmp.models;
 
-    private MainMenuScene mainMenuScene;
+import android.view.MotionEvent;
 
-    public GameScreen(int x, int y, int width, int height) {
-        super(x, y, width, height);
+public interface Controllable {
 
-        super.defaultPaint.setColor(Color.WHITE);
+    boolean onTouchEvent(MotionEvent motionEvent);
 
-        this.mainMenuScene = new MainMenuScene(0, 0, GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
-        super.addScene(this.mainMenuScene);
-
-    }
 }

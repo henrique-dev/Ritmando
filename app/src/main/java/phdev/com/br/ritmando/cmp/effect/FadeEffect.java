@@ -20,7 +20,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class Fade extends ClickEffect {
+public class FadeEffect extends ClickEffect {
 
     public static final int FADEIN = 1;
     public static final int FADEOUT = 2;
@@ -32,7 +32,7 @@ public class Fade extends ClickEffect {
 
     private int originalAlpha;
 
-    public Fade(Entity entity, int fadeType, ActionListener actionListener) {
+    public FadeEffect(Entity entity, int fadeType, ActionListener actionListener) {
         super(entity, actionListener);
         this.originalAlpha = entity.getDefaultPaint().getAlpha();
         this.alphaDiv = 20;

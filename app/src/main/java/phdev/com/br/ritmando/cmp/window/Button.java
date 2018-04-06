@@ -6,11 +6,10 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
-import phdev.com.br.ritmando.cmp.effect.Fade;
-import phdev.com.br.ritmando.cmp.effect.Flash;
+import phdev.com.br.ritmando.cmp.effect.FadeEffect;
+import phdev.com.br.ritmando.cmp.effect.FlashEffect;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.listeners.ClickListener;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
@@ -104,7 +103,7 @@ public class Button extends WindowEntity {
     public void changeActionEffect(int typeEffect) {
         DEFAULT_CLICK_EFFECT = typeEffect;
         if (typeEffect == ClickEffect.FADE_IN_OUT) {
-            super.effects.add(EFFECT_CLICK,  new Fade(this, Fade.FADEOUT, new ActionListener() {
+            super.effects.add(EFFECT_CLICK,  new FadeEffect(this, FadeEffect.FADEOUT, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
                     fire(evt);
@@ -112,7 +111,7 @@ public class Button extends WindowEntity {
                 }
             }));
         } else if (typeEffect == ClickEffect.FLASHING) {
-            super.effects.add(EFFECT_CLICK,  new Flash(this, new ActionListener() {
+            super.effects.add(EFFECT_CLICK,  new FlashEffect(this, new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
                     fire(evt);

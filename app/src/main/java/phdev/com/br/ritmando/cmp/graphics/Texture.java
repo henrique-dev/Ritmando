@@ -2,6 +2,7 @@ package phdev.com.br.ritmando.cmp.graphics;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Paint;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -32,21 +33,49 @@ public class Texture {
     final static int bitmapQuality = 20;
 
     private Bitmap bitmap;
+    private Paint paint;
+    private int width;
+    private int height;
 
     public Texture(String path) {
         this.bitmap = openImage(path, -1, -1);
+        this.paint = new Paint();
+        this.width = this.bitmap.getWidth();
+        this.height = this.bitmap.getHeight();
     }
 
     public Texture(String path, int reqWidth, int reqHeight) {
         this.bitmap = openImage(path, reqWidth, reqHeight);
+        this.paint = new Paint();
+        this.width = this.bitmap.getWidth();
+        this.height = this.bitmap.getHeight();
     }
 
     public Texture(Bitmap bitmap) {
         this.bitmap = bitmap;
+        this.paint = new Paint();
+        this.width = this.bitmap.getWidth();
+        this.height = this.bitmap.getHeight();
     }
 
     public Bitmap getBitmap() {
         return bitmap;
+    }
+
+    public void setPaint(Paint paint) {
+        this.paint = paint;
+    }
+
+    public Paint getPaint() {
+        return this.paint;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
     }
 
     private static Bitmap openImage(String path, int reqWidth, int reqHeight) {

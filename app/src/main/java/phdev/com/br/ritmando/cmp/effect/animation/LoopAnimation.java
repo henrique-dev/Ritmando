@@ -1,10 +1,3 @@
-package phdev.com.br.ritmando.cmp.game;
-
-import android.graphics.Color;
-
-import phdev.com.br.ritmando.GameParameters;
-import phdev.com.br.ritmando.cmp.environment.Screen;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -20,19 +13,10 @@ import phdev.com.br.ritmando.cmp.environment.Screen;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-public class GameScreen extends Screen {
+package phdev.com.br.ritmando.cmp.effect.animation;
 
-    private MainMenuScene mainMenuScene;
-
-    public GameScreen(int x, int y, int width, int height) {
-        super(x, y, width, height);
-
-        super.defaultPaint.setColor(Color.WHITE);
-
-        this.mainMenuScene = new MainMenuScene(0, 0, GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
-        super.addScene(this.mainMenuScene);
-
-    }
+public class LoopAnimation {
 }

@@ -2,6 +2,7 @@ package phdev.com.br.ritmando.cmp.models;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.CallSuper;
 
 import phdev.com.br.ritmando.cmp.models.Component;
 

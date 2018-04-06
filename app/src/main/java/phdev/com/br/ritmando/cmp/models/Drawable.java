@@ -1,8 +1,3 @@
-package phdev.com.br.ritmando.cmp.effect;
-
-import phdev.com.br.ritmando.cmp.listeners.ActionListener;
-import phdev.com.br.ritmando.cmp.models.Entity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -18,21 +13,15 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
 
-public class Click extends ClickEffect {
+package phdev.com.br.ritmando.cmp.models;
 
-    protected Click(Entity entity, ActionListener actionListener) {
-        super(entity, actionListener);
-    }
+import android.graphics.Canvas;
 
-    @Override
-    protected void reset() {
+public interface Drawable {
 
-    }
+    void draw(Canvas canvas);
 
-    @Override
-    public void update() {
-
-    }
 }

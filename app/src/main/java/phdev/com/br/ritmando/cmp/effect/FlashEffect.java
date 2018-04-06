@@ -1,6 +1,5 @@
 package phdev.com.br.ritmando.cmp.effect;
 
-import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
@@ -21,7 +20,7 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class Flash extends ClickEffect {
+public class FlashEffect extends ClickEffect {
 
     private int flashCounter;
     private int maxFlashs;
@@ -29,10 +28,10 @@ public class Flash extends ClickEffect {
     private boolean flashin;
     private boolean flashout;
 
-    public Flash(Entity entity, ActionListener actionListener) {
+    public FlashEffect(Entity entity, ActionListener actionListener) {
         super(entity, actionListener);
         this.flashout = true;
-        this.maxFlashs = 5;
+        this.maxFlashs = 1;
         this.speed = 35;
     }
 

@@ -3,7 +3,6 @@ package phdev.com.br.ritmando;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -147,7 +146,7 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
                 this.canvas = null;
 
                 try {
-                    this.canvas = this.surfaceHolder.lockCanvas();
+                    this.canvas =  this.surfaceHolder.lockCanvas();
 
                     synchronized (this.surfaceHolder) {
                         this.gameEngine.update();
