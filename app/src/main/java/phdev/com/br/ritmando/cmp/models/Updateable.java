@@ -18,8 +18,15 @@
 
 package phdev.com.br.ritmando.cmp.models;
 
+/**
+ * Interface para eventos de atualiação dos objetos.
+ * @version 1.0
+ */
 public interface Updateable {
 
+    /**
+     * Atualiza os objetos.
+     */
     void update();
 
 }

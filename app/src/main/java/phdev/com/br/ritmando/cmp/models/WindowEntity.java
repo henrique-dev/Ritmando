@@ -1,14 +1,3 @@
-package phdev.com.br.ritmando.cmp.models;
-
-import android.graphics.Rect;
-
-import java.util.ArrayList;
-
-import phdev.com.br.ritmando.cmp.effect.ClickEffect;
-import phdev.com.br.ritmando.cmp.effect.Effect;
-import phdev.com.br.ritmando.cmp.listeners.Listener;
-import phdev.com.br.ritmando.cmp.utils.Text;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -25,38 +14,100 @@ import phdev.com.br.ritmando.cmp.utils.Text;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.models;
 
+import android.graphics.Rect;
+
+import java.util.ArrayList;
+
+import phdev.com.br.ritmando.cmp.effect.ClickEffect;
+import phdev.com.br.ritmando.cmp.effect.Effect;
+import phdev.com.br.ritmando.cmp.listeners.Listener;
+import phdev.com.br.ritmando.cmp.utils.Text;
+
+/**
+ * Classe base para todas as entidades que sejam objetos da janela como menus, botões, etc.
+ * @version 1.0
+ */
 public abstract class WindowEntity extends Entity {
 
+    /**
+     * Efeito de clique da entidade.
+     */
     protected Effect clickEffect;
+
+    /**
+     * Efeito de animação/loop da entidade.
+     */
     protected Effect loopEffect;
+
+    /**
+     * Escuta da entidade para acionar eventos.
+     */
     protected Listener listener;
+
+    /**
+     * Texto a ser vinculado com a entidade.
+     */
     protected Text entityText;
 
+    /**
+     * Cria uma entidade para janela.
+     */
     protected WindowEntity() {
         super();
     }
 
+    /**
+     * Cria uma entidade para janela.
+     *
+     * @param area area da entidade.
+     */
     protected WindowEntity(Rect area) {
         super(area);
     }
 
+    /**
+     * Redefine o efeito de clique associado a entidade.
+     *
+     * @param effect
+     */
     protected void setClickEffect(Effect effect) {
         this.clickEffect = effect;
     }
 
+    /**
+     * Redefine o efeito de loop/animação associado a entidade.
+     *
+     * @param effect
+     */
     protected void setLoopEffect(Effect effect) {
         this.loopEffect = effect;
     }
 
+    /**
+     * Retorna o {@link Text} vinculado a entidade.
+     *
+     * @return {@link Text} da entidade.
+     */
     public Text getEntityText() {
         return this.entityText;
     }
 
+    /**
+     * Redefine o {@link Text} vinculado a entidade.
+     *
+     * @param entityText {@link Text} para entidade.
+     */
     public void setEntityText(Text entityText) {
         this.entityText = entityText;
     }
 
+    /**
+     * Redefine a escuta de eventos da entidade.
+     *
+     * @param listener escuta para entidade.
+     */
     protected void addListener(Listener listener) {
         this.listener = listener;
     }

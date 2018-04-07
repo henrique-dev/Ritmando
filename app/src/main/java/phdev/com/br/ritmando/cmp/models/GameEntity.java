@@ -18,5 +18,9 @@
 
 package phdev.com.br.ritmando.cmp.models;
 
+/**
+ * Classe base para todas as entidades que sejam objetos de jogo.
+ * @version 1.0
+ */
 public abstract class GameEntity extends Entity {
 }

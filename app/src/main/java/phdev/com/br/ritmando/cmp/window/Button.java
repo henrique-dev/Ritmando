@@ -167,7 +167,7 @@ public class Button extends WindowEntity {
         float x = motionEvent.getX();
         float y = motionEvent.getY();
 
-        if (haveCollision(x, y, super.area)) {
+        if (haveCollision(x, y, this)) {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
                     this.clicked = true;

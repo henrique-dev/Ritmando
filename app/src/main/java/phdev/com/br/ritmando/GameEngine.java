@@ -72,12 +72,12 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         boolean retry = true;
         while (retry) {
             if (this.mainThread != null) {
-
                 GameLog.debug(this, "Finalizando componentes");
                 finalizeComponents();
 
                 GameLog.debug(this, "Loop da MainThread desativado");
                 this.mainThread.setRunning(false);
+
                 try {
                     this.mainThread.join();
                     GameLog.debug(this, "MainThread destruida");
@@ -93,16 +93,18 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
     @SuppressLint("MissingSuperCall")
     @Override
     public void draw(Canvas canvas) {
-        this.screen.draw(canvas);
+        if (this.screen != null)
+            this.screen.draw(canvas);
     }
 
     public void update() {
-        this.screen.update();
+        if (this.screen != null)
+            this.screen.update();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        return this.screen.onTouchEvent(motionEvent);
+        return this.screen != null && this.screen.onTouchEvent(motionEvent);
     }
 
     private void initComponents() {
@@ -185,7 +187,7 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
 
         }
 
-        protected void setRunning(boolean running) {
+        void setRunning(boolean running) {
             this.running = running;
         }
 

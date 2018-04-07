@@ -19,7 +19,7 @@
 package phdev.com.br.ritmando.cmp.effect;
 
 /**
- * Interface para os efeitos que podem ser aplciados como efeitos de clique.
+ * Interface consumida por todos os efeitos que se apliquem a cliques.
  * @version 1.0
  */
 public interface ClickEffect {

@@ -1,7 +1,3 @@
-package phdev.com.br.ritmando.cmp.listeners;
-
-import phdev.com.br.ritmando.cmp.listeners.events.Event;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -18,10 +14,27 @@ import phdev.com.br.ritmando.cmp.listeners.events.Event;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.listeners;
 
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+
+/**
+ * Interface para ações de clique, com especificação em soltar e pressionar.
+ * @version 1.0
+ */
 public interface ClickListener extends ActionListener {
-
+    /**
+     * Metodo para quando o botão for pressionado.
+     *
+     * @param event
+     */
     void pressedPerformed(Event event);
+
+    /**
+     * Metodo para quando o botão for solto após pressionado.
+     *
+     * @param event
+     */
     void releasePerformed(Event event);
 
 }

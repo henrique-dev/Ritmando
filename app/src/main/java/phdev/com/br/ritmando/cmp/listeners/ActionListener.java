@@ -1,7 +1,3 @@
-package phdev.com.br.ritmando.cmp.listeners;
-
-import phdev.com.br.ritmando.cmp.listeners.events.Event;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -18,9 +14,21 @@ import phdev.com.br.ritmando.cmp.listeners.events.Event;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.listeners;
 
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+
+/**
+ * Interface para entidades que despejam ações.
+ * @version 1.0
+ */
 public interface ActionListener extends Listener {
 
+    /**
+     * Metodo para ação do herdeiro.
+     *
+     * @param evt
+     */
     void actionPerformed(Event evt);
 
 }

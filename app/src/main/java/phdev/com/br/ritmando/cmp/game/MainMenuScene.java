@@ -5,6 +5,9 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import java.io.IOException;
+
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.GameParameters;
 import phdev.com.br.ritmando.cmp.effect.FadeEffect;
 import phdev.com.br.ritmando.cmp.effect.FlashEffect;
@@ -57,10 +60,13 @@ public class MainMenuScene extends Scene {
 
         heroi = new TesteEntity();
         heroi.setArea(new Rect(0,0,0,0));
-
-        this.texture = new Texture("sprites01.png");
-        //this.texture = new Texture("sprites01.png", 100, 100);
-        //this.texture.scaleMe(GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
+        try {
+            this.texture = new Texture("sprites01.png");
+            //this.texture = new Texture("sprites01.png", 100, 100);
+            //this.texture.scaleMe(GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
+        } catch (IOException ioe) {
+            GameLog.error(this, ioe.getMessage());
+        }
 
         //this.sprites = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
         this.sprites = Sprite.getSpriteFromTexture(heroi, this.texture, 9, 7, 62);
@@ -107,9 +113,9 @@ public class MainMenuScene extends Scene {
             });
             super.add(this.optionButton);
 
-            this.exitButton = new Button("R");
+            this.exitButton = new Button("Paulo Henrique");
             this.exitButton.setColor(Color.GREEN);
-            //this.exitButton.setTextSize(defaultTextSize);
+            this.exitButton.setTextSize(defaultTextSize);
             this.exitButton.setClickEffect(new FadeEffect());
             this.exitButton.addActionListener(new ActionListener() {
                 @Override

@@ -1,5 +1,3 @@
-package phdev.com.br.ritmando.cmp.listeners.events;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -16,6 +14,11 @@ package phdev.com.br.ritmando.cmp.listeners.events;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.listeners.events;
 
+/**
+ * Classe para criação de eventos lançados na escutas.
+ * @version 1.0
+ */
 public class Event {
 }
