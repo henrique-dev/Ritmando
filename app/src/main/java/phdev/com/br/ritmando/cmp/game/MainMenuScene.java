@@ -2,6 +2,7 @@ package phdev.com.br.ritmando.cmp.game;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import phdev.com.br.ritmando.GameParameters;
@@ -47,17 +48,22 @@ public class MainMenuScene extends Scene {
 
     Sprite sprites[];
 
+    TesteEntity heroi;
+
     public MainMenuScene(int x, int y, int width, int height) {
         super(x, y, width, height);
         mainWindow = new MainWindow();
         super.add(mainWindow);
+
+        heroi = new TesteEntity();
+        heroi.setArea(new Rect(0,0,0,0));
 
         this.texture = new Texture("sprites01.png");
         //this.texture = new Texture("sprites01.png", 100, 100);
         //this.texture.scaleMe(GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
 
         //this.sprites = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
-        this.sprites = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
+        this.sprites = Sprite.getSpriteFromTexture(heroi, this.texture, 9, 7, 62);
         //rects = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
 
     }
@@ -103,7 +109,7 @@ public class MainMenuScene extends Scene {
 
             this.exitButton = new Button("R");
             this.exitButton.setColor(Color.GREEN);
-            this.exitButton.setTextSize(defaultTextSize);
+            //this.exitButton.setTextSize(defaultTextSize);
             this.exitButton.setClickEffect(new FadeEffect());
             this.exitButton.addActionListener(new ActionListener() {
                 @Override
@@ -120,7 +126,7 @@ public class MainMenuScene extends Scene {
         int savedState = canvas.save();
         super.draw(canvas);
 
-        this.sprites[spriteAtual].draw(canvas, 0, 0);
+        this.sprites[spriteAtual].draw(canvas);
 
         canvas.restoreToCount(savedState);
     }

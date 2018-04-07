@@ -49,7 +49,7 @@ public class Text extends Entity {
     private int spaceW = 10;
     private int spaceH = 50;
 
-    private boolean textSizeAdjusted = false;
+    private boolean textSizeAdjusted = true;
 
     public Text(int x, int y, int width, int height, String text) {
         super(new Rect(x, y, x + width, y + height));
@@ -109,6 +109,14 @@ public class Text extends Entity {
         this.strokePaint.setAntiAlias(true);
 
         this.strokeOn = true;
+    }
+
+    public boolean isTextSizeAdjusted() {
+        return textSizeAdjusted;
+    }
+
+    public void setTextSizeAdjusted(boolean textSizeAdjusted) {
+        this.textSizeAdjusted = textSizeAdjusted;
     }
 
     public int getColor() {

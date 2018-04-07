@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.effect.ClickEffect;
 import phdev.com.br.ritmando.cmp.effect.Effect;
 import phdev.com.br.ritmando.cmp.effect.FadeEffect;
@@ -68,8 +69,9 @@ public class Button extends WindowEntity {
     @Override
     public void setArea(Rect area) {
         super.setArea(area);
-        if (super.entityText != null)
+        if (super.entityText != null) {
             super.entityText.setArea(new Rect(area));
+        }
     }
 
     public void setText(String text) {
@@ -82,6 +84,7 @@ public class Button extends WindowEntity {
 
     public void setTextSize(float size) {
         super.entityText.setTextSize(size);
+        super.entityText.setTextSizeAdjusted(false);
     }
 
     public void setColor(int color) {

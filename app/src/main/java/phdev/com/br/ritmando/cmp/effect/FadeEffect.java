@@ -31,12 +31,12 @@ public class FadeEffect extends Effect implements ClickEffect {
     /**
      * Estado que define o tipo do efeito.
      */
-    private boolean fadein;
+    private boolean fadeIn;
 
     /**
      * Estado que define o tipo do efeito.
      */
-    private boolean fadeout;
+    private boolean fadeOut;
 
     /**
      * Taxa de variação do atributo de transparencia.
@@ -52,9 +52,9 @@ public class FadeEffect extends Effect implements ClickEffect {
      * Cria o efeito do tipo fade, podendo ser de saida ou de entrada.
      */
     public FadeEffect() {
-        super(null, null);
+        super();
         this.speed = 20;
-        this.fadeout = true;
+        this.fadeOut = true;
         this.originalType = FADE_OUT;
     }
 
@@ -71,9 +71,9 @@ public class FadeEffect extends Effect implements ClickEffect {
         this.speed = 20;
         this.originalType = fadeType;
         if (fadeType == FADE_IN)
-            this.fadein = true;
+            this.fadeIn = true;
         else if (fadeType == FADE_OUT)
-            this.fadeout = true;
+            this.fadeOut = true;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class FadeEffect extends Effect implements ClickEffect {
     @Override
     public void update() {
         if (super.running) {
-            if (this.fadein) {
+            if (this.fadeIn) {
                 int alpha = super.entity.getDefaultPaint().getAlpha();
                 alpha += this.speed;
                 if (alpha > 255) {
@@ -100,7 +100,7 @@ public class FadeEffect extends Effect implements ClickEffect {
                     super.actionListener.actionPerformed(null);
                 } else
                     super.entity.getDefaultPaint().setAlpha(alpha);
-            } else if (this.fadeout) {
+            } else if (this.fadeOut) {
                 int alpha = super.entity.getDefaultPaint().getAlpha();
                 alpha -= this.speed;
                 if (alpha < 0) {
@@ -119,11 +119,11 @@ public class FadeEffect extends Effect implements ClickEffect {
         this.running = false;
         super.entity.getDefaultPaint().setAlpha(this.originalAlpha);
         if (originalType == FADE_IN) {
-            this.fadeout = false;
-            this.fadein = true;
+            this.fadeOut = false;
+            this.fadeIn = true;
         } else {
-            this.fadein = false;
-            this.fadeout = true;
+            this.fadeIn = false;
+            this.fadeOut = true;
         }
     }
 

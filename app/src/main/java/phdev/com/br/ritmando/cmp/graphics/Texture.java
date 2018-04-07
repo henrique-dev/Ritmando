@@ -1,16 +1,3 @@
-package phdev.com.br.ritmando.cmp.graphics;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import phdev.com.br.ritmando.GameLog;
-import phdev.com.br.ritmando.GameParameters;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -27,47 +14,66 @@ import phdev.com.br.ritmando.GameParameters;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.graphics;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Paint;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import phdev.com.br.ritmando.GameLog;
+import phdev.com.br.ritmando.GameParameters;
+
+/**
+ * Classe para criação de texturas, que podem ser consumidas por sprites, ou diretamente por componentes.
+ */
 public class Texture {
 
-    final static int bitmapQuality = 20;
+    /**
+     * Qualidade de compressão do bitmap.
+     */
+    private final static int BITMAP_QUALITY = 20;
 
+    /**
+     * Bitmap utilizado pela textura.
+     */
     private Bitmap bitmap;
-    private Paint paint;
-    private int width;
-    private int height;
 
+    /**
+     * Largura e altura da textura.
+     */
+    private int width, height;
+
+    /**
+     * Cria uma textura.
+     *
+     * @param path caminho da textura.
+     */
     public Texture(String path) {
         this.bitmap = openImage(path, -1, -1);
-        this.paint = new Paint();
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
     }
 
+    @Deprecated
     public Texture(String path, int reqWidth, int reqHeight) {
         this.bitmap = openImage(path, reqWidth, reqHeight);
-        this.paint = new Paint();
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
     }
 
+    @Deprecated
     public Texture(Bitmap bitmap) {
         this.bitmap = bitmap;
-        this.paint = new Paint();
         this.width = this.bitmap.getWidth();
         this.height = this.bitmap.getHeight();
     }
 
     public Bitmap getBitmap() {
         return bitmap;
-    }
-
-    public void setPaint(Paint paint) {
-        this.paint = paint;
-    }
-
-    public Paint getPaint() {
-        return this.paint;
     }
 
     public int getWidth() {
@@ -125,7 +131,7 @@ public class Texture {
             ByteArrayOutputStream imagePosCompress = new ByteArrayOutputStream();
 
             Bitmap tempBitmap = BitmapFactory.decodeByteArray(buffer.toByteArray(), 0, buffer.size(), options);
-            boolean result = tempBitmap.compress(Bitmap.CompressFormat.PNG, bitmapQuality, imagePosCompress);
+            boolean result = tempBitmap.compress(Bitmap.CompressFormat.PNG, BITMAP_QUALITY, imagePosCompress);
             if (result)
                 return BitmapFactory.decodeByteArray(imagePosCompress.toByteArray(), 0, imagePosCompress.size());
         }

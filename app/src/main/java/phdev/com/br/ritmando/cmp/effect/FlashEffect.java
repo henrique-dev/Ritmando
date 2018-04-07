@@ -51,7 +51,7 @@ public class FlashEffect extends Effect implements ClickEffect {
      * Cria o efeito do tipo flash.
      */
     public FlashEffect() {
-        super(null, null);
+        super();
         this.flashOut = true;
         this.maxFlash = 1;
         this.speed = 63;

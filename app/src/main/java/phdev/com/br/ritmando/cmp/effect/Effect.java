@@ -45,11 +45,20 @@ public abstract class Effect implements Animation {
 
     /**
      * Cria um novo efeito.
+     */
+    protected Effect() {
+
+    }
+
+    /**
+     * Cria um novo efeito.
      *
      * @param entity entidade que ira consumir o efeito.
      * @param actionListener escuta contendo os eventos que ocorrerão após o efeito.
      */
     protected Effect(Entity entity, ActionListener actionListener) {
+        if (entity == null)
+            throw new Error("A entidade não pode ser nula.");
         this.entity = entity;
         this.actionListener = actionListener;
     }

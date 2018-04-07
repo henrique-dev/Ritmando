@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package phdev.com.br.ritmando.cmp.graphics;
 
 import android.graphics.Canvas;
@@ -24,40 +23,68 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.GameParameters;
+import phdev.com.br.ritmando.cmp.models.Drawable;
+import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * @author Paulo Henrique Gonçalves Bacelar
+ * Classe para criar sprites a partir de determinada textura.
  * @version 1.0
- * Tem como objetivo fornecer um intermédio entre uma entidade e a textura.
  */
-public class Sprite {
+public class Sprite implements Drawable {
 
     private static boolean debugSprite = true;
 
+    /**
+     * Textura consumida pelo sprite.
+     */
     private Texture texture;
+
+    /**
+     * Area da textura consumida pelo sprite.
+     */
     private Rect imageClip;
+
+    /**
+     * {@link Paint} para o sprite.
+     */
     private Paint paint;
 
-    private Paint debugPaint1;
-    private Paint debugPaint2;
+    /**
+     * {@link Paint} utilizado para debug.
+     */
+    private Paint debugPaint1, debugPaint2;
 
+    /**
+     * {@link Matrix} para aplicação de efeitos ao canvnas, como inversão, rotação, etc.
+     */
     private Matrix matrix;
-    private boolean invertH;
-    private boolean invertV;
 
+    /**
+     * Estado atual de inversão do canvas.
+     */
+    private boolean invertH, invertV;
+
+    /**
+     * Grau rotacionado.
+     */
     private float degrees;
+
+    private Entity entity;
 
     /**
      * Cria um sprite a partir de uma textura e a área da textura.
      *
      * @param texture textura consumida pelo sprite.
-     * @param imageClip area consumida da textura pelo sprite.
+     * @param imageClip area da textura consumida pelo sprite.
      * @throws Error caso a textura ou a area inserida sejam nulas.
      */
-    public Sprite(Texture texture, Rect imageClip) {
-        if (texture == null || imageClip == null)
-            throw new Error("A textura e a area do sprite não podem ser null");
+    public Sprite(Texture texture, Rect imageClip, Entity entity) throws Exception {
+        if (texture == null || imageClip == null || entity == null)
+            throw new Exception("A textura, area ou entidade não podem ser nulos.");
+        if (imageClip.width() == 0 || imageClip.height() == 0)
+            throw new Exception("A area não pode ter largura igual a 0 ou altura igual a 0.");
         this.texture = texture;
         this.imageClip = imageClip;
         this.matrix = new Matrix();
@@ -66,17 +93,20 @@ public class Sprite {
         this.debugPaint1.setColor(Color.GRAY);
         this.debugPaint2 = new Paint();
         this.debugPaint2.setColor(Color.RED);
+        this.entity = entity;
     }
 
     /**
      * Redefine a textura e a área da textura do sprite.
      *
      * @param texture textura consumida pelo sprite.
-     * @param imageClip area consumida da textura pelo sprite.
+     * @param imageClip area da textura consumida pelo sprite.
      */
-    public void set(Texture texture, Rect imageClip) {
+    public void set(Texture texture, Rect imageClip) throws Exception{
         if (texture == null || imageClip == null)
-            throw new Error("A textura e a area do sprite não podem ser null");
+            throw new Exception("A textura ou a area não podem ser nulos.");
+        if (imageClip.width() == 0 || imageClip.height() == 0)
+            throw new Exception("A area não pode ter largura igual a 0 ou altura igual a 0.");
         this.texture = texture;
         this.imageClip = imageClip;
     }
@@ -91,7 +121,7 @@ public class Sprite {
     }
 
     /**
-     * Retorna a área consumida da textura pelo sprite.
+     * Retorna area da textura consumida pelo sprite.
      *
      * @return area da textura que o sprite consome.
      */
@@ -144,8 +174,12 @@ public class Sprite {
         this.matrix.postRotate(degrees, this.imageClip.centerX(), this.imageClip.centerY());
     }
 
-    public void draw(Canvas canvas, int x, int y) {
+    public void draw(Canvas canvas) {
         int savedState = canvas.save();
+
+        int x = this.entity.getArea().left;
+        int y = this.entity.getArea().top;
+
         if (invertV || invertH || degrees != 0) {
             canvas.setMatrix(this.matrix);
             canvas.translate(
@@ -163,19 +197,32 @@ public class Sprite {
             canvas.drawCircle(x, y, 15, this.debugPaint2);
         }
 
-        canvas.drawBitmap(this.texture.getBitmap(), this.imageClip, new Rect(x, y, x + this.imageClip.width(), y + this.imageClip.height()), this.texture.getPaint());
+        canvas.drawBitmap(this.texture.getBitmap(), this.imageClip, new Rect(x, y, x + this.imageClip.width(), y + this.imageClip.height()), this.paint);
         canvas.restoreToCount(savedState);
     }
 
-    public static Sprite[] getSpriteFromTexture(Texture texture, int numberSpritesLines, int numberSpritesColumns, int maxSprites){
+    /**
+     * Retorna os sprites de um spritesheet.
+     *
+     * @param spriteSheet spritesheet que contem os sprites a serem retirados.
+     * @param numberSpritesLines numero de linhas do spritesheet.
+     * @param numberSpritesColumns numero de colunas do spritesheet.
+     * @param maxSprites numero maximo de sprites contidos no spritesheet.
+     * @return array de sprites retirados do spritesheet.
+     */
+    public static Sprite[] getSpriteFromTexture(Entity entity, Texture spriteSheet, int numberSpritesLines, int numberSpritesColumns, int maxSprites){
         int counter = 0;
-        int spriteWidth = texture.getBitmap().getWidth() / numberSpritesColumns;
-        int spriteHeight = texture.getBitmap().getHeight() / numberSpritesLines;
+        int spriteWidth = spriteSheet.getBitmap().getWidth() / numberSpritesColumns;
+        int spriteHeight = spriteSheet.getBitmap().getHeight() / numberSpritesLines;
         Sprite sprites[] = new Sprite[maxSprites];
         int cont = 0;
         for(int i=0; i<numberSpritesLines; i++){
             for(int j=0; j<numberSpritesColumns; j++){
-                sprites[cont++] = new Sprite(texture, new Rect( j*spriteWidth, i*spriteHeight, (j*spriteWidth) + spriteWidth, (i*spriteHeight) + spriteHeight));
+                try {
+                    sprites[cont++] = new Sprite(spriteSheet, new Rect( j*spriteWidth, i*spriteHeight, (j*spriteWidth) + spriteWidth, (i*spriteHeight) + spriteHeight), entity);
+                } catch (Exception e) {
+                    GameLog.error(Sprite.class, e.getMessage());
+                }
                 counter++;
                 if (counter == maxSprites)
                     break;
@@ -205,6 +252,15 @@ public class Sprite {
     }
     */
 
+    /**
+     * Retira um array de sprites especificos.
+     *
+     * @param sprites array de sprites base.
+     * @param indexBegin index de oomeço de retirada dos sprites.
+     * @param indexEnd index com fim de retirada dos psrites.
+     * @param reverse case true, inverte a ordem dos sprites como retorno.
+     * @return array de sprites especificos
+     */
     public static Sprite[] getSpritesFromSprites(Sprite[] sprites, int indexBegin, int indexEnd, boolean reverse){
         Sprite cSprite[] = null;
         cSprite = new Sprite[(indexEnd+1)-indexBegin];
