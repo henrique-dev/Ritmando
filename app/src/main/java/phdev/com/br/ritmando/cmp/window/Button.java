@@ -149,7 +149,7 @@ public class Button extends WindowEntity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-        canvas.clipRect(super.area);
+        //canvas.clipRect(super.area);
         canvas.drawRect(super.area, super.defaultPaint);
         if (super.entityText != null) {
             super.entityText.draw(canvas);

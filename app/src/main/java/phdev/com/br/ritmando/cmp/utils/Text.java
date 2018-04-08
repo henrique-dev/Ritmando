@@ -22,7 +22,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import phdev.com.br.ritmando.cmp.game.TesteEntity;
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -32,16 +32,15 @@ import phdev.com.br.ritmando.cmp.models.Entity;
 public class Text extends Entity {
 
     public static final int TOP = 0;
-    public static final int CENTER_H = 1;
-    public static final int CENTER_V = 2;
-    public static final int BOTTOM = 3;
-    public static final int LEFT = 4;
-    public static final int RIGHT = 5;
+    public static final int CENTER = 1;
+    public static final int BOTTOM = 2;
+    public static final int LEFT = 3;
+    public static final int RIGHT = 4;
 
     private Rect originalArea;
 
-    private int horizontalAlignment = CENTER_H;
-    private int verticalAlignment = TOP;
+    private int horizontalAlignment = LEFT;
+    private int verticalAlignment = CENTER;
     private String text;
     private String textToDraw[];
     private float textSize;
@@ -50,8 +49,8 @@ public class Text extends Entity {
     private Paint strokePaint;
     private boolean strokeOn;
 
-    private int spaceW = 10;
-    private int spaceH = 50;
+    private int spaceW = 10; // 10
+    private int spaceH = 50; // 50
 
     private boolean textSizeAdjusted = true;
 
@@ -60,7 +59,7 @@ public class Text extends Entity {
     public Text(Entity entity, String text) {
         super(new Rect(entity.getArea()));
         this.entity = entity;
-        this.originalArea = super.area;
+        this.originalArea = new Rect(super.area);
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
         this.text = text;
@@ -93,7 +92,7 @@ public class Text extends Entity {
     @Override
     public void setArea(Rect area) {
         super.setArea(area);
-        this.originalArea = super.area;
+        this.originalArea = new Rect(super.area);
         if (this.textSizeAdjusted)
             automaticTextSize(this);
         checkAndFormatText(this);
@@ -213,7 +212,7 @@ public class Text extends Entity {
                 break;
             tmpPaint.setTextSize(textSize);
         }
-        text.setTextSize(textSize);
+        text.setTextSize(50);
     }
 
     private static void align(Text text) {
@@ -228,14 +227,21 @@ public class Text extends Entity {
 
         switch (alignment) {
             case TOP:
-                text.setY(-rectTextBounds.top);
+                text.setY(rectTextBounds.height());
                 //text.area.top = text.area.top - rectTextBounds.top;
                 break;
-            case CENTER_V:
-                text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
+            case CENTER:
+                GameLog.error(Text.class, rectTextBounds.top + " -> " + text.text);
+                //text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + rectTextBounds.height())/2);
+                int heightText = rectTextBounds.height() * (text.textToDraw.length);
+                text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + (heightText))/2 - (heightText/10));
+
+                //text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
                 break;
             case BOTTOM:
-                text.area.top = text.area.bottom - ((int)(text.textSize * text.textToDraw.length)) - rectTextBounds.top;
+                //text.setY(-rectTextBounds.top + text.entity.getArea().height() - rectTextBounds.height());
+                text.setY(text.entity.getArea().height() - (int)text.textSize * (text.textToDraw.length-1));
+
                 break;
         }
     }
@@ -245,13 +251,14 @@ public class Text extends Entity {
         switch (alignment) {
             case LEFT:
                 text.defaultPaint.setTextAlign(Paint.Align.LEFT);
-                text.setX(text.entity.getArea().left - text.area.left);
-                //text.area.left = text.originalArea.left;
-                //text.area.right = text.originalArea.right;
+                //
+                text.setX(0);
                 break;
-            case CENTER_H:
+            case CENTER:
                 text.defaultPaint.setTextAlign(Paint.Align.CENTER);
                 text.setX(text.entity.getArea().right - text.originalArea.centerX());
+                //text.setX(0);
+
                 //text.area.left = text.originalArea.centerX();
                 //text.area.right = text.area.left + text.originalArea.width();
                 break;
@@ -272,7 +279,7 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-        //canvas.drawRect(this.originalArea, defaultPaint);
+        //canvas.drawRect(this.area, defaultPaint);
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i],
                     this.entity.getArea().left + (super.area.left),
