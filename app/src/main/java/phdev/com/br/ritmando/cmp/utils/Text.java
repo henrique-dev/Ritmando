@@ -231,10 +231,14 @@ public class Text extends Entity {
                 //text.area.top = text.area.top - rectTextBounds.top;
                 break;
             case CENTER:
-                GameLog.error(Text.class, rectTextBounds.top + " -> " + text.text);
+                GameLog.error(Text.class, rectTextBounds.height() + " -> " + text.text);
                 //text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + rectTextBounds.height())/2);
                 int heightText = rectTextBounds.height() * (text.textToDraw.length);
-                text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + (heightText))/2 - (heightText/10));
+                //int heightAdjust = heightText/10;
+                //int heightAdjust = (heightText/20) * text.textToDraw.length;
+                int heightAdjust = (heightText/(((int)Math.pow(text.textToDraw.length, 0.8))*10)) * text.textToDraw.length;
+                
+                text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + (heightText))/2 - (heightAdjust));
 
                 //text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
                 break;

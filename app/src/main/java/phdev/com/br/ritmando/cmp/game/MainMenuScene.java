@@ -91,9 +91,9 @@ public class MainMenuScene extends Scene {
             super.getArea().set(0, MainMenuScene.this.area.bottom - 400, MainMenuScene.this.area.right, MainMenuScene.this.area.bottom);
             super.setLayout(new ListLayout(ListLayout.HORIZONTAK_ALINGMENT, spaceW, spaceH));
 
-            this.startButton = new Button("H\nV");
+            this.startButton = new Button("P\nH\nG");
             this.startButton.setColor(Color.RED);
-            this.startButton.setTextSize(150);
+            this.startButton.setTextSize(85);
             this.startButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
