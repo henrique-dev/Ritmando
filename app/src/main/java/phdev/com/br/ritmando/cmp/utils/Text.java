@@ -39,7 +39,7 @@ public class Text extends Entity {
 
     private Rect originalArea;
 
-    private int horizontalAlignment = LEFT;
+    private int horizontalAlignment = CENTER;
     private int verticalAlignment = CENTER;
     private String text;
     private String textToDraw[];
@@ -63,8 +63,8 @@ public class Text extends Entity {
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
         this.text = text;
-        automaticTextSize(this);
         checkAndFormatText(this);
+        automaticTextSize(this);
         prepareTextToDraw(this);
     }
 
@@ -93,9 +93,9 @@ public class Text extends Entity {
     public void setArea(Rect area) {
         super.setArea(area);
         this.originalArea = new Rect(super.area);
+        checkAndFormatText(this);
         if (this.textSizeAdjusted)
             automaticTextSize(this);
-        checkAndFormatText(this);
         prepareTextToDraw(this);
     }
 
@@ -157,25 +157,6 @@ public class Text extends Entity {
             text.textToDraw = new String[]{text.text};
     }
 
-    public static String[] getStringArrayFromText(String text) {
-        String tmpText[];
-        if(checkEspecialChars(text) > 0){
-            tmpText = new String[checkEspecialChars(text) + 1];
-            int cont = 0;
-            for(int i=0; cont<text.length(); cont++){
-                if(tmpText[i] == null)
-                    tmpText[i] = "";
-                if(text.charAt(cont) == '\n')
-                    i++;
-                else
-                    tmpText[i] = tmpText[i] + text.charAt(cont);
-            }
-        }
-        else
-            tmpText = new String[]{text};
-        return tmpText;
-    }
-
     private static int checkEspecialChars(String text) {
         int counter = 0;
         for (int i=0; i<text.length(); i++) {
@@ -196,23 +177,43 @@ public class Text extends Entity {
         while (true) {
             Rect rectTextBounds = new Rect();
             tmpPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
-            if (text.area.height() > rectTextBounds.height() + text.spaceH * 2)
+            if (text.area.height() > rectTextBounds.height() * text.textToDraw.length + text.spaceH * 2)
                 textSize += 1;
             else
                 break;
             tmpPaint.setTextSize(textSize);
         }
 
+        String biggerLine = getBiggerLine(text.textToDraw);
+
         while (true) {
             Rect rectTextBounds = new Rect();
-            tmpPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
+            tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
+
             if (text.area.width() < rectTextBounds.width() + text.spaceW * 2)
                 textSize -= 1;
             else
                 break;
             tmpPaint.setTextSize(textSize);
         }
-        text.setTextSize(50);
+
+        text.setTextSize(textSize);
+    }
+
+    private static String getBiggerLine(String text[]) {
+        String biggerLine = "";
+        int biggerWidth = 0;
+        Paint tempPaint = new Paint();
+        tempPaint.setTextSize(20);
+        for (String aText : text) {
+            Rect rectTextBounds = new Rect();
+            tempPaint.getTextBounds(aText, 0, aText.length(), rectTextBounds);
+            if (rectTextBounds.width() > biggerWidth) {
+                biggerLine = aText;
+                biggerWidth = rectTextBounds.width();
+            }
+        }
+        return biggerLine;
     }
 
     private static void align(Text text) {
@@ -228,16 +229,36 @@ public class Text extends Entity {
         switch (alignment) {
             case TOP:
                 text.setY(rectTextBounds.height());
+                break;
+            case CENTER:
+                text.setY((text.entity.getArea().height() - (rectTextBounds.height() * text.textToDraw.length))/2 + rectTextBounds.height());
+                break;
+            case BOTTOM:
+                text.setY(text.entity.getArea().height() - (int)text.textSize * (text.textToDraw.length-1));
+                break;
+        }
+    }
+
+    /*
+    private static void verticalAlign(Text text) {
+        int alignment = text.verticalAlignment;
+        Rect rectTextBounds = new Rect();
+        String temp = "A";
+        //text.defaultPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
+        text.defaultPaint.getTextBounds(temp, 0, temp.length(), rectTextBounds);
+
+        switch (alignment) {
+            case TOP:
+                text.setY(rectTextBounds.height());
                 //text.area.top = text.area.top - rectTextBounds.top;
                 break;
             case CENTER:
-                GameLog.error(Text.class, rectTextBounds.height() + " -> " + text.text);
                 //text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + rectTextBounds.height())/2);
                 int heightText = rectTextBounds.height() * (text.textToDraw.length);
                 //int heightAdjust = heightText/10;
                 //int heightAdjust = (heightText/20) * text.textToDraw.length;
-                int heightAdjust = (heightText/(((int)Math.pow(text.textToDraw.length, 0.8))*10)) * text.textToDraw.length;
-                
+                int heightAdjust = (heightText/(((int)Math.pow(text.textToDraw.length, 1.5))*10)) * text.textToDraw.length;
+
                 text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + (heightText))/2 - (heightAdjust));
 
                 //text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
@@ -248,7 +269,7 @@ public class Text extends Entity {
 
                 break;
         }
-    }
+    }*/
 
     private static void horizontalAlign(Text text) {
         int alignment = text.horizontalAlignment;
@@ -283,7 +304,19 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-        //canvas.drawRect(this.area, defaultPaint);
+
+        Paint p = new Paint();
+        p.setColor(Color.BLUE);
+        p.setAlpha(100);
+        Rect r = new Rect();
+        defaultPaint.getTextBounds(text, 0, text.length(), r);
+        int x = entity.getArea().left;
+        int y = entity.getArea().top;
+        canvas.drawRect(x, y, x + r.width(), y + r.height(), p);
+        p.setColor(Color.BLACK);
+        p.setAlpha(100);
+        canvas.drawRect(x, entity.getArea().centerY() - 10, entity.getArea().right, entity.getArea().centerY() + 10, p);
+
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i],
                     this.entity.getArea().left + (super.area.left),

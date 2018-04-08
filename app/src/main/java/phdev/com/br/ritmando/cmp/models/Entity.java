@@ -95,7 +95,9 @@ public abstract class Entity implements Component {
 
     protected void setY(int y) {
         int height = this.area.height();
-        this.area.bottom = height + (this.area.top = y);
+        this.area.top = y;
+        this.area.bottom = y + height;
+        //this.area.bottom = height + (this.area.top = y);
     }
 
     protected int getY() {

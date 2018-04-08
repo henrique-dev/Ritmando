@@ -91,7 +91,7 @@ public class MainMenuScene extends Scene {
             super.getArea().set(0, MainMenuScene.this.area.bottom - 400, MainMenuScene.this.area.right, MainMenuScene.this.area.bottom);
             super.setLayout(new ListLayout(ListLayout.HORIZONTAK_ALINGMENT, spaceW, spaceH));
 
-            this.startButton = new Button("P\nH\nG");
+            this.startButton = new Button("Paulo\nHenrique\nGoncalves\nBacelar");
             this.startButton.setColor(Color.RED);
             this.startButton.setTextSize(85);
             this.startButton.addActionListener(new ActionListener() {
@@ -102,10 +102,10 @@ public class MainMenuScene extends Scene {
             });
             super.add(this.startButton);
 
-            this.optionButton = new Button("V");
+            this.optionButton = new Button("B\nG\nH\nP");
             this.optionButton.setColor(Color.GRAY);
             //this.optionButton.setTextSize(defaultTextSize);
-            this.optionButton.setTextSize(250);
+            this.optionButton.setTextSize(50);
             this.optionButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
@@ -114,7 +114,7 @@ public class MainMenuScene extends Scene {
             });
             super.add(this.optionButton);
 
-            this.exitButton = new Button("P\nA");
+            this.exitButton = new Button("Paulo Henrique\nGoncalves Bacelar");
             this.exitButton.setColor(Color.GREEN);
             //this.exitButton.setTextSize(defaultTextSize);
             this.exitButton.setClickEffect(new FadeEffect());
