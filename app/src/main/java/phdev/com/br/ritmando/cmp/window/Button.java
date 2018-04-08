@@ -149,7 +149,7 @@ public class Button extends WindowEntity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-        //canvas.clipRect(super.area);
+        canvas.clipRect(super.area);
         canvas.drawRect(super.area, super.defaultPaint);
         if (super.entityText != null) {
             super.entityText.draw(canvas);
@@ -158,7 +158,7 @@ public class Button extends WindowEntity {
         canvas.restoreToCount(savedState);
     }
 
-    private float px = 0, py = 0;
+    // private float px = 0, py = 0; // *ativar para arrastar o componente conforme o arraste do toque na tela.
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
@@ -172,17 +172,17 @@ public class Button extends WindowEntity {
         if (haveCollision(x, y, this)) {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    //this.clicked = true;
-                    //super.clickEffect.start();
+                    this.clicked = true;
+                    super.clickEffect.start();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    move(this, x - px , y - py);
+                    // move(this, x - px , y - py); // *ativar para arrastar o componente conforme o arraste do toque na tela.
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
             }
-            px = x;
-            py = y;
+            // px = x; // *ativar para arrastar o componente conforme o arraste do toque na tela.
+            // py = y; // *ativar para arrastar o componente conforme o arraste do toque na tela.
         }
         return true;
     }

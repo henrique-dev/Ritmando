@@ -84,22 +84,40 @@ public abstract class Entity implements Component {
         this.area = area;
     }
 
+    /**
+     * Redefine a area da entidade.
+     *
+     * @param x nova posição.
+     */
     protected void setX(int x) {
         int width = this.area.width();
         this.area.right = width + (this.area.left = x);
     }
 
+    /**
+     * Retorna a posição da entidade.
+     *
+     * @return posição.
+     */
     protected int getX() {
         return this.area.left;
     }
 
+    /**
+     * Redefine a area da entidade.
+     *
+     * @param y nova posição.
+     */
     protected void setY(int y) {
         int height = this.area.height();
-        this.area.top = y;
-        this.area.bottom = y + height;
-        //this.area.bottom = height + (this.area.top = y);
+        this.area.bottom = height + (this.area.top = y);
     }
 
+    /**
+     * Retorna a area da entidade.
+     *
+     * @return posição.
+     */
     protected int getY() {
         return this.area.top;
     }
@@ -171,6 +189,13 @@ public abstract class Entity implements Component {
         return (x > area.left && x < area.right && y > area.top && y < area.bottom);
     }
 
+    /**
+     * Desloca a entidade.
+     *
+     * @param entity entidade a ser deslocada.
+     * @param displaceX deslocamento no eixo x a ser somado.
+     * @param displaceY deslocamento no eixo y a ser somado.
+     */
     protected static void move(Entity entity, float displaceX, float displaceY) {
         entity.setX( entity.getX() + (int)displaceX);
         entity.setY( entity.getY() + (int)displaceY);

@@ -16,6 +16,7 @@ import phdev.com.br.ritmando.cmp.graphics.Sprite;
 import phdev.com.br.ritmando.cmp.graphics.Texture;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.utils.Text;
 import phdev.com.br.ritmando.cmp.window.Button;
 import phdev.com.br.ritmando.cmp.window.ListLayout;
 import phdev.com.br.ritmando.cmp.window.Window;

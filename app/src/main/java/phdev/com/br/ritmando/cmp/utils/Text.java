@@ -20,6 +20,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
 import phdev.com.br.ritmando.GameLog;
@@ -31,32 +32,79 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  */
 public class Text extends Entity {
 
+    /**
+     * Constantes para alinhamento do texto.
+     */
     public static final int TOP = 0;
     public static final int CENTER = 1;
     public static final int BOTTOM = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
 
+    /**
+     * Area original do componente. Usado para calculos de alinhamento.
+     */
     private Rect originalArea;
 
+    /**
+     * Alinhamento horizontal e vertical do texto.
+     */
     private int horizontalAlignment = CENTER;
     private int verticalAlignment = CENTER;
+
+    /**
+     * {@link String} do texto.
+     */
     private String text;
+
+    /**
+     * {@link String} usada caso o haja quebra de linhas no texto.
+     */
     private String textToDraw[];
+
+    /**
+     * Tamanho da fonte do texto.
+     */
     private float textSize;
+
+    /**
+     * Cor principal do texto.
+     */
     private int colorText = Color.BLACK;
 
+    /**
+     * Usado para aplicar efeito de borda nas letras do texto.
+     */
     private Paint strokePaint;
+
+    /**
+     * Estado ativo da borda.
+     */
     private boolean strokeOn;
 
+    /**
+     * Espaçamento horizontal e vertical entre o texto e a area do texto.
+     */
     private int spaceW = 10; // 10
     private int spaceH = 50; // 50
 
+    /**
+     * Estado de ajuste automatico do tamanho da fonte do texto.
+     */
     private boolean textSizeAdjusted = true;
 
+    /**
+     * Entidade consumidora do texto.
+     */
     private Entity entity;
 
-    public Text(Entity entity, String text) {
+    /**
+     * Cria um texto para ser exibido em uma entidade.
+     *
+     * @param entity entidade para consumir o texto.
+     * @param text texto para ser exibido.
+     */
+    public Text(@NonNull  Entity entity, @NonNull String text) {
         super(new Rect(entity.getArea()));
         this.entity = entity;
         this.originalArea = new Rect(super.area);
@@ -68,20 +116,11 @@ public class Text extends Entity {
         prepareTextToDraw(this);
     }
 
-    /*
-    public Text(Rect area, String text) {
-        super(area);
-        this.entity = new TesteEntity();
-        this.originalArea = super.area;
-        super.defaultPaint.setColor(colorText);
-        super.defaultPaint.setAntiAlias(true);
-        this.text = text;
-        automaticTextSize(this);
-        checkAndFormatText(this);
-        prepareTextToDraw(this);
-    }*/
-
-
+    /**
+     * Redefine o tamanho da fonte do texto.
+     *
+     * @param textSize tamanho da fonte.
+     */
     public void setTextSize(float textSize) {
         if (textSize <= 0)
             throw new Error("Tamanho da fonte inferior ou igual a 0.");
@@ -99,16 +138,32 @@ public class Text extends Entity {
         prepareTextToDraw(this);
     }
 
+    /**
+     * Retorna a {@link String} usada.
+     *
+     * @return @{@link String} usada.
+     */
     public String getText() {
         return this.text;
     }
 
+    /**
+     * Redefine a {@link String} para usar.
+     *
+     * @param text {@link String} para usar.
+     */
     public void setText(String text) {
         this.text = text;
         checkAndFormatText(this);
         prepareTextToDraw(this);
     }
 
+    /**
+     * Redefine a borda do texto.
+     *
+     * @param color cor da borda.
+     * @param strokeWidth largura da borda.
+     */
     public void setStroke(int color, float strokeWidth) {
         this.strokePaint = new Paint(super.defaultPaint);
 
@@ -120,27 +175,75 @@ public class Text extends Entity {
         this.strokeOn = true;
     }
 
+    /**
+     * Redefine o estado ativo da borda.
+     *
+     * @param strokeOn true para ativar o desenho da borda e false para desativar o desenho da borda.
+     */
+    public void setStrokeOn(boolean strokeOn) {
+        this.strokeOn = strokeOn;
+    }
+
+    /**
+     * Retorna o estado ativo da borda.
+     *
+     * @return estado ativo.
+     */
+    public boolean isStrokeOn() {
+        return this.strokeOn;
+    }
+
+    /**
+     * Retorna o estado de ajuste automatico do tamanho da fonte do texto.
+     *
+     * @return estado do ajuste.
+     */
     public boolean isTextSizeAdjusted() {
         return textSizeAdjusted;
     }
 
+    /**
+     * Redefine o estado de ajuste automatico do tamanho da fonte do texto.
+     *
+     * @param textSizeAdjusted true para ativar o ajuste automatico e false para desativar o ajuste automatico.
+     */
     public void setTextSizeAdjusted(boolean textSizeAdjusted) {
         this.textSizeAdjusted = textSizeAdjusted;
     }
 
+    /**
+     * Retorna a cor principal do texto.
+     *
+     * @return
+     */
     public int getColor() {
         return this.colorText;
     }
 
+    /**
+     * Redefine a cor principal do texto.
+     *
+     * @param color
+     */
     public void setColor(int color) {
         this.defaultPaint.setColor(color);
     }
 
+    /**
+     * Prepara o texto para desenhar.
+     *
+     * @param text texto a ser desenhado.
+     */
     private static void prepareTextToDraw(Text text) {
         text.defaultPaint.setTextSize(text.textSize);
         align(text);
     }
 
+    /**
+     * Checa e formata o texto para caso haja quebra de linhas.
+     *
+     * @param text texto a ser checado.
+     */
     private static void checkAndFormatText(Text text) {
         if (checkEspecialChars(text.text) > 0) {
             text.textToDraw = new String[checkEspecialChars(text.text) + 1];
@@ -157,6 +260,12 @@ public class Text extends Entity {
             text.textToDraw = new String[]{text.text};
     }
 
+    /**
+     * Checa por caracters especiais na {@link String} do texto. Atualmente somente quebra de linhas.
+     *
+     * @param text texto a ser checado.
+     * @return quantidade de quebras de linhas na {@link String}.
+     */
     private static int checkEspecialChars(String text) {
         int counter = 0;
         for (int i=0; i<text.length(); i++) {
@@ -166,6 +275,11 @@ public class Text extends Entity {
         return counter;
     }
 
+    /**
+     * Configura automaticamente o tamanho da fonte do texto.
+     *
+     * @param text texto para ser configurado.
+     */
     private static void automaticTextSize(Text text) {
         if (text.area.width() == 0 && text.area.height() == 0)
             return;
@@ -200,6 +314,12 @@ public class Text extends Entity {
         text.setTextSize(textSize);
     }
 
+    /**
+     * Retorna a linha da {@link String} com maior largura.
+     *
+     * @param text array de {@link String} contendo as linhas a serem examinadas.
+     * @return {@link String} com maior largura.
+     */
     private static String getBiggerLine(String text[]) {
         String biggerLine = "";
         int biggerWidth = 0;
@@ -216,16 +336,25 @@ public class Text extends Entity {
         return biggerLine;
     }
 
+    /**
+     * Alinha horizontalmente e verticalmente o texto.
+     *
+     * @param text
+     */
     private static void align(Text text) {
         verticalAlign(text);
         horizontalAlign(text);
     }
 
+    /**
+     * Alinha verticalmente o texto.
+     *
+     * @param text texto a ser alinhado.
+     */
     private static void verticalAlign(Text text) {
         int alignment = text.verticalAlignment;
         Rect rectTextBounds = new Rect();
         text.defaultPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
-
         switch (alignment) {
             case TOP:
                 text.setY(rectTextBounds.height());
@@ -239,59 +368,25 @@ public class Text extends Entity {
         }
     }
 
-    /*
-    private static void verticalAlign(Text text) {
-        int alignment = text.verticalAlignment;
-        Rect rectTextBounds = new Rect();
-        String temp = "A";
-        //text.defaultPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
-        text.defaultPaint.getTextBounds(temp, 0, temp.length(), rectTextBounds);
-
-        switch (alignment) {
-            case TOP:
-                text.setY(rectTextBounds.height());
-                //text.area.top = text.area.top - rectTextBounds.top;
-                break;
-            case CENTER:
-                //text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + rectTextBounds.height())/2);
-                int heightText = rectTextBounds.height() * (text.textToDraw.length);
-                //int heightAdjust = heightText/10;
-                //int heightAdjust = (heightText/20) * text.textToDraw.length;
-                int heightAdjust = (heightText/(((int)Math.pow(text.textToDraw.length, 1.5))*10)) * text.textToDraw.length;
-
-                text.setY(-(2*rectTextBounds.top - text.entity.getArea().height() + (heightText))/2 - (heightAdjust));
-
-                //text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
-                break;
-            case BOTTOM:
-                //text.setY(-rectTextBounds.top + text.entity.getArea().height() - rectTextBounds.height());
-                text.setY(text.entity.getArea().height() - (int)text.textSize * (text.textToDraw.length-1));
-
-                break;
-        }
-    }*/
-
+    /**
+     * Alinha horizontalmente o texto.
+     *
+     * @param text texto a ser alinhado.
+     */
     private static void horizontalAlign(Text text) {
         int alignment = text.horizontalAlignment;
         switch (alignment) {
             case LEFT:
                 text.defaultPaint.setTextAlign(Paint.Align.LEFT);
-                //
                 text.setX(0);
                 break;
             case CENTER:
                 text.defaultPaint.setTextAlign(Paint.Align.CENTER);
                 text.setX(text.entity.getArea().right - text.originalArea.centerX());
-                //text.setX(0);
-
-                //text.area.left = text.originalArea.centerX();
-                //text.area.right = text.area.left + text.originalArea.width();
                 break;
             case RIGHT:
                 text.defaultPaint.setTextAlign(Paint.Align.RIGHT);
                 text.setX(text.originalArea.right - text.entity.getArea().left);
-                //text.area.left = text.originalArea.right;
-                //text.area.right = text.area.left + text.originalArea.width();
                 break;
         }
     }
@@ -305,18 +400,6 @@ public class Text extends Entity {
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
 
-        Paint p = new Paint();
-        p.setColor(Color.BLUE);
-        p.setAlpha(100);
-        Rect r = new Rect();
-        defaultPaint.getTextBounds(text, 0, text.length(), r);
-        int x = entity.getArea().left;
-        int y = entity.getArea().top;
-        canvas.drawRect(x, y, x + r.width(), y + r.height(), p);
-        p.setColor(Color.BLACK);
-        p.setAlpha(100);
-        canvas.drawRect(x, entity.getArea().centerY() - 10, entity.getArea().right, entity.getArea().centerY() + 10, p);
-
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i],
                     this.entity.getArea().left + (super.area.left),
@@ -326,7 +409,6 @@ public class Text extends Entity {
                 canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), this.strokePaint);
             }
         }
-
         canvas.restoreToCount(savedState);
     }
 
