@@ -110,6 +110,6 @@ public abstract class Screen extends Entity implements Component {
         for (Scene sc : this.scenes)
             if (sc.isActive())
                 sc.onTouchEvent(motionEvent);
-        return false;
+        return true;
     }
 }

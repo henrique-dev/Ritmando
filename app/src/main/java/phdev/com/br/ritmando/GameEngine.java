@@ -104,7 +104,9 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
-        return this.screen != null && this.screen.onTouchEvent(motionEvent);
+        if (this.screen != null)
+            this.screen.onTouchEvent(motionEvent);
+        return true;
     }
 
     private void initComponents() {

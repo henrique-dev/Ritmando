@@ -22,6 +22,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.cmp.game.TesteEntity;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -40,7 +41,7 @@ public class Text extends Entity {
     private Rect originalArea;
 
     private int horizontalAlignment = CENTER_H;
-    private int verticalAlignment = CENTER_V;
+    private int verticalAlignment = TOP;
     private String text;
     private String textToDraw[];
     private float textSize;
@@ -54,8 +55,11 @@ public class Text extends Entity {
 
     private boolean textSizeAdjusted = true;
 
-    public Text(int x, int y, int width, int height, String text) {
-        super(new Rect(x, y, x + width, y + height));
+    private Entity entity;
+
+    public Text(Entity entity, String text) {
+        super(new Rect(entity.getArea()));
+        this.entity = entity;
         this.originalArea = super.area;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
@@ -65,8 +69,10 @@ public class Text extends Entity {
         prepareTextToDraw(this);
     }
 
+    /*
     public Text(Rect area, String text) {
         super(area);
+        this.entity = new TesteEntity();
         this.originalArea = super.area;
         super.defaultPaint.setColor(colorText);
         super.defaultPaint.setAntiAlias(true);
@@ -74,7 +80,8 @@ public class Text extends Entity {
         automaticTextSize(this);
         checkAndFormatText(this);
         prepareTextToDraw(this);
-    }
+    }*/
+
 
     public void setTextSize(float textSize) {
         if (textSize <= 0)
@@ -221,7 +228,8 @@ public class Text extends Entity {
 
         switch (alignment) {
             case TOP:
-                text.area.top = text.area.top - rectTextBounds.top;
+                text.setY(-rectTextBounds.top);
+                //text.area.top = text.area.top - rectTextBounds.top;
                 break;
             case CENTER_V:
                 text.area.top = text.area.centerY() - ((int)(text.textSize * text.textToDraw.length)/2) - rectTextBounds.top;
@@ -237,18 +245,21 @@ public class Text extends Entity {
         switch (alignment) {
             case LEFT:
                 text.defaultPaint.setTextAlign(Paint.Align.LEFT);
-                text.area.left = text.originalArea.left;
-                text.area.right = text.originalArea.right;
+                text.setX(text.entity.getArea().left - text.area.left);
+                //text.area.left = text.originalArea.left;
+                //text.area.right = text.originalArea.right;
                 break;
             case CENTER_H:
                 text.defaultPaint.setTextAlign(Paint.Align.CENTER);
-                text.area.left = text.originalArea.centerX();
-                text.area.right = text.area.left + text.originalArea.width();
+                text.setX(text.entity.getArea().right - text.originalArea.centerX());
+                //text.area.left = text.originalArea.centerX();
+                //text.area.right = text.area.left + text.originalArea.width();
                 break;
             case RIGHT:
                 text.defaultPaint.setTextAlign(Paint.Align.RIGHT);
-                text.area.left = text.originalArea.right;
-                text.area.right = text.area.left + text.originalArea.width();
+                text.setX(text.originalArea.right - text.entity.getArea().left);
+                //text.area.left = text.originalArea.right;
+                //text.area.right = text.area.left + text.originalArea.width();
                 break;
         }
     }
@@ -261,9 +272,12 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-        canvas.drawRect(this.originalArea, defaultPaint);
+        //canvas.drawRect(this.originalArea, defaultPaint);
         for (int i=0; i<textToDraw.length; i++) {
-            canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), super.defaultPaint);
+            canvas.drawText(this.textToDraw[i],
+                    this.entity.getArea().left + (super.area.left),
+                    this.entity.getArea().top + (super.area.top + (i * (super.defaultPaint.getTextSize()))),
+                    super.defaultPaint);
             if (strokeOn) {
                 canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), this.strokePaint);
             }

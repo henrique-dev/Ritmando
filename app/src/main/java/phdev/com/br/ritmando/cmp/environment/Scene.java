@@ -101,7 +101,7 @@ public abstract class Scene extends Entity implements Component {
         for (Entity ent : this.windowEntities)
             if (ent.isActive())
                 ent.onTouchEvent(motionEvent);
-        return false;
+        return true;
     }
 
 

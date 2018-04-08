@@ -50,7 +50,7 @@ public class Button extends WindowEntity {
 
     public Button(Rect area, String buttonText) {
         super(area);
-        super.entityText = new Text(area, buttonText);
+        super.entityText = new Text(this, buttonText);
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
@@ -62,7 +62,7 @@ public class Button extends WindowEntity {
 
     public Button(String textButton) {
         super(new Rect());
-        super.entityText = new Text(new Rect(), textButton);
+        super.entityText = new Text(this, textButton);
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
@@ -149,7 +149,7 @@ public class Button extends WindowEntity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-
+        canvas.clipRect(super.area);
         canvas.drawRect(super.area, super.defaultPaint);
         if (super.entityText != null) {
             super.entityText.draw(canvas);
@@ -157,6 +157,8 @@ public class Button extends WindowEntity {
 
         canvas.restoreToCount(savedState);
     }
+
+    private float px = 0, py = 0;
 
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
@@ -170,11 +172,18 @@ public class Button extends WindowEntity {
         if (haveCollision(x, y, this)) {
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    this.clicked = true;
-                    super.clickEffect.start();
+                    //this.clicked = true;
+                    //super.clickEffect.start();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    move(this, x - px , y - py);
+                    break;
+                case MotionEvent.ACTION_UP:
                     break;
             }
+            px = x;
+            py = y;
         }
-        return false;
+        return true;
     }
 }

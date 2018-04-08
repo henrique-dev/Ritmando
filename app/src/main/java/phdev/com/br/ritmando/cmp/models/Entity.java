@@ -84,6 +84,24 @@ public abstract class Entity implements Component {
         this.area = area;
     }
 
+    protected void setX(int x) {
+        int width = this.area.width();
+        this.area.right = width + (this.area.left = x);
+    }
+
+    protected int getX() {
+        return this.area.left;
+    }
+
+    protected void setY(int y) {
+        int height = this.area.height();
+        this.area.bottom = height + (this.area.top = y);
+    }
+
+    protected int getY() {
+        return this.area.top;
+    }
+
     /**
      * Retorna o {@link Paint} geral relacionado a entidade.
      *
@@ -149,5 +167,10 @@ public abstract class Entity implements Component {
     protected static boolean haveCollision(float x, float y, Entity entity) {
         Rect area = entity.getArea();
         return (x > area.left && x < area.right && y > area.top && y < area.bottom);
+    }
+
+    protected static void move(Entity entity, float displaceX, float displaceY) {
+        entity.setX( entity.getX() + (int)displaceX);
+        entity.setY( entity.getY() + (int)displaceY);
     }
 }
