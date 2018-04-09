@@ -22,39 +22,72 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
 import phdev.com.br.ritmando.cmp.models.Entity;
 
+/**
+ * Classe para abstração e controle dos textos desenhados no canvas.
+ * @version 1.0
+ */
 public class Text extends Entity {
 
     public static final int AUTOMATIC_TEXT_SIZE = -1;
 
+    /**
+     * Constantes para alinhamento do texto.
+     */
     public static final int TOP = 0;
     public static final int CENTER = 1;
     public static final int BOTTOM = 2;
     public static final int LEFT = 3;
     public static final int RIGHT = 4;
 
+    /**
+     * Alinhamento horizontal e vertical do texto.
+     */
     private int horizontalAlignment = CENTER;
     private int verticalAlignment = CENTER;
 
+    /**
+     * {@link String} contendo os caracters do texto.
+     */
     private String textToDraw[];
 
+    /**
+     * Usado para aplicar efeito de borda nas letras do texto.
+     */
     private Paint strokePaint;
 
+    /**
+     * Estado ativo da borda.
+     */
     private boolean strokeOn;
 
+    /**
+     * Tamanho da fonte do texto.
+     */
     private float textSize = AUTOMATIC_TEXT_SIZE;
 
+    /**
+     * Espaçamento horizontal e vertical entre o texto e a area do texto.
+     */
     private int spaceW = 10; // 10
     private int spaceH = 50; // 50
 
-    private boolean textSizeAdjusted = true;
-
+    /**
+     * Entidade consumidora do texto.
+     */
     private Entity entity;
 
-    public Text(Entity entity, String text) {
+    /**
+     * Cria um texto para ser exibido em uma entidade.
+     *
+     * @param entity entidade para consumir o texto.
+     * @param text texto para ser exibido.
+     */
+    public Text(@NonNull Entity entity,@NonNull String text) {
         super();
         this.entity = entity;
         super.defaultPaint.setColor(Color.BLACK);
@@ -66,14 +99,11 @@ public class Text extends Entity {
         align(this);
     }
 
-    @Override
-    public void setArea(Rect area) {
-        this.spaceH = entity.getArea().height() / 20;
-        this.spaceW = entity.getArea().width() / 10;
-        defineTextSize(this, this.textSize);
-        align(this);
-    }
-
+    /**
+     * Redefine o tamanho da fonte do texto.
+     *
+     * @param size tamanho da fonte.
+     */
     public void setTextSize(float size) {
         this.textSize = size;
         this.spaceH = entity.getArea().height() / 20;
@@ -82,6 +112,20 @@ public class Text extends Entity {
         align(this);
     }
 
+    @Override
+    public void setArea(@NonNull Rect area) {
+        this.spaceH = entity.getArea().height() / 20;
+        this.spaceW = entity.getArea().width() / 10;
+        defineTextSize(this, this.textSize);
+        align(this);
+    }
+
+    /**
+     * Redefine a borda do texto.
+     *
+     * @param color cor da borda.
+     * @param strokeWidth largura da borda.
+     */
     public void setStroke(int color, float strokeWidth) {
         this.strokePaint = new Paint(super.defaultPaint);
 
@@ -93,6 +137,12 @@ public class Text extends Entity {
         this.strokeOn = true;
     }
 
+    /**
+     * Checa e formata o texto para caso haja quebra de linhas. Separa as quebras em um array.
+     *
+     * @param text texto a ser checado
+     * @return array contendo as quebras de linhas encotradas.
+     */
     private static String[] checkAndFormatText(String text) {
         String textToDraw[];
         if (checkEspecialChars(text) > 0) {
@@ -112,6 +162,12 @@ public class Text extends Entity {
         return textToDraw;
     }
 
+    /**
+     * Checa por caracters especiais na {@link String} do texto. Atualmente somente quebra de linhas.
+     *
+     * @param text texto a ser checado.
+     * @return quantidade de quebras de linhas na {@link String}.
+     */
     private static int checkEspecialChars(String text) {
         int counter = 0;
         for (int i=0; i<text.length(); i++) {
@@ -121,19 +177,21 @@ public class Text extends Entity {
         return counter;
     }
 
+    /**
+     * Configura o tamanho da fonte do texto.
+     *
+     * @param text texto a ser configurado.
+     * @param textSize tamanho da fonte para o texto.
+     */
     private static void defineTextSize(Text text, float textSize) {
         if (text.entity.getArea().width() == 0 && text.entity.getArea().height() == 0)
             return;
-
         if (textSize < 0) {
             Paint tmpPaint = new Paint(text.defaultPaint);
             float tempTextSize = 1;
             tmpPaint.setTextSize(tempTextSize);
-
             String biggerLine = getBiggerLine(text.textToDraw);
-
             Rect rectTextBounds;
-
             while (true) {
                 rectTextBounds = new Rect();
                 tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
@@ -143,9 +201,7 @@ public class Text extends Entity {
                     break;
                 tmpPaint.setTextSize(tempTextSize);
             }
-
             biggerLine = getBiggerLine(text.textToDraw);
-
             while (true) {
                 rectTextBounds = new Rect();
                 tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
@@ -156,7 +212,6 @@ public class Text extends Entity {
                     break;
                 tmpPaint.setTextSize(tempTextSize);
             }
-
             text.area = new Rect(rectTextBounds);
             text.defaultPaint.setTextSize(tempTextSize);
 
@@ -167,9 +222,14 @@ public class Text extends Entity {
             text.defaultPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
             text.area = new Rect(rectTextBounds);
         }
-
     }
 
+    /**
+     * Retorna a linha da {@link String} com maior largura.
+     *
+     * @param text array de {@link String} contendo as linhas a serem examinadas.
+     * @return {@link String} com maior largura.
+     */
     private static String getBiggerLine(String text[]) {
         String biggerLine = "";
         int biggerWidth = 0;
@@ -186,11 +246,21 @@ public class Text extends Entity {
         return biggerLine;
     }
 
+    /**
+     * Alinha horizontalmente e verticalmente o texto.
+     *
+     * @param text texto a ser alinhado.
+     */
     private static void align(Text text) {
         verticalAlign(text);
         horizontalAlign(text);
     }
 
+    /**
+     * Alinha verticalmente o texto.
+     *
+     * @param text texto a ser alinhado.
+     */
     private static void verticalAlign(Text text) {
         int alignment = text.verticalAlignment;
         Rect rectTextBounds = new Rect();
@@ -210,6 +280,11 @@ public class Text extends Entity {
         }
     }
 
+    /**
+     * Alinha horizontalmente o texto.
+     *
+     * @param text texto a ser alinhado.
+     */
     private static void horizontalAlign(Text text) {
         int alignment = text.horizontalAlignment;
         switch (alignment) {
@@ -241,8 +316,6 @@ public class Text extends Entity {
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
-
-
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i],
                     this.entity.getArea().left + (super.area.left),
@@ -253,7 +326,6 @@ public class Text extends Entity {
                 canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), this.strokePaint);
             }
         }
-
         canvas.restoreToCount(savedState);
     }
 }
