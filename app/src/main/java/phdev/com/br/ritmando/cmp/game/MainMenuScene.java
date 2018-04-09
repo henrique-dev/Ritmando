@@ -94,7 +94,7 @@ public class MainMenuScene extends Scene {
 
             this.startButton = new Button("Paulo\nHenrique\nGoncalves\nBacelar");
             this.startButton.setColor(Color.RED);
-            this.startButton.setTextSize(85);
+            //this.startButton.setTextSize(85);
             this.startButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
@@ -103,19 +103,22 @@ public class MainMenuScene extends Scene {
             });
             super.add(this.startButton);
 
-            this.optionButton = new Button("B\nG\nH\nP");
+            //this.optionButton = new Button("Paulo\nHenrique\nGoncalves\nBacelar");
+            this.optionButton = new Button("O rato roeu\na roupa\ndo rei\nde Roma.\nTres patros\nde trigo para\ntres tigres\ntristes.");
             this.optionButton.setColor(Color.GRAY);
             //this.optionButton.setTextSize(defaultTextSize);
-            this.optionButton.setTextSize(50);
+            //this.optionButton.setTextSize(50);
             this.optionButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
                     sprites[0].invertV();
+                    GameLog.error(this, optionButton.getArea().height() + "");
                 }
             });
             super.add(this.optionButton);
 
-            this.exitButton = new Button("Paulo Henrique\nGoncalves Bacelar");
+            //this.exitButton = new Button("Paulo Henrique");
+            this.exitButton = new Button("P\nH\nG\nB");
             this.exitButton.setColor(Color.GREEN);
             //this.exitButton.setTextSize(defaultTextSize);
             this.exitButton.setClickEffect(new FadeEffect());

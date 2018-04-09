@@ -99,6 +99,11 @@ public class Text extends Entity {
     private Entity entity;
 
     /**
+     * Area ocupada pela fonte.
+     */
+    private Rect areaFont;
+
+    /**
      * Cria um texto para ser exibido em uma entidade.
      *
      * @param entity entidade para consumir o texto.
@@ -288,9 +293,13 @@ public class Text extends Entity {
         float textSize = 1;
         tmpPaint.setTextSize(textSize);
 
+        String biggerLine = text.text;
+
+        Rect rectTextBounds;
+
         while (true) {
-            Rect rectTextBounds = new Rect();
-            tmpPaint.getTextBounds(text.text, 0, text.text.length(), rectTextBounds);
+            rectTextBounds = new Rect();
+            tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
             if (text.area.height() > rectTextBounds.height() * text.textToDraw.length + text.spaceH * 2)
                 textSize += 1;
             else
@@ -298,10 +307,10 @@ public class Text extends Entity {
             tmpPaint.setTextSize(textSize);
         }
 
-        String biggerLine = getBiggerLine(text.textToDraw);
+        biggerLine = getBiggerLine(text.textToDraw);
 
         while (true) {
-            Rect rectTextBounds = new Rect();
+            rectTextBounds = new Rect();
             tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
 
             if (text.area.width() < rectTextBounds.width() + text.spaceW * 2)
@@ -311,6 +320,7 @@ public class Text extends Entity {
             tmpPaint.setTextSize(textSize);
         }
 
+        text.areaFont = new Rect(rectTextBounds);
         text.setTextSize(textSize);
     }
 
@@ -403,7 +413,8 @@ public class Text extends Entity {
         for (int i=0; i<textToDraw.length; i++) {
             canvas.drawText(this.textToDraw[i],
                     this.entity.getArea().left + (super.area.left),
-                    this.entity.getArea().top + (super.area.top + (i * (super.defaultPaint.getTextSize()))),
+                    //this.entity.getArea().top + (super.area.top + (i * (super.defaultPaint.getTextSize()))),
+                    this.entity.getArea().top + (super.area.top + (i * (areaFont.height()))),
                     super.defaultPaint);
             if (strokeOn) {
                 canvas.drawText(this.textToDraw[i], super.area.left, super.area.top + (i * (super.defaultPaint.getTextSize())), this.strokePaint);
