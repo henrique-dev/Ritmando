@@ -16,7 +16,6 @@ import phdev.com.br.ritmando.cmp.graphics.Sprite;
 import phdev.com.br.ritmando.cmp.graphics.Texture;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
-import phdev.com.br.ritmando.cmp.utils.Text;
 import phdev.com.br.ritmando.cmp.window.Button;
 import phdev.com.br.ritmando.cmp.window.ListLayout;
 import phdev.com.br.ritmando.cmp.window.Window;
@@ -94,7 +93,7 @@ public class MainMenuScene extends Scene {
 
             this.startButton = new Button("Paulo\nHenrique\nGoncalves\nBacelar");
             this.startButton.setColor(Color.RED);
-            //this.startButton.setTextSize(85);
+            this.startButton.setTextSize(85);
             this.startButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
@@ -107,7 +106,7 @@ public class MainMenuScene extends Scene {
             this.optionButton = new Button("O rato roeu\na roupa\ndo rei\nde Roma.\nTres patros\nde trigo para\ntres tigres\ntristes.");
             this.optionButton.setColor(Color.GRAY);
             //this.optionButton.setTextSize(defaultTextSize);
-            //this.optionButton.setTextSize(50);
+            //this.optionButton.setTextSize(150);
             this.optionButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
