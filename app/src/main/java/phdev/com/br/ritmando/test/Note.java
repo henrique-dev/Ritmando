@@ -1,12 +1,3 @@
-package phdev.com.br.ritmando.cmp.game;
-
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import phdev.com.br.ritmando.cmp.models.Component;
-import phdev.com.br.ritmando.cmp.models.Entity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -22,7 +13,17 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
+package phdev.com.br.ritmando.test;
+
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import phdev.com.br.ritmando.cmp.models.Component;
+import phdev.com.br.ritmando.cmp.models.Entity;
 
 public class Note extends Entity implements Component {
 

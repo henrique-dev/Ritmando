@@ -1,19 +1,3 @@
-package phdev.com.br.ritmando.cmp.window;
-
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import phdev.com.br.ritmando.cmp.effect.ClickEffect;
-import phdev.com.br.ritmando.cmp.effect.Effect;
-import phdev.com.br.ritmando.cmp.effect.FadeEffect;
-import phdev.com.br.ritmando.cmp.effect.FlashEffect;
-import phdev.com.br.ritmando.cmp.listeners.ActionListener;
-import phdev.com.br.ritmando.cmp.listeners.ClickListener;
-import phdev.com.br.ritmando.cmp.listeners.events.Event;
-import phdev.com.br.ritmando.cmp.utils.Text;
-import phdev.com.br.ritmando.cmp.models.WindowEntity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -30,35 +14,91 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.window;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import phdev.com.br.ritmando.cmp.effect.ClickEffect;
+import phdev.com.br.ritmando.cmp.effect.Effect;
+import phdev.com.br.ritmando.cmp.effect.FadeEffect;
+import phdev.com.br.ritmando.cmp.effect.FlashEffect;
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.listeners.ClickListener;
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.utils.Text;
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
+
+/**
+ * Classe para criação de botões para janelas.
+ * @version 1.0
+ */
 public class Button extends WindowEntity {
 
+    /**
+     * Efeito de quando clicado padrão do botão.
+     */
     private int DEFAULT_CLICK_EFFECT = Effect.FLASHING;
 
+    /**
+     * Estado ativo do clicado do botão.
+     */
     private boolean clicked = false;
 
+    /**
+     * Cria um botão em uma area.
+     *
+     * @param x posição no eixo x do botão.
+     * @param y posição no eixo y do botão.
+     * @param width largura do botão.
+     * @param height altura do botão.
+     */
     public Button(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
+    /**
+     * Cria um botão em uma area.
+     *
+     * @param area area para o botão.
+     */
     public Button(Rect area) {
         super(area);
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
+    /**
+     * Cria um botão contendo texto em uma area.
+     *
+     * @param area area para o botão.
+     * @param buttonText texto a ser exibido no botão.
+     */
     public Button(Rect area, String buttonText) {
         super(area);
         super.entityText = new Text(this, buttonText);
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
+    /**
+     * Cria um botão contendo um texto em uma area.
+     *
+     * @param area area para o botão.
+     * @param buttonText {@link Text} para o botão.
+     */
     public Button(Rect area, Text buttonText) {
         super(area);
         super.entityText = buttonText;
         this.changeClickEffect(DEFAULT_CLICK_EFFECT);
     }
 
+    /**
+     * Cria um botão contendo um texto.
+     * Usado para colocar a entidade em um layout, e deixar ela definir a area para o botão.
+     *
+     * @param textButton texto a ser exibido no botão.
+     */
     public Button(String textButton) {
         super(new Rect());
         super.entityText = new Text(this, textButton);
@@ -73,13 +113,22 @@ public class Button extends WindowEntity {
         }
     }
 
+    /**
+     * Redefine o texto a ser exibido no botão.
+     *
+     * @param text texto a ser exibido.
+     */
     public void setText(String text) {
-        //super.entityText.setText(text);
+        super.entityText.setText(text);
     }
 
+    /**
+     * Retorna a {@link String} do texto do botão.
+     *
+     * @return
+     */
     public String getText() {
-        //return super.entityText.getText();
-        return null;
+        return super.entityText.toString();
     }
 
     public void setTextSize(float size) {
@@ -143,7 +192,8 @@ public class Button extends WindowEntity {
 
     @Override
     public void update() {
-        super.clickEffect.update();
+        if (clickEffect != null)
+            super.clickEffect.update();
     }
 
     @Override

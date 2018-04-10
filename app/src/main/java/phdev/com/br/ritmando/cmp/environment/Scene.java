@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
+import phdev.com.br.ritmando.SoundManager;
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
 import phdev.com.br.ritmando.cmp.models.GameEntity;
@@ -33,6 +34,11 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
  * @version 1.0
  */
 public abstract class Scene extends Entity implements Component {
+
+    /**
+     * Gerenciador de audio do jogo.
+     */
+    private SoundManager soundManager;
 
     /**
      * Lista de objetos out-game.
@@ -74,6 +80,24 @@ public abstract class Scene extends Entity implements Component {
      */
     public void add(GameEntity gameEntity) {
         this.gameEntities.add(gameEntity);
+    }
+
+    /**
+     * Define o gerenciador de audio.
+     *
+     * @param soundManager gerenciador de audio.
+     */
+    public void setSoundManager(SoundManager soundManager) {
+        this.soundManager = soundManager;
+    }
+
+    /**
+     * Retorna o gerenciador de audio.
+     *
+     * @return gerenciador de audio.
+     */
+    public SoundManager getSoundManager() {
+        return this.soundManager;
     }
 
     @Override

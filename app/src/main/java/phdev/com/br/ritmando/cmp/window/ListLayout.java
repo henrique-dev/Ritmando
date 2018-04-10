@@ -20,6 +20,7 @@ import android.graphics.Rect;
 
 import java.util.ArrayList;
 
+import phdev.com.br.ritmando.GameParameters;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 public class ListLayout implements Layout{
@@ -28,22 +29,17 @@ public class ListLayout implements Layout{
     public static final int VERTICAL_ALINGMENT = 1;
 
     private int alignment;
-    private int spaceH;
-    private int spaceW;
+    private int spaceH = GameParameters.getInstance().screenSize.height() / 50;
+    private int spaceW = spaceH;
 
     private Entity entity;
-    //private ArrayList<Component> components;
 
     public ListLayout() {
         this.alignment = VERTICAL_ALINGMENT;
-        this.spaceW = 0;
-        this.spaceH = 0;
     }
 
     public ListLayout(int alignment) {
         this.alignment = alignment;
-        this.spaceW = 0;
-        this.spaceH = 0;
     }
 
     public ListLayout(int alignment, int spaceW, int spaceH) {

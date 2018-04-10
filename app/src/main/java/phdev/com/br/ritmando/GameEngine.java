@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import phdev.com.br.ritmando.cmp.game.GameScreen;
+import phdev.com.br.ritmando.test.GameScreen;
 import phdev.com.br.ritmando.cmp.environment.Screen;
 
 /*
@@ -32,6 +32,8 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
     private MainThread mainThread;
 
     private Screen screen;
+
+    private SoundManager soundManager;
 
     public GameEngine(Context context) {
         super(context);
@@ -110,16 +112,20 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void initComponents() {
-        screen = new GameScreen(0,0, GameParameters.getInstance().screenSize.right, GameParameters.getInstance().screenSize.bottom);
+        this.soundManager = new SoundManager(getContext());
+        this.screen = new GameScreen(0,0, GameParameters.getInstance().screenSize.right, GameParameters.getInstance().screenSize.bottom);
+        this.screen.setSoundManager(this.soundManager);
+        this.screen.init();
     }
 
     private void finalizeComponents() {
-        screen = null;
+        this.screen = null;
+        this.soundManager.release();
     }
 
     private class MainThread extends Thread {
 
-        private int FPS = 30;
+        private int FPS = 60;
         private int averageFPS;
 
         private boolean running;
@@ -157,14 +163,14 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
                         this.gameEngine.draw(this.canvas);
                     }
                 } catch (Exception e) {
-                    //Log.e(this.getClass().getName(), e.getMessage());
+                    //Log.e(this.getClass().getAliasId(), e.getMessage());
                     GameLog.error(this, e.getMessage());
                 } finally {
                     if (canvas != null) {
                         try {
                             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
                         } catch (Exception e) {
-                            //Log.e(this.getClass().getName(), "Unlock-Canvas. " + e.getMessage());
+                            //Log.e(this.getClass().getAliasId(), "Unlock-Canvas. " + e.getMessage());
                             GameLog.error(this, e.getMessage());
                         }
                     }
@@ -175,7 +181,7 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
                 try {
                     sleep(waitTime);
                 } catch (Exception ie) {
-                    //GameLog.e(this.getClass().getName(), ie.getMessage());
+                    //GameLog.e(this.getClass().getAliasId(), ie.getMessage());
                     //ie.printStackTrace();
                 }
                 totalTime += System.nanoTime() - startTime;

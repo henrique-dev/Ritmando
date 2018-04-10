@@ -1,25 +1,3 @@
-package phdev.com.br.ritmando.cmp.game;
-
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import java.io.IOException;
-
-import phdev.com.br.ritmando.GameLog;
-import phdev.com.br.ritmando.GameParameters;
-import phdev.com.br.ritmando.cmp.effect.FadeEffect;
-import phdev.com.br.ritmando.cmp.effect.FlashEffect;
-import phdev.com.br.ritmando.cmp.environment.Scene;
-import phdev.com.br.ritmando.cmp.graphics.Sprite;
-import phdev.com.br.ritmando.cmp.graphics.Texture;
-import phdev.com.br.ritmando.cmp.listeners.ActionListener;
-import phdev.com.br.ritmando.cmp.listeners.events.Event;
-import phdev.com.br.ritmando.cmp.window.Button;
-import phdev.com.br.ritmando.cmp.window.ListLayout;
-import phdev.com.br.ritmando.cmp.window.Window;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -35,13 +13,40 @@ import phdev.com.br.ritmando.cmp.window.Window;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
+package phdev.com.br.ritmando.test;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import java.io.IOException;
+
+import phdev.com.br.ritmando.GameLog;
+import phdev.com.br.ritmando.GameParameters;
+import phdev.com.br.ritmando.R;
+import phdev.com.br.ritmando.cmp.effect.FadeEffect;
+import phdev.com.br.ritmando.cmp.environment.Scene;
+import phdev.com.br.ritmando.cmp.graphics.Sprite;
+import phdev.com.br.ritmando.cmp.graphics.Texture;
+import phdev.com.br.ritmando.cmp.listeners.ActionListener;
+import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.window.Button;
+import phdev.com.br.ritmando.cmp.window.ListLayout;
+import phdev.com.br.ritmando.cmp.window.Window;
 
 public class MainMenuScene extends Scene {
 
     private MainWindow mainWindow;
 
     private Texture texture;
+
+    private Texture bg;
+
+    private final int BORDERLANDS_MUSIC = R.raw.music;
 
     //private Rect rects[];
 
@@ -62,15 +67,14 @@ public class MainMenuScene extends Scene {
         heroi.setArea(new Rect(0,0,0,0));
         try {
             this.texture = new Texture("sprites01.png");
-            //this.texture = new Texture("sprites01.png", 100, 100);
-            //this.texture.scaleMe(GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
-        } catch (IOException ioe) {
+            this.bg = new Texture("image.png");
+            //this.bg.scaleMe(width, height);
+        } catch (Exception ioe) {
             GameLog.error(this, ioe.getMessage());
         }
 
-        //this.sprites = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
-        this.sprites = Sprite.getSpriteFromTexture(heroi, this.texture, 9, 7, 62);
-        //rects = Sprite.getSpriteFromTexture(this.texture, 9, 7, 62);
+
+        //this.sprites = Sprite.getSpriteFromTexture(heroi, this.texture, 9, 7, 62);
 
     }
 
@@ -89,17 +93,20 @@ public class MainMenuScene extends Scene {
             float defaultTextSize = divHeight * 0.9f;
 
             super.getArea().set(0, MainMenuScene.this.area.bottom - 400, MainMenuScene.this.area.right, MainMenuScene.this.area.bottom);
-            super.setLayout(new ListLayout(ListLayout.HORIZONTAK_ALINGMENT, spaceW, spaceH));
+            //super.setLayout(new ListLayout(ListLayout.HORIZONTAK_ALINGMENT, spaceW, spaceH));
+            super.setLayout(new ListLayout(ListLayout.VERTICAL_ALINGMENT));
 
             this.startButton = new Button("Cancelar");
             this.startButton.setColor(Color.RED);
             //this.startButton.setTextSize(85);
+
             this.startButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    sprites[0].invertH();
+                    GameLog.error(this, startButton.getText());
                 }
             });
+
             super.add(this.startButton);
 
             //this.optionButton = new Button("Paulo\nHenrique\nGoncalves\nBacelar");
@@ -107,35 +114,59 @@ public class MainMenuScene extends Scene {
             this.optionButton.setColor(Color.GRAY);
             //this.optionButton.setTextSize(defaultTextSize);
             //this.optionButton.setTextSize(150);
+
             this.optionButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    sprites[0].invertV();
+                    //sprites[0].invertV();
+                    optionButton.setText("Nani");
+                    getSoundManager().playSound(R.raw.p1);
                 }
             });
+
             super.add(this.optionButton);
 
             //this.exitButton = new Button("Paulo Henrique");
             this.exitButton = new Button("OK");
             this.exitButton.setColor(Color.GREEN);
             //this.exitButton.setTextSize(defaultTextSize);
+
             this.exitButton.setClickEffect(new FadeEffect());
             this.exitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(Event evt) {
-                    sprites[0].rotate(2);
+                    //sprites[0].rotate(2);
+                    getSoundManager().playMusic(BORDERLANDS_MUSIC);
                 }
             });
+
             super.add(this.exitButton);
+
+        }
+    }
+
+    int x = 0;
+    int y = 0;
+    int speed = 10;
+
+    @Override
+    public void update() {
+        super.update();
+        x += speed;
+        if (x > GameParameters.getInstance().screenSize.width()) {
+            x = 0;
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
         int savedState = canvas.save();
+        canvas.drawBitmap(this.bg.getBitmap(), x - GameParameters.getInstance().screenSize.width(), 0, defaultPaint);
+        canvas.drawBitmap(this.bg.getBitmap(), x, 0, defaultPaint);
+
         super.draw(canvas);
 
-        this.sprites[spriteAtual].draw(canvas);
+        //this.sprites[spriteAtual].draw(canvas);
 
         canvas.restoreToCount(savedState);
     }

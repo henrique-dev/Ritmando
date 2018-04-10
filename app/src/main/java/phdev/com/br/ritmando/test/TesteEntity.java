@@ -16,7 +16,7 @@
  *
  */
 
-package phdev.com.br.ritmando.cmp.game;
+package phdev.com.br.ritmando.test;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;

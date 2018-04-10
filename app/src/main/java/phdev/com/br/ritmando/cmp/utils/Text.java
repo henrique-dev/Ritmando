@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.view.MotionEvent;
 
+import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
@@ -82,6 +83,12 @@ public class Text extends Entity {
     private Entity entity;
 
     /**
+     * Hash da {@link String} utilizada.
+     * Usado para comparações.
+     */
+    private int originalHashString;
+
+    /**
      * Cria um texto para ser exibido em uma entidade.
      *
      * @param entity entidade para consumir o texto.
@@ -95,6 +102,23 @@ public class Text extends Entity {
         this.textToDraw = checkAndFormatText(text);
         this.spaceH = entity.getArea().height() / 20;
         this.spaceW = entity.getArea().width() / 10;
+        this.originalHashString = text.hashCode();
+        defineTextSize(this, this.textSize);
+        align(this);
+    }
+
+    /**
+     * Redefine a {@link String} do texto.
+     *
+     * @param text texto.
+     */
+    public void setText(String text) {
+        int tempHash = text.hashCode();
+        if (tempHash == this.originalHashString) {
+            return;
+        }
+        this.originalHashString = tempHash;
+        this.textToDraw = checkAndFormatText(text);
         defineTextSize(this, this.textSize);
         align(this);
     }
@@ -186,6 +210,7 @@ public class Text extends Entity {
     private static void defineTextSize(Text text, float textSize) {
         if (text.entity.getArea().width() == 0 && text.entity.getArea().height() == 0)
             return;
+
         if (textSize < 0) {
             Paint tmpPaint = new Paint(text.defaultPaint);
             float tempTextSize = 1;
@@ -196,7 +221,7 @@ public class Text extends Entity {
                 rectTextBounds = new Rect();
                 tmpPaint.getTextBounds(biggerLine, 0, biggerLine.length(), rectTextBounds);
                 if (text.entity.getArea().height() > rectTextBounds.height() * text.textToDraw.length + text.spaceH * 2)
-                    tempTextSize += 1;
+                    tempTextSize += 5;
                 else
                     break;
                 tmpPaint.setTextSize(tempTextSize);
@@ -327,5 +352,16 @@ public class Text extends Entity {
             }
         }
         canvas.restoreToCount(savedState);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder tmpString = new StringBuilder();
+        for (int i=0; i<textToDraw.length; i++) {
+            tmpString.append(textToDraw[i]);
+            if (!(textToDraw.length == i-1))
+                tmpString.append('\n' + "");
+        }
+        return tmpString.toString();
     }
 }

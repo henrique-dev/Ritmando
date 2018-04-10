@@ -1,10 +1,3 @@
-package phdev.com.br.ritmando.cmp.game;
-
-import android.graphics.Color;
-
-import phdev.com.br.ritmando.GameParameters;
-import phdev.com.br.ritmando.cmp.environment.Screen;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -20,7 +13,18 @@ import phdev.com.br.ritmando.cmp.environment.Screen;
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
  */
+
+package phdev.com.br.ritmando.test;
+
+import android.graphics.Color;
+
+import phdev.com.br.ritmando.GameParameters;
+import phdev.com.br.ritmando.R;
+import phdev.com.br.ritmando.cmp.environment.Screen;
+import phdev.com.br.ritmando.cmp.sound.Music;
+import phdev.com.br.ritmando.cmp.sound.Sound;
 
 public class GameScreen extends Screen {
 
@@ -28,11 +32,16 @@ public class GameScreen extends Screen {
 
     public GameScreen(int x, int y, int width, int height) {
         super(x, y, width, height);
-
         super.defaultPaint.setColor(Color.WHITE);
+    }
 
+    @Override
+    public void init() {
         this.mainMenuScene = new MainMenuScene(0, 0, GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
         super.addScene(this.mainMenuScene);
 
+        super.soundManager.addMusicToList(new Music(R.raw.music, "", 1, 1));
+
+        super.soundManager.addShortSoundToList(new Sound(R.raw.p1, 1, 1, 0, 1f));
     }
 }

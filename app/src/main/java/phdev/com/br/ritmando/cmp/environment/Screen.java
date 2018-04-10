@@ -22,6 +22,8 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
+import phdev.com.br.ritmando.GameLog;
+import phdev.com.br.ritmando.SoundManager;
 import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
@@ -31,6 +33,11 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * @version 1.0
  */
 public abstract class Screen extends Entity implements Component {
+
+    /**
+     * Gerenciador de audio do jogo.
+     */
+    protected SoundManager soundManager;
 
     /**
      * Lista de cenas.
@@ -51,11 +58,17 @@ public abstract class Screen extends Entity implements Component {
     }
 
     /**
+     * Metodo onde todas as criações e inicialização de componentes do jogo devem ser feitas.
+     */
+    public abstract void init();
+
+    /**
      * Adiciona uma cena na tela.
      *
      * @param scene cena a ser adicionada.
      */
     protected void addScene(Scene scene) {
+        scene.setSoundManager(this.soundManager);
         this.scenes.add(scene);
     }
 
@@ -85,6 +98,15 @@ public abstract class Screen extends Entity implements Component {
      */
     protected ArrayList<Scene> getScenes() {
         return this.scenes;
+    }
+
+    /**
+     * Define o gerenciador de audio da tela.
+     *
+     * @param soundManager
+     */
+    public void setSoundManager(SoundManager soundManager) {
+        this.soundManager = soundManager;
     }
 
     @Override
