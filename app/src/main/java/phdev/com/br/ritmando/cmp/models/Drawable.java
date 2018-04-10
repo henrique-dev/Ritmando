@@ -28,8 +28,7 @@ public interface Drawable {
 
     /**
      * Desenha os objetos.
-     *
-     * @param canvas
+     * @param canvas canvas que recebe os desenhos.
      */
     void draw(Canvas canvas);
 

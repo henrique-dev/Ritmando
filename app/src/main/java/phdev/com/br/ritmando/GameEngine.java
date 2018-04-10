@@ -59,7 +59,6 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         GameLog.debug(this, "Loop da MainThread ativado");
         this.mainThread.setRunning(true);
 
-
     }
 
     @Override

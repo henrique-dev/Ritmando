@@ -25,15 +25,13 @@ import phdev.com.br.ritmando.cmp.listeners.events.Event;
 public interface ClickListener extends ActionListener {
     /**
      * Metodo para quando o botão for pressionado.
-     *
-     * @param event
+     * @param event evento de quem despacha a ação.
      */
     void pressedPerformed(Event event);
 
     /**
      * Metodo para quando o botão for solto após pressionado.
-     *
-     * @param event
+     * @param event evento de quem despacha a ação.
      */
     void releasePerformed(Event event);
 

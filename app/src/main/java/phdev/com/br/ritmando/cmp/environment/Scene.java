@@ -52,7 +52,6 @@ public abstract class Scene extends Entity implements Component {
 
     /**
      * Cria uma cena, que ira conter todos os objetos relativos a determinado contexto.
-     *
      * @param x posição x da cena.
      * @param y posição y da cena
      * @param width largura da cena.
@@ -65,8 +64,12 @@ public abstract class Scene extends Entity implements Component {
     }
 
     /**
+     * Metodo onde todas as criações e inicialização de componentes do jogo devem ser feitas.
+     */
+    public abstract void init();
+
+    /**
      * Adiciona um objeto na cena.
-     *
      * @param windowEntity objeto a ser adicionado.
      */
     public void add(WindowEntity windowEntity) {
@@ -75,7 +78,6 @@ public abstract class Scene extends Entity implements Component {
 
     /**
      * Adiciona um objeto na cena.
-     *
      * @param gameEntity objeto a ser adicionado.
      */
     public void add(GameEntity gameEntity) {
@@ -84,7 +86,6 @@ public abstract class Scene extends Entity implements Component {
 
     /**
      * Define o gerenciador de audio.
-     *
      * @param soundManager gerenciador de audio.
      */
     public void setSoundManager(SoundManager soundManager) {
@@ -93,7 +94,6 @@ public abstract class Scene extends Entity implements Component {
 
     /**
      * Retorna o gerenciador de audio.
-     *
      * @return gerenciador de audio.
      */
     public SoundManager getSoundManager() {

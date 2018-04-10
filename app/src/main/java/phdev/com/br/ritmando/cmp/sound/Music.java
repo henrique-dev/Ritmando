@@ -18,13 +18,35 @@
 
 package phdev.com.br.ritmando.cmp.sound;
 
+/**
+ * Classe para criação de musicas, com algumas informações.
+ * @version 1.0
+ */
 public class Music {
 
+    /**
+     * Id do recurso.
+     */
     private int resourceId;
-    private String info;
-    private float leftVolume = 1;
-    private float rightVolume = 1;
 
+    /**
+     * Informação sobre a musica.
+     */
+    private String info;
+
+    /**
+     * Volume esquerdo e direito da musica. (vai de 0 a 1).
+     */
+    private float leftVolume;
+    private float rightVolume;
+
+    /**
+     * Cria uma musica.
+     * @param resourceId id de recurso associado a esta musica.
+     * @param info informação sobre esta musica.
+     * @param leftVolume volume esquerdo da musica. (vai de 0 a 1).
+     * @param rightVolume volume direito da musica. (vai de 0 a 1).
+     */
     public Music(int resourceId, String info, float leftVolume, float rightVolume) {
         this.resourceId = resourceId;
         this.info = info;
@@ -32,34 +54,66 @@ public class Music {
         this.rightVolume = rightVolume;
     }
 
+    /**
+     * Retorna o id de recurso da musica.
+     * @return id de recurso.
+     */
     public int getResourceId() {
         return resourceId;
     }
 
+    /**
+     * Redefine o id de recurso desta musica.
+     * @param resourceId
+     */
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
     }
 
+    /**
+     * Retorna a informação da musica.
+     * @return informação da musica.
+     */
     public String getInfo() {
         return info;
     }
 
+    /**
+     * Redefine a informação da musica.
+     * @param info informação para a musica.
+     */
     public void setInfo(String info) {
         this.info = info;
     }
 
+    /**
+     * Retorna o volune esquerdo da musica.
+     * @return volume esquerdo.
+     */
     public float getLeftVolume() {
         return leftVolume;
     }
 
+    /**
+     * Redefine o volume esquerdo da musica.
+     * @param leftVolume volume esquerdo para a musica.
+     */
     public void setLeftVolume(float leftVolume) {
         this.leftVolume = leftVolume;
     }
 
+    /**
+     * Retorna o volume direito da musica.
+     * @return volume direito.
+     */
     public float getRightVolume() {
         return rightVolume;
     }
 
+    /**
+     * Redefine o volume direito da musica.
+     * @param rightVolume volume direito para a musica.
+     */
     public void setRightVolume(float rightVolume) {
         this.rightVolume = rightVolume;
     }

@@ -34,6 +34,8 @@ import phdev.com.br.ritmando.cmp.graphics.Sprite;
 import phdev.com.br.ritmando.cmp.graphics.Texture;
 import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
+import phdev.com.br.ritmando.cmp.sound.Music;
+import phdev.com.br.ritmando.cmp.sound.ShortSound;
 import phdev.com.br.ritmando.cmp.window.Button;
 import phdev.com.br.ritmando.cmp.window.ListLayout;
 import phdev.com.br.ritmando.cmp.window.Window;
@@ -46,7 +48,8 @@ public class MainMenuScene extends Scene {
 
     private Texture bg;
 
-    private final int BORDERLANDS_MUSIC = R.raw.music;
+    private int BORDERLANDS_MUSIC;
+    private int PUNCH_SOUND;
 
     //private Rect rects[];
 
@@ -62,7 +65,10 @@ public class MainMenuScene extends Scene {
         super(x, y, width, height);
         mainWindow = new MainWindow();
         super.add(mainWindow);
+    }
 
+    @Override
+    public void init() {
         heroi = new TesteEntity();
         heroi.setArea(new Rect(0,0,0,0));
         try {
@@ -73,9 +79,11 @@ public class MainMenuScene extends Scene {
             GameLog.error(this, ioe.getMessage());
         }
 
+        BORDERLANDS_MUSIC = super.getSoundManager().addMusicToList(new Music(R.raw.music, "", 1, 1));
+        PUNCH_SOUND = super.getSoundManager().addShortSoundToList(new ShortSound(R.raw.p1, 1, 1, 0, 1f));
+
 
         //this.sprites = Sprite.getSpriteFromTexture(heroi, this.texture, 9, 7, 62);
-
     }
 
     private class MainWindow extends Window {
@@ -120,7 +128,7 @@ public class MainMenuScene extends Scene {
                 public void actionPerformed(Event evt) {
                     //sprites[0].invertV();
                     optionButton.setText("Nani");
-                    getSoundManager().playSound(R.raw.p1);
+                    getSoundManager().playSound(PUNCH_SOUND);
                 }
             });
 

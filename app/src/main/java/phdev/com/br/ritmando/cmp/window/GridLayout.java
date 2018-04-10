@@ -1,5 +1,3 @@
-package phdev.com.br.ritmando.cmp.window;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -16,6 +14,7 @@ package phdev.com.br.ritmando.cmp.window;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.window;
 
 public class GridLayout {
 

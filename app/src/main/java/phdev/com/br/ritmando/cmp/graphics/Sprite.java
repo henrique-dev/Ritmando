@@ -75,7 +75,6 @@ public class Sprite implements Drawable {
 
     /**
      * Cria um sprite a partir de uma textura e a área da textura.
-     *
      * @param texture textura consumida pelo sprite.
      * @param imageClip area da textura consumida pelo sprite.
      * @throws Error caso a textura ou a area inserida sejam nulas.
@@ -98,7 +97,6 @@ public class Sprite implements Drawable {
 
     /**
      * Redefine a textura e a área da textura do sprite.
-     *
      * @param texture textura consumida pelo sprite.
      * @param imageClip area da textura consumida pelo sprite.
      */
@@ -113,7 +111,6 @@ public class Sprite implements Drawable {
 
     /**
      * Retorna a textura do sprite.
-     *
      * @return textura que o sprite consome.
      */
     public Texture getTexture() {
@@ -122,7 +119,6 @@ public class Sprite implements Drawable {
 
     /**
      * Retorna area da textura consumida pelo sprite.
-     *
      * @return area da textura que o sprite consome.
      */
     public Rect getImageClip() {
@@ -131,7 +127,6 @@ public class Sprite implements Drawable {
 
     /**
      * Redefine o @{@link Paint} do sprite.
-     *
      * @param paint novo @{@link Paint} para o sprite.
      */
     public void setPaint(Paint paint) {
@@ -140,7 +135,6 @@ public class Sprite implements Drawable {
 
     /**
      * Retorna o @{@link Paint} utilizado pelo sprite.
-     *
      * @return @{@link Paint} do sprite.
      */
     public Paint getPaint() {
@@ -165,7 +159,6 @@ public class Sprite implements Drawable {
 
     /**
      * Rotaciona o sprite.
-     *
      * @param degrees grau de inclinação do sprite.
      */
     @Deprecated
@@ -203,7 +196,6 @@ public class Sprite implements Drawable {
 
     /**
      * Retorna os sprites de um spritesheet.
-     *
      * @param spriteSheet spritesheet que contem os sprites a serem retirados.
      * @param numberSpritesLines numero de linhas do spritesheet.
      * @param numberSpritesColumns numero de colunas do spritesheet.
@@ -254,7 +246,6 @@ public class Sprite implements Drawable {
 
     /**
      * Retira um array de sprites especificos.
-     *
      * @param sprites array de sprites base.
      * @param indexBegin index de oomeço de retirada dos sprites.
      * @param indexEnd index com fim de retirada dos psrites.

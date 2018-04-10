@@ -24,7 +24,7 @@ import phdev.com.br.ritmando.GameParameters;
 import phdev.com.br.ritmando.R;
 import phdev.com.br.ritmando.cmp.environment.Screen;
 import phdev.com.br.ritmando.cmp.sound.Music;
-import phdev.com.br.ritmando.cmp.sound.Sound;
+import phdev.com.br.ritmando.cmp.sound.ShortSound;
 
 public class GameScreen extends Screen {
 
@@ -39,9 +39,6 @@ public class GameScreen extends Screen {
     public void init() {
         this.mainMenuScene = new MainMenuScene(0, 0, GameParameters.getInstance().screenSize.width(), GameParameters.getInstance().screenSize.height());
         super.addScene(this.mainMenuScene);
-
-        super.soundManager.addMusicToList(new Music(R.raw.music, "", 1, 1));
-
-        super.soundManager.addShortSoundToList(new Sound(R.raw.p1, 1, 1, 0, 1f));
+        this.mainMenuScene.init();
     }
 }

@@ -60,7 +60,6 @@ public class FadeEffect extends Effect implements ClickEffect {
 
     /**
      * Cria o efeito do tipo fade, podendo ser de saida ou de entrada.
-     *
      * @param entity entidade para ser aplicado o efeito.
      * @param fadeType subtipo de efeito.
      * @param actionListener escuta para o evento para ser executado apos o efeito.

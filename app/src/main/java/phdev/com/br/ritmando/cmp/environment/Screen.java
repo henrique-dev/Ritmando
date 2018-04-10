@@ -46,7 +46,6 @@ public abstract class Screen extends Entity implements Component {
 
     /**
      * Cria uma tela, que ira conter as cenas relativo ao seu contexto.
-     *
      * @param x posição x da tela.
      * @param y posição y da tela.
      * @param width largura da tela.
@@ -83,7 +82,6 @@ public abstract class Screen extends Entity implements Component {
 
     /**
      * Pega determinada cena da tela.
-     *
      * @param index posição da cena na lista.
      * @return determinada cena da lista.
      */
@@ -93,7 +91,6 @@ public abstract class Screen extends Entity implements Component {
 
     /**
      * Pega a lista de cenas.
-     *
      * @return a lista de cenas da tela.
      */
     protected ArrayList<Scene> getScenes() {
@@ -102,8 +99,7 @@ public abstract class Screen extends Entity implements Component {
 
     /**
      * Define o gerenciador de audio da tela.
-     *
-     * @param soundManager
+     * @param soundManager gerenciador de audio para a tela.
      */
     public void setSoundManager(SoundManager soundManager) {
         this.soundManager = soundManager;

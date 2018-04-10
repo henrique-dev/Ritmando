@@ -52,7 +52,6 @@ public abstract class Effect implements Animation {
 
     /**
      * Cria um novo efeito.
-     *
      * @param entity entidade que ira consumir o efeito.
      * @param actionListener escuta contendo os eventos que ocorrerão após o efeito.
      */
@@ -65,8 +64,7 @@ public abstract class Effect implements Animation {
 
     /**
      * Redefine a entidade para ser aplicado o efeito.
-     *
-     * @param entity
+     * @param entity entidade do efeito.
      */
     public void setEntity(Entity entity) {
         this.entity = entity;
@@ -74,7 +72,6 @@ public abstract class Effect implements Animation {
 
     /**
      * Redefine a escuta para o evento a ser executado apos o efeito.
-     *
      * @param actionListener escuta contendo o evento.
      */
     public void setActionListener(ActionListener actionListener) {

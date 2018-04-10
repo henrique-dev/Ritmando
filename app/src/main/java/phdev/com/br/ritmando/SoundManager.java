@@ -27,63 +27,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 import phdev.com.br.ritmando.cmp.sound.Music;
-import phdev.com.br.ritmando.cmp.sound.Sound;
+import phdev.com.br.ritmando.cmp.sound.ShortSound;
 
 public final class SoundManager {
 
     private int musicPlayingIndex = 0;
     private List<Music> musicList;
 
-    private List<Sound> soundList;
+    private List<ShortSound> shortSoundList;
 
     private Context context;
     private MediaPlayer mediaPlayer;
     private SoundPool soundPool;
 
-    SoundManager(final Context context) {
+    SoundManager(Context context) {
         this.context = context;
         this.musicList = new ArrayList<>();
-        this.soundList = new ArrayList<>();
+        this.shortSoundList = new ArrayList<>();
         if (this.soundPool == null)
             this.soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
     }
 
-    public void addMusicToList(Music music) {
+    public int addMusicToList(Music music) {
         this.musicList.add(music);
+        return this.musicList.size()-1;
     }
 
     public void clearMusicList() {
         this.musicList.clear();
     }
 
-    public void addShortSoundToList(Sound sound) {
-        sound.setPoolId(this.soundPool.load(this.context, sound.getResourceId(), 1));
-        this.soundList.add(sound);
+    public int addShortSoundToList(ShortSound shortSound) {
+        shortSound.setPoolId(this.soundPool.load(this.context, shortSound.getResourceId(), 1));
+        this.shortSoundList.add(shortSound);
+        return this.shortSoundList.size()-1;
     }
 
     public void clearSoundList() {
-        for (Sound sound : this.soundList) {
-            this.soundPool.unload(sound.getPoolId());
+        for (ShortSound shortSound : this.shortSoundList) {
+            this.soundPool.unload(shortSound.getPoolId());
         }
-        this.soundList.clear();
+        this.shortSoundList.clear();
     }
 
+    @Deprecated
     public void playMusic(int id) {
+        loadAndPlayMusic(musicList.get(id));
+        /*
         for (Music music : this.musicList) {
             if (id == music.getResourceId())
                 loadAndPlayMusic( music.getResourceId() );
-        }
+        }*/
     }
 
+    @Deprecated
     public void playSound(int id) {
-        for (Sound sound : this.soundList)
-            if (id == sound.getResourceId()) {
-                this.soundPool.play(sound.getPoolId(), sound.getLeftVolume(), sound.getRightVolume(), 1, sound.getLoop(), sound.getRate());
-                GameLog.error(this, "SOUNDOU");
-            }
+        this.soundPool.play(shortSoundList.get(id).getPoolId(), shortSoundList.get(id).getLeftVolume(),
+                shortSoundList.get(id).getRightVolume(), 1, shortSoundList.get(id).getLoop(), shortSoundList.get(id).getRate());
+        /*
+        for (ShortSound shortSound : this.shortSoundList)
+            if (id == shortSound.getResourceId()) {
+                this.soundPool.play(shortSound.getPoolId(), shortSound.getLeftVolume(), shortSound.getRightVolume(), 1, shortSound.getLoop(), shortSound.getRate());
+            }*/
     }
 
-    private void loadAndPlayMusic(final int id) {
+    private void loadAndPlayMusic(final Music music) {
         new Thread(){
             @Override
             public void run() {
@@ -97,7 +105,7 @@ public final class SoundManager {
                     }
                 }
                 try {
-                    SoundManager.this.mediaPlayer = MediaPlayer.create(context, id);
+                    SoundManager.this.mediaPlayer = MediaPlayer.create(context, music.getResourceId());
                     SoundManager.this.mediaPlayer.start();
                 } catch (Exception e) {
                     GameLog.error(this, e.getMessage());

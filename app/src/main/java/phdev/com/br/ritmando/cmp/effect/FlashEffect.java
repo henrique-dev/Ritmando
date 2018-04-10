@@ -60,7 +60,6 @@ public class FlashEffect extends Effect implements ClickEffect {
 
     /**
      * Cria o efeito do tipo flash.
-     *
      * @param entity entidade para ser aplicado o efeito.
      * @param actionListener escuta para o evento para ser executado apos o efeito.
      */
@@ -75,7 +74,6 @@ public class FlashEffect extends Effect implements ClickEffect {
 
     /**
      * Cria o efeito do tipo flash.
-     *
      * @param entity entidade para ser aplicado o efeito.
      * @param actionListener escuta para o evento para ser executado apos o efeito.
      * @param speed velocidade do efeito.
@@ -96,7 +94,6 @@ public class FlashEffect extends Effect implements ClickEffect {
 
     /**
      * Redefine a velocidade do efeito.
-     *
      * @param speed velocidade do efeito.
      */
     public void setSpeed(int speed) {
@@ -110,7 +107,6 @@ public class FlashEffect extends Effect implements ClickEffect {
 
     /**
      * Redefine a quantidade de flashs necessarias terminar o efeito.
-     *
      * @param maxFlash quantidade necessaria de flashs para terminar o efeito.
      */
     public void setMaxFlash(int maxFlash) {

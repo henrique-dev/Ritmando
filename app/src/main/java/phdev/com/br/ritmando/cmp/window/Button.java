@@ -48,7 +48,6 @@ public class Button extends WindowEntity {
 
     /**
      * Cria um botão em uma area.
-     *
      * @param x posição no eixo x do botão.
      * @param y posição no eixo y do botão.
      * @param width largura do botão.
@@ -61,7 +60,6 @@ public class Button extends WindowEntity {
 
     /**
      * Cria um botão em uma area.
-     *
      * @param area area para o botão.
      */
     public Button(Rect area) {
@@ -71,7 +69,6 @@ public class Button extends WindowEntity {
 
     /**
      * Cria um botão contendo texto em uma area.
-     *
      * @param area area para o botão.
      * @param buttonText texto a ser exibido no botão.
      */
@@ -83,7 +80,6 @@ public class Button extends WindowEntity {
 
     /**
      * Cria um botão contendo um texto em uma area.
-     *
      * @param area area para o botão.
      * @param buttonText {@link Text} para o botão.
      */
@@ -96,7 +92,6 @@ public class Button extends WindowEntity {
     /**
      * Cria um botão contendo um texto.
      * Usado para colocar a entidade em um layout, e deixar ela definir a area para o botão.
-     *
      * @param textButton texto a ser exibido no botão.
      */
     public Button(String textButton) {
@@ -115,7 +110,6 @@ public class Button extends WindowEntity {
 
     /**
      * Redefine o texto a ser exibido no botão.
-     *
      * @param text texto a ser exibido.
      */
     public void setText(String text) {
@@ -124,26 +118,43 @@ public class Button extends WindowEntity {
 
     /**
      * Retorna a {@link String} do texto do botão.
-     *
-     * @return
+     * @return {@link String} do texto.
      */
     public String getText() {
         return super.entityText.toString();
     }
 
+    /**
+     * Redefine o tamanho da fonte do texto a ser exibido no botão.
+     * @param size tamanho da fonte.
+     */
     public void setTextSize(float size) {
         super.entityText.setTextSize(size);
         //super.entityText.setTextSizeAdjusted(false);
     }
 
+    /**
+     * Redefine a cor do botão.
+     * @param color cor para o botao.
+     */
+    @Deprecated
     public void setColor(int color) {
         super.defaultPaint.setColor(color);
     }
 
+    /**
+     * Retorna a cor atual do botão.
+     * @return cor do botão.
+     */
+    @Deprecated
     public int getColor() {
         return super.defaultPaint.getColor();
     }
 
+    /**
+     * Redefine o efeito de clique do botão com efeitos padrões.
+     * @param clickEffect efeito de clique para o botão.
+     */
     public void changeClickEffect(int clickEffect) {
         DEFAULT_CLICK_EFFECT = clickEffect;
         if (clickEffect == Effect.FADE_IN_OUT) {
@@ -165,6 +176,10 @@ public class Button extends WindowEntity {
         }
     }
 
+    /**
+     * Redefine o efeito de clique do botão com efeitos customizados.
+     * @param effect efeito de clique para o botão.
+     */
     public void setClickEffect(ClickEffect effect) {
         super.setClickEffect((Effect) effect);
         super.clickEffect.setEntity(this);
@@ -177,16 +192,20 @@ public class Button extends WindowEntity {
         });
     }
 
+    /**
+     * Aciona as escutas do botão.
+     * @param evt evento lançado.
+     */
     private void fire(Event evt) {
         if (super.listener != null)
             ((ActionListener)listener).actionPerformed(evt);
     }
 
+    /**
+     * Redefine a escuta para o botão.
+     * @param listener nova escuta pra o botão.
+     */
     public void addActionListener(ActionListener listener) {
-        super.addListener(listener);
-    }
-
-    public void addClickListener(ClickListener listener) {
         super.addListener(listener);
     }
 

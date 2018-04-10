@@ -53,7 +53,6 @@ public class Texture {
 
     /**
      * Cria uma textura.
-     *
      * @param path caminho da textura.
      */
     public Texture(String path) throws IOException {
@@ -78,7 +77,6 @@ public class Texture {
 
     /**
      * Retorna o bitmap utilizado pela textura.
-     *
      * @return bitmap utilizado.
      */
     public Bitmap getBitmap() {
@@ -87,7 +85,6 @@ public class Texture {
 
     /**
      * Retorna a largura da textura.
-     *
      * @return largura.
      */
     public int getWidth() {
@@ -96,7 +93,6 @@ public class Texture {
 
     /**
      * Retorna a altura da textura.
-     *
      * @return altura.
      */
     public int getHeight() {
@@ -105,7 +101,6 @@ public class Texture {
 
     /**
      * Abre um bitmap a partir de um caminho valido fornecido.
-     *
      * @param path caminho contendo o bitmap para a textura.
      * @param reqWidth use DEFAULT_WIDTH para carregar a largura original da imagem, ou forneça uma largura para ser expansionada ou comprimida.
      * @param reqHeight use DEFAULT_WIDTH para carregar a altura original da imagem, ou forneça uma altura para ser expansionada ou comprimida.
@@ -125,7 +120,6 @@ public class Texture {
 
     /**
      * Recorta a textura.
-     *
      * @param x posição x do recorte.
      * @param y posição y do recorte.
      * @param width largura do recorte.
@@ -141,7 +135,6 @@ public class Texture {
 
     /**
      * Escala a textura.
-     *
      * @param width nova largura para a textura.
      * @param height nova altura para a textura.
      */
@@ -155,7 +148,6 @@ public class Texture {
 
     /**
      * Carrega um bitmap a partir de um {@link ByteArrayOutputStream}.
-     *
      * @param buffer {@link ByteArrayOutputStream} que contem a textura.
      * @param reqWidth use DEFAULT_WIDTH para carregar a largura original da imagem, ou forneça uma largura para ser expansionada ou comprimida.
      * @param reqHeight use DEFAULT_WIDTH para carregar a altura original da imagem, ou forneça uma altura para ser expansionada ou comprimida.
@@ -182,7 +174,6 @@ public class Texture {
 
     /**
      * Utilizado para calculos de compressão do bitmap.
-     *
      * @param options configurações do bitmap.
      * @param reqWidth nova largura do bitmap fornecida para o calculo.
      * @param reqHeight nova altura do bitmap fornecida para o calculo.

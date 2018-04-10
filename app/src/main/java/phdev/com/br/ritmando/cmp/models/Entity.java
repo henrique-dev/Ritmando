@@ -58,7 +58,6 @@ public abstract class Entity implements Component {
 
     /**
      * Cria uma entidade.
-     *
      * @param area area relacionada a entidade.
      */
     protected Entity(Rect area) {
@@ -68,7 +67,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna a area da entoidade.
-     *
      * @return area da entidade.
      */
     public Rect getArea() {
@@ -77,7 +75,6 @@ public abstract class Entity implements Component {
 
     /**
      * Redefine a area da entidade.
-     *
      * @param area area da entidade.
      */
     public void setArea(Rect area) {
@@ -86,7 +83,6 @@ public abstract class Entity implements Component {
 
     /**
      * Redefine a area da entidade.
-     *
      * @param x nova posição.
      */
     protected void setX(int x) {
@@ -96,7 +92,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna a posição da entidade.
-     *
      * @return posição.
      */
     protected int getX() {
@@ -105,7 +100,6 @@ public abstract class Entity implements Component {
 
     /**
      * Redefine a area da entidade.
-     *
      * @param y nova posição.
      */
     protected void setY(int y) {
@@ -115,7 +109,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna a area da entidade.
-     *
      * @return posição.
      */
     protected int getY() {
@@ -124,7 +117,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna o {@link Paint} geral relacionado a entidade.
-     *
      * @return {@link Paint} geral da entidade.
      */
     public Paint getDefaultPaint() {
@@ -133,7 +125,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna o {@link Paint} geral relacionado a entidade.
-     *
      * @param defaultPaint {@link Paint} geral da entidade.
      */
     public void setDefaultPaint(Paint defaultPaint) {
@@ -142,7 +133,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna o estado ativo da entidade.
-     *
      * @return estado ativo.
      */
     public boolean isActive() {
@@ -151,7 +141,6 @@ public abstract class Entity implements Component {
 
     /**
      * Redefine o estado ativo da entidade.
-     *
      * @param active estado ativo.
      */
     public void setActive(boolean active) {
@@ -160,7 +149,6 @@ public abstract class Entity implements Component {
 
     /**
      * Retorna o estado visivel da entidade.
-     *
      * @return estado visivel.
      */
     public boolean isVisible() {
@@ -169,7 +157,6 @@ public abstract class Entity implements Component {
 
     /**
      * Redefine o estado visivel da entidade.
-     *
      * @param visible estado visivel.
      */
     public void setVisible(boolean visible) {
@@ -178,7 +165,6 @@ public abstract class Entity implements Component {
 
     /**
      * Metodo basico de colisão para as entidades.
-     *
      * @param x posição x do teste de colisão.
      * @param y posição y do teste de colisão.
      * @param entity entidade colidida.
@@ -191,7 +177,6 @@ public abstract class Entity implements Component {
 
     /**
      * Desloca a entidade.
-     *
      * @param entity entidade a ser deslocada.
      * @param displaceX deslocamento no eixo x a ser somado.
      * @param displaceY deslocamento no eixo y a ser somado.

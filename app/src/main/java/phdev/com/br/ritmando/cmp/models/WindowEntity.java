@@ -57,7 +57,6 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Cria uma entidade para janela.
-     *
      * @param area area da entidade.
      */
     protected WindowEntity(Rect area) {
@@ -66,8 +65,7 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Redefine o efeito de clique associado a entidade.
-     *
-     * @param effect
+     * @param effect efeito de clique para a entidade.
      */
     protected void setClickEffect(Effect effect) {
         this.clickEffect = effect;
@@ -75,8 +73,7 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Redefine o efeito de loop/animação associado a entidade.
-     *
-     * @param effect
+     * @param effect efeito de loop para a entidade.
      */
     protected void setLoopEffect(Effect effect) {
         this.loopEffect = effect;
@@ -84,7 +81,6 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Retorna o {@link Text} vinculado a entidade.
-     *
      * @return {@link Text} da entidade.
      */
     public Text getEntityText() {
@@ -93,7 +89,6 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Redefine o {@link Text} vinculado a entidade.
-     *
      * @param entityText {@link Text} para entidade.
      */
     public void setEntityText(Text entityText) {
@@ -102,7 +97,6 @@ public abstract class WindowEntity extends Entity {
 
     /**
      * Redefine a escuta de eventos da entidade.
-     *
      * @param listener escuta para entidade.
      */
     protected void addListener(Listener listener) {
