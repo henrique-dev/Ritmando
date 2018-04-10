@@ -90,7 +90,6 @@ public class Text extends Entity {
 
     /**
      * Cria um texto para ser exibido em uma entidade.
-     *
      * @param entity entidade para consumir o texto.
      * @param text texto para ser exibido.
      */
@@ -109,7 +108,6 @@ public class Text extends Entity {
 
     /**
      * Redefine a {@link String} do texto.
-     *
      * @param text texto.
      */
     public void setText(String text) {
@@ -125,7 +123,6 @@ public class Text extends Entity {
 
     /**
      * Redefine o tamanho da fonte do texto.
-     *
      * @param size tamanho da fonte.
      */
     public void setTextSize(float size) {
@@ -146,7 +143,6 @@ public class Text extends Entity {
 
     /**
      * Redefine a borda do texto.
-     *
      * @param color cor da borda.
      * @param strokeWidth largura da borda.
      */
@@ -163,7 +159,6 @@ public class Text extends Entity {
 
     /**
      * Checa e formata o texto para caso haja quebra de linhas. Separa as quebras em um array.
-     *
      * @param text texto a ser checado
      * @return array contendo as quebras de linhas encotradas.
      */
@@ -188,7 +183,6 @@ public class Text extends Entity {
 
     /**
      * Checa por caracters especiais na {@link String} do texto. Atualmente somente quebra de linhas.
-     *
      * @param text texto a ser checado.
      * @return quantidade de quebras de linhas na {@link String}.
      */
@@ -203,7 +197,6 @@ public class Text extends Entity {
 
     /**
      * Configura o tamanho da fonte do texto.
-     *
      * @param text texto a ser configurado.
      * @param textSize tamanho da fonte para o texto.
      */
@@ -251,7 +244,6 @@ public class Text extends Entity {
 
     /**
      * Retorna a linha da {@link String} com maior largura.
-     *
      * @param text array de {@link String} contendo as linhas a serem examinadas.
      * @return {@link String} com maior largura.
      */
@@ -273,7 +265,6 @@ public class Text extends Entity {
 
     /**
      * Alinha horizontalmente e verticalmente o texto.
-     *
      * @param text texto a ser alinhado.
      */
     private static void align(Text text) {
@@ -283,7 +274,6 @@ public class Text extends Entity {
 
     /**
      * Alinha verticalmente o texto.
-     *
      * @param text texto a ser alinhado.
      */
     private static void verticalAlign(Text text) {
@@ -307,7 +297,6 @@ public class Text extends Entity {
 
     /**
      * Alinha horizontalmente o texto.
-     *
      * @param text texto a ser alinhado.
      */
     private static void horizontalAlign(Text text) {
