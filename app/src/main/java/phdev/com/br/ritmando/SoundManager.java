@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package phdev.com.br.ritmando;
 
 import android.content.Context;
@@ -29,17 +28,36 @@ import java.util.List;
 import phdev.com.br.ritmando.cmp.sound.Music;
 import phdev.com.br.ritmando.cmp.sound.ShortSound;
 
+/**
+ * Gerenciador de audio para o jogo.
+ */
 public final class SoundManager {
 
-    private int musicPlayingIndex = 0;
+    /**
+     * Lista de musicas disponiveis no contexto atual do gerenciador.
+     */
     private List<Music> musicList;
 
+    /**
+     * Lista de efeitos sonoros disponiveis no contexto atual do gerenciador.
+     */
     private List<ShortSound> shortSoundList;
 
+    /**
+     * Contexto da activity
+     */
     private Context context;
+
+    /**
+     * Players utilizados para executar as musicas e efeitos sonoros.
+     */
     private MediaPlayer mediaPlayer;
     private SoundPool soundPool;
 
+    /**
+     * Cria o gerenciador.
+     * @param context contexto da activity.
+     */
     SoundManager(Context context) {
         this.context = context;
         this.musicList = new ArrayList<>();
@@ -48,21 +66,37 @@ public final class SoundManager {
             this.soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
     }
 
+    /**
+     * Adiciona uma musica na lista de musicas do gerenciador.
+     * @param music musica a ser adicionada.
+     * @return id correspondente ao seu index na lista.
+     */
     public int addMusicToList(Music music) {
         this.musicList.add(music);
         return this.musicList.size()-1;
     }
 
+    /**
+     * Limpa a lista de musicas do gerenciador.
+     */
     public void clearMusicList() {
         this.musicList.clear();
     }
 
+    /**
+     * Adiciona um efeito sonoro na lista de efeitos sonoros do gerenciador.
+     * @param shortSound efeito sonoro a ser adicionado.
+     * @return id correspondente ao seu index na lista.
+     */
     public int addShortSoundToList(ShortSound shortSound) {
         shortSound.setPoolId(this.soundPool.load(this.context, shortSound.getResourceId(), 1));
         this.shortSoundList.add(shortSound);
         return this.shortSoundList.size()-1;
     }
 
+    /**
+     * Limpa a lista de efeitos sonoros do gerenciador.
+     */
     public void clearSoundList() {
         for (ShortSound shortSound : this.shortSoundList) {
             this.soundPool.unload(shortSound.getPoolId());
@@ -70,27 +104,18 @@ public final class SoundManager {
         this.shortSoundList.clear();
     }
 
-    @Deprecated
-    public void playMusic(int id) {
-        loadAndPlayMusic(musicList.get(id));
-        /*
-        for (Music music : this.musicList) {
-            if (id == music.getResourceId())
-                loadAndPlayMusic( music.getResourceId() );
-        }*/
+    /**
+     * Reproduz uma musica.
+     * @param index index da musica na lista.
+     */
+    public void playMusic(int index) {
+        loadAndPlayMusic(musicList.get(index));
     }
 
-    @Deprecated
-    public void playSound(int id) {
-        this.soundPool.play(shortSoundList.get(id).getPoolId(), shortSoundList.get(id).getLeftVolume(),
-                shortSoundList.get(id).getRightVolume(), 1, shortSoundList.get(id).getLoop(), shortSoundList.get(id).getRate());
-        /*
-        for (ShortSound shortSound : this.shortSoundList)
-            if (id == shortSound.getResourceId()) {
-                this.soundPool.play(shortSound.getPoolId(), shortSound.getLeftVolume(), shortSound.getRightVolume(), 1, shortSound.getLoop(), shortSound.getRate());
-            }*/
-    }
-
+    /**
+     * Carrega e executa a musica repassada.
+     * @param music musica a ser reproduzida.
+     */
     private void loadAndPlayMusic(final Music music) {
         new Thread(){
             @Override
@@ -114,6 +139,18 @@ public final class SoundManager {
         }.start();
     }
 
+    /**
+     * Reproduz um efeito sonoro.
+     * @param index index do efeito sonoro na lista.
+     */
+    public void playSound(int index) {
+        this.soundPool.play(shortSoundList.get(index).getPoolId(), shortSoundList.get(index).getLeftVolume(),
+                shortSoundList.get(index).getRightVolume(), 1, shortSoundList.get(index).getLoop(), shortSoundList.get(index).getRate());
+    }
+
+    /**
+     * Libera o {@link MediaPlayer} e o {@link SoundPool} para encerramento da aplicação.
+     */
     void release() {
         if (this.mediaPlayer != null) {
             this.mediaPlayer.release();

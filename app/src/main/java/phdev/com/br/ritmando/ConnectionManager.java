@@ -18,7 +18,7 @@
 package phdev.com.br.ritmando;
 
 /**
- * Classe responsavel pelas conexões do jogo.
+ * Classe responsavel por conexões do jogo.
  */
 public class ConnectionManager {
 }

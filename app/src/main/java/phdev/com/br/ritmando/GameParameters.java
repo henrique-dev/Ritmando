@@ -1,8 +1,3 @@
-package phdev.com.br.ritmando;
-
-import android.content.res.AssetManager;
-import android.graphics.Rect;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -19,7 +14,14 @@ import android.graphics.Rect;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando;
 
+import android.content.res.AssetManager;
+import android.graphics.Rect;
+
+/**
+ * Contem os parametros de acesso global para o jogo.
+ */
 public class GameParameters {
 
     private static GameParameters instance = new GameParameters();

@@ -1,15 +1,3 @@
-package phdev.com.br.ritmando;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-
-import phdev.com.br.ritmando.test.GameScreen;
-import phdev.com.br.ritmando.cmp.environment.Screen;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -26,15 +14,43 @@ import phdev.com.br.ritmando.cmp.environment.Screen;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
+
+import phdev.com.br.ritmando.test.GameScreen;
+import phdev.com.br.ritmando.cmp.environment.Screen;
+
+/**
+ * View aplicada na activity, contendo os metodos base para o loop do jogo.
+ */
 public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
 
+    /**
+     * Thread principal do jogo, que roda o main loop.
+     */
     private MainThread mainThread;
 
+    /**
+     * Tela atual do jogo.
+     */
     private Screen screen;
 
+    /**
+     * Gerenciador de audio do jogo.
+     */
     private SoundManager soundManager;
 
+    /**
+     * Aplica o contexto da activity na view e repassa callback para comunicação entre ambas.
+     * Tambem instancia a {@link MainThread}.
+     * @param context contexto da activity.
+     */
     public GameEngine(Context context) {
         super(context);
         getHolder().addCallback(this);
@@ -47,6 +63,11 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         setFocusable(true);
     }
 
+    /**
+     * Quando a aplicação é aberta e colocada em foco. Inicializa os componentes da primeira tela do jogo e apóes,
+     * inicia a {@link MainThread} e define o status de rodando do main-loop como verdadeiro.
+     * @param surfaceHolder
+     */
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         GameLog.debug(this, "Surface criada.");
@@ -66,6 +87,10 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         GameLog.debug(this, "Surface modificada");
     }
 
+    /**
+     * Quando a aplicação é encerrada. Finaliza os componentes atuais criados e depois tenta encerrar a {@link MainThread}.
+     * @param surfaceHolder
+     */
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         GameLog.debug(this, "Surface destruida");
@@ -91,6 +116,10 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    /**
+     * Desenha a tela no canvas.
+     * @param canvas
+     */
     @SuppressLint("MissingSuperCall")
     @Override
     public void draw(Canvas canvas) {
@@ -98,11 +127,19 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
             this.screen.draw(canvas);
     }
 
+    /**
+     * Atualiza a tela.
+     */
     public void update() {
         if (this.screen != null)
             this.screen.update();
     }
 
+    /**
+     * Recebe e envia eventos de entrada de dados do usuario para a tela.
+     * @param motionEvent
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent motionEvent) {
         if (this.screen != null)
@@ -110,6 +147,9 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         return true;
     }
 
+    /**
+     * Inicializa os componentes principais do jogo, como tela e gerenciador de audio.
+     */
     private void initComponents() {
         this.soundManager = new SoundManager(getContext());
         this.screen = new GameScreen(0,0, GameParameters.getInstance().screenSize.right, GameParameters.getInstance().screenSize.bottom);
@@ -117,18 +157,37 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
         this.screen.init();
     }
 
+    /**
+     * Finaliza os componentes atuais do jogo.
+     */
     private void finalizeComponents() {
         this.screen = null;
         this.soundManager.release();
     }
 
+    /**
+     * Classe responsavel pela thread principal do jogo, que contem o main-loop.
+     */
     private class MainThread extends Thread {
 
+        /**
+         * Taxa de atualização dos frames desejada.
+         */
         private int FPS = 60;
+
+        /**
+         * FPS atual alcançado.
+         */
         private int averageFPS;
 
+        /**
+         * Estado de funcionamento de main-loop.
+         */
         private boolean running;
 
+        /**
+         * Canvas que recebe os desenhos dos componetes para então desenha-los.
+         */
         private Canvas canvas;
 
         private final SurfaceHolder surfaceHolder;
@@ -153,28 +212,23 @@ public class GameEngine extends SurfaceView implements SurfaceHolder.Callback {
             while (this.running) {
                 startTime = System.nanoTime();
                 this.canvas = null;
-
                 try {
                     this.canvas =  this.surfaceHolder.lockCanvas();
-
                     synchronized (this.surfaceHolder) {
                         this.gameEngine.update();
                         this.gameEngine.draw(this.canvas);
                     }
                 } catch (Exception e) {
-                    //Log.e(this.getClass().getAliasId(), e.getMessage());
                     GameLog.error(this, e.getMessage());
                 } finally {
                     if (canvas != null) {
                         try {
                             this.surfaceHolder.unlockCanvasAndPost(this.canvas);
                         } catch (Exception e) {
-                            //Log.e(this.getClass().getAliasId(), "Unlock-Canvas. " + e.getMessage());
                             GameLog.error(this, e.getMessage());
                         }
                     }
                 }
-
                 timeMillis = (System.nanoTime() - startTime) / 1000000;
                 waitTime = targetTime - timeMillis;
                 try {

@@ -1,13 +1,3 @@
-package phdev.com.br.ritmando;
-
-import android.app.Activity;
-import android.graphics.Point;
-import android.graphics.Rect;
-import android.os.Bundle;
-import android.view.Display;
-import android.view.Window;
-import android.view.WindowManager;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -24,7 +14,19 @@ import android.view.WindowManager;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando;
 
+import android.app.Activity;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.os.Bundle;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
+
+/**
+ * Activity unica e principal d aaplicação.
+ */
 public class GameActivity extends Activity {
 
     @Override
@@ -34,6 +36,9 @@ public class GameActivity extends Activity {
         super.setContentView( new GameEngine(this) );
     }
 
+    /**
+     * Define os parametros necessarios para o funcionamento da aplicação.
+     */
     private void setupParameters() {
 
         GameParameters.getInstance().assetManager = getAssets();
