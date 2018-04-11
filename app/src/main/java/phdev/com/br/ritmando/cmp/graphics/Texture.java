@@ -28,7 +28,7 @@ import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.GameParameters;
 
 /**
- * Classe para criação de texturas, que podem ser consumidas por sprites, ou diretamente por componentes.
+ * Classe responsavel pela criação de texturas, que podem ser consumidas por sprites, ou diretamente por componentes.
  * @version 1.0
  */
 public class Texture {

@@ -23,21 +23,44 @@ import java.util.ArrayList;
 import phdev.com.br.ritmando.GameParameters;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
+/**
+ * Classe responsavel pela criação de layouts para menus.
+ * Este tipo cria um layout que exibe os componentes alinhados verticalmente ou horizontalmente.
+ */
 public class ListLayout implements Layout{
 
-    public static final int HORIZONTAK_ALINGMENT = 0;
-    public static final int VERTICAL_ALINGMENT = 1;
+    /**
+     * Constantes para definir o tipo de alinhamento.
+     */
+    public static final int HORIZONTAL_ALIGNMENT = 0;
+    public static final int VERTICAL_ALIGNMENT = 1;
 
+    /**
+     * Alinhamento atual.
+     */
     private int alignment;
-    private int spaceH = GameParameters.getInstance().screenSize.height() / 50;
-    private int spaceW = spaceH;
 
+    /**
+     * Espaçamento entre o componente e a borda do layout.
+     */
+    private int spaceH = GameParameters.getInstance().screenSize.height() / 50, spaceW = spaceH;
+
+    /**
+     * Entidade consumidora do layout. (Exemplo: Menu)
+     */
     private Entity entity;
 
+    /**
+     * Cria um layout padrão (Alinhamento vertical dos componentes).
+     */
     public ListLayout() {
-        this.alignment = VERTICAL_ALINGMENT;
+        this.alignment = VERTICAL_ALIGNMENT;
     }
 
+    /**
+     * Cria um layout fornecendo o alinhamento desejado.
+     * @param alignment tipo de alinhamento. ListLayout.HORIZONTAL_ALIGNMENT ou ListLayout.VERTICAL_ALIGNMENT
+     */
     public ListLayout(int alignment) {
         this.alignment = alignment;
     }
@@ -62,7 +85,7 @@ public class ListLayout implements Layout{
 
         int x = this.entity.getArea().left;
         int y = this.entity.getArea().top;
-        if (this.alignment == HORIZONTAK_ALINGMENT) {
+        if (this.alignment == HORIZONTAL_ALIGNMENT) {
             int height = this.entity.getArea().height() - this.spaceH * 2;
             int cmpWidth = (this.entity.getArea().width() - this.spaceW * (tmpEntity.size()+1)) / tmpEntity.size();
             for (int i=0; i<tmpEntity.size(); i++) {
@@ -73,7 +96,7 @@ public class ListLayout implements Layout{
                         (this.spaceW + this.spaceW*i) + x + ((i+1) * cmpWidth),
                         this.spaceH + y + height));
             }
-        } else if (this.alignment == VERTICAL_ALINGMENT) {
+        } else if (this.alignment == VERTICAL_ALIGNMENT) {
             int width = this.entity.getArea().width() - this.spaceW * 2;
             int cmpHeight = (this.entity.getArea().height() - this.spaceH * (tmpEntity.size()+1)) / tmpEntity.size();
             for (int i=0; i<tmpEntity.size(); i++) {

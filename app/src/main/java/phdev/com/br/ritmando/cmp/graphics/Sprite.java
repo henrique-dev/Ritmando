@@ -29,7 +29,7 @@ import phdev.com.br.ritmando.cmp.models.Drawable;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Classe para criar sprites a partir de determinada textura.
+ * Classe responsavel por criar sprites a partir de determinada textura.
  * @version 1.0
  */
 public class Sprite implements Drawable {

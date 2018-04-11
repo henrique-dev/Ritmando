@@ -19,7 +19,7 @@
 package phdev.com.br.ritmando.cmp.sound;
 
 /**
- * Classe para criação de musicas, com algumas informações.
+ * Classe responsavel pela criação de musicas, com algumas informações.
  * @version 1.0
  */
 public class Music {

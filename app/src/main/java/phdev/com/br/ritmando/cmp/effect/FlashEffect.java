@@ -20,7 +20,7 @@ import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Classe para criação de efeitos do tipo flash.
+ * Classe responsavel pela criação de efeitos do tipo flash.
  * @version 1.0
  */
 public class FlashEffect extends Effect implements ClickEffect {

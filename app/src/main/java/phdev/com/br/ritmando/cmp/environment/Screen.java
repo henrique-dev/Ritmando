@@ -28,7 +28,7 @@ import phdev.com.br.ritmando.cmp.models.Component;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Classe para criação de telas, que fazem o intermedio entre a @{@link phdev.com.br.ritmando.GameEngine} e as @{@link Scene}.
+ * Classe responsavel pela criação de telas, que fazem o intermedio entre a @{@link phdev.com.br.ritmando.GameEngine} e as @{@link Scene}.
  * Possui uma lista com as cenas disponiveis no objeto de tela do contexto.
  * @version 1.0
  */

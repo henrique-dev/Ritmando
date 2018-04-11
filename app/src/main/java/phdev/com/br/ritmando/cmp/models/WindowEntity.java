@@ -23,7 +23,7 @@ import phdev.com.br.ritmando.cmp.listeners.Listener;
 import phdev.com.br.ritmando.cmp.utils.Text;
 
 /**
- * Classe base para todas as entidades que sejam objetos da janela como menus, botões, etc.
+ * Classe base responsavel por todas as entidades que sejam objetos da janela como menus, botões, etc.
  * @version 1.0
  */
 public abstract class WindowEntity extends Entity {

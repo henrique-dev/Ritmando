@@ -1,11 +1,3 @@
-package phdev.com.br.ritmando.cmp.window;
-
-import android.graphics.Canvas;
-import android.graphics.Rect;
-import android.view.MotionEvent;
-
-import phdev.com.br.ritmando.cmp.models.WindowEntity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -22,13 +14,35 @@ import phdev.com.br.ritmando.cmp.models.WindowEntity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.window;
 
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.view.MotionEvent;
+
+import phdev.com.br.ritmando.cmp.models.WindowEntity;
+
+/**
+ * Classe responsavel pela criação de labels para janelas.
+ * (Entidades que exibem algo, ou não, e não interagiveis por padrão).
+ */
 public class Label extends WindowEntity {
 
+    /**
+     * Cria um label em uma area.
+     * @param x posição no eixo x do label.
+     * @param y posição no eixo y do label.
+     * @param width largura do label.
+     * @param height altura do label.
+     */
     public Label(int x, int y, int width, int height) {
         super(new Rect(x, y, x + width, y + height));
     }
 
+    /**
+     * Cria um label em uma area.
+     * @param area area para o label.
+     */
     public Label(Rect area) {
         super(area);
     }

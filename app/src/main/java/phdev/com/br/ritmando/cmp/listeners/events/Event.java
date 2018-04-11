@@ -17,7 +17,7 @@
 package phdev.com.br.ritmando.cmp.listeners.events;
 
 /**
- * Classe para criação de eventos lançados na escutas.
+ * Classe responsavel pela criação de eventos lançados na escutas.
  * @version 1.0
  */
 public class Event {

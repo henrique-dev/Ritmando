@@ -19,7 +19,7 @@ package phdev.com.br.ritmando.cmp.listeners;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
 
 /**
- * Interface para entidades que despejam ações.
+ * Interface responsavel por entidades que despejam ações.
  * @version 1.0
  */
 public interface ActionListener extends Listener {

@@ -21,7 +21,7 @@ package phdev.com.br.ritmando.cmp.models;
 import android.graphics.Canvas;
 
 /**
- * Interface para eventos de desenho dos objetos.
+ * Interface responsavel por eventos de desenho dos objetos.
  * @version 1.0
  */
 public interface Drawable {

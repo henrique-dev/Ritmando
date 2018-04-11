@@ -15,8 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package phdev.com.br.ritmando;
 
+/**
+ * Classe responsavel pelas conexões do jogo.
+ */
 public class ConnectionManager {
 }

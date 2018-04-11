@@ -21,7 +21,7 @@ package phdev.com.br.ritmando.cmp.models;
 import android.view.MotionEvent;
 
 /**
- * Interface para eventos de entrada do usuario.
+ * Interface responsavel por eventos de entrada do usuario.
  * @version 1.0
  */
 public interface Controllable {

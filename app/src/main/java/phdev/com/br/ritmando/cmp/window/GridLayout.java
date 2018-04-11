@@ -16,6 +16,10 @@
  */
 package phdev.com.br.ritmando.cmp.window;
 
+/**
+ * Classe responsavel pela criação de layouts para menus.
+ * Este tipo cira layouts em forma de grade (linha x coluna).
+ */
 public class GridLayout {
 
 }

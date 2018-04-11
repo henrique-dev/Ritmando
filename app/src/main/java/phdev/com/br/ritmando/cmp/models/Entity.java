@@ -23,7 +23,7 @@ import android.support.annotation.CallSuper;
 import phdev.com.br.ritmando.cmp.models.Component;
 
 /**
- * Classe base para todas as entidades.
+ * Classe base responsavel por todas as entidades.
  * @version 1.0
  */
 public abstract class Entity implements Component {

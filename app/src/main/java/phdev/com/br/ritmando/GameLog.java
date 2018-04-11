@@ -1,7 +1,3 @@
-package phdev.com.br.ritmando;
-
-import android.util.Log;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -18,9 +14,16 @@ import android.util.Log;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando;
 
+import android.util.Log;
+
+/**
+ * Classe responsavel pelos logs do jogo.
+ */
 public class GameLog {
 
+    private static GameLog instance = new GameLog();
     private static int logIndex;
 
     private GameLog() {

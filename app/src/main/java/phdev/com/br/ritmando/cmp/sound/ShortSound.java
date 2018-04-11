@@ -19,7 +19,7 @@
 package phdev.com.br.ritmando.cmp.sound;
 
 /**
- * Classe para criação de sons curtos (normalmente efeitos sonoros).
+ * Classe responsavel pela criação de sons curtos (normalmente efeitos sonoros).
  * @version 1.0
  */
 public class ShortSound {

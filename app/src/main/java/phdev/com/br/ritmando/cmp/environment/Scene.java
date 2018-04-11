@@ -29,7 +29,7 @@ import phdev.com.br.ritmando.cmp.models.GameEntity;
 import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
- * Classe para criação de cenas, que faz o intermedio entre a classe @{@link Screen} e as classes @{@link Entity}.
+ * Classe responsavel pela criação de cenas, que faz o intermedio entre a classe @{@link Screen} e as classes @{@link Entity}.
  * Possui duas listas, uma com objetos da janela e outra com objetos de in-game.
  * @version 1.0
  */

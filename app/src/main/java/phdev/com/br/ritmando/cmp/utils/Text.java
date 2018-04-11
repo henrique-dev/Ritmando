@@ -29,7 +29,7 @@ import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Classe para abstração e controle dos textos desenhados no canvas.
+ * Classe responsavel pela abstração e controle dos textos desenhados no canvas.
  * @version 1.0
  */
 public class Text extends Entity {

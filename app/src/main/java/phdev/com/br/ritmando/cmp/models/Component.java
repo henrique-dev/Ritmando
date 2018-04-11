@@ -18,7 +18,7 @@
 package phdev.com.br.ritmando.cmp.models;
 
 /**
- * Interface para todas as entidades desenhaveis, atualizaveis e com eventos de entrada do usuario.
+ * Interface responsavel por todas as entidades desenhaveis, atualizaveis e com eventos de entrada do usuario.
  * @version 1.0
  */
 public interface Component extends Updateable, Drawable, Controllable{

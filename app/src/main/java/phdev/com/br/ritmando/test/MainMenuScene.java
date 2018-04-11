@@ -23,8 +23,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
-import java.io.IOException;
-
 import phdev.com.br.ritmando.GameLog;
 import phdev.com.br.ritmando.GameParameters;
 import phdev.com.br.ritmando.R;
@@ -101,8 +99,8 @@ public class MainMenuScene extends Scene {
             float defaultTextSize = divHeight * 0.9f;
 
             super.getArea().set(0, MainMenuScene.this.area.bottom - 400, MainMenuScene.this.area.right, MainMenuScene.this.area.bottom);
-            //super.setLayout(new ListLayout(ListLayout.HORIZONTAK_ALINGMENT, spaceW, spaceH));
-            super.setLayout(new ListLayout(ListLayout.VERTICAL_ALINGMENT));
+            //super.setLayout(new ListLayout(ListLayout.HORIZONTAL_ALIGNMENT, spaceW, spaceH));
+            super.setLayout(new ListLayout(ListLayout.VERTICAL_ALIGNMENT));
 
             this.startButton = new Button("Cancelar");
             this.startButton.setColor(Color.RED);

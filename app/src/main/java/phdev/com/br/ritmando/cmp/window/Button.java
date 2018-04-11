@@ -31,7 +31,7 @@ import phdev.com.br.ritmando.cmp.utils.Text;
 import phdev.com.br.ritmando.cmp.models.WindowEntity;
 
 /**
- * Classe para criação de botões para janelas.
+ * Classe responsavel pela criação de botões para janelas.
  * @version 1.0
  */
 public class Button extends WindowEntity {

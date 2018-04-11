@@ -19,7 +19,7 @@ package phdev.com.br.ritmando.cmp.listeners;
 import phdev.com.br.ritmando.cmp.listeners.events.Event;
 
 /**
- * Interface para ações de clique, com especificação em soltar e pressionar.
+ * Interface responsavel por ações de clique, com especificação em soltar e pressionar.
  * @version 1.0
  */
 public interface ClickListener extends ActionListener {

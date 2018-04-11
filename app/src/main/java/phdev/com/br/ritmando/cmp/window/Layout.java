@@ -1,7 +1,3 @@
-package phdev.com.br.ritmando.cmp.window;
-
-import phdev.com.br.ritmando.cmp.models.Entity;
-
 /*
  * Copyright (C) 2018 Paulo Henrique Gonçalves Bacelar
  *
@@ -18,10 +14,24 @@ import phdev.com.br.ritmando.cmp.models.Entity;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package phdev.com.br.ritmando.cmp.window;
 
+import phdev.com.br.ritmando.cmp.models.Entity;
+
+/**
+ * Interface responsavel pela os layouts aplicados em menus.
+ */
 public interface Layout {
 
+    /**
+     * Define a entidade que sera incluida e formatada pelo layout.
+     * @param entity entidade a ser incluida.
+     */
     void set(Entity entity);
+
+    /**
+     * Formata a entidade de acordo com o layout.
+     */
     void format();
 
 }

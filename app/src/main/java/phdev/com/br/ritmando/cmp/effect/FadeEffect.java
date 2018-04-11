@@ -20,7 +20,7 @@ import phdev.com.br.ritmando.cmp.listeners.ActionListener;
 import phdev.com.br.ritmando.cmp.models.Entity;
 
 /**
- * Classe para criação de efeitos do tipo fade-in / fade-out.
+ * Classe responsavel pela criação de efeitos do tipo fade-in / fade-out.
  * @version 1.0
  */
 public class FadeEffect extends Effect implements ClickEffect {
